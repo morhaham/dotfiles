@@ -2,7 +2,7 @@
 1. install stow: 
     - `brew install stow`
 2. create a `dotfiles` directory in `$HOME`
-3. clone this repo.
+3. clone this repo into `$HOME/dotfiles`
 4. inside the cloned repo run:
     - `stow .`
 
