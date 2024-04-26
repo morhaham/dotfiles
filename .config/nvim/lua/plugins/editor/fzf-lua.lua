@@ -13,7 +13,7 @@ return {
       actions = {
         files = {
           ["default"] = actions.file_edit_or_qf,
-          ["ctrl-s"] = actions.file_split,
+          ["ctrl-x"] = actions.file_split,
           ["ctrl-v"] = actions.file_vsplit,
           ["ctrl-t"] = actions.file_tabedit,
           ["ctrl-q"] = actions.file_sel_to_qf,
@@ -23,7 +23,7 @@ return {
           -- providers that inherit these actions:
           --   buffers, tabs, lines, blines
           ["default"] = actions.buf_edit,
-          ["ctrl-s"] = actions.buf_split,
+          ["ctrl-x"] = actions.buf_split,
           ["ctrl-v"] = actions.buf_vsplit,
           ["ctrl-t"] = actions.buf_tabedit,
         },
@@ -70,6 +70,12 @@ return {
       "<leader><C-_>", -- since tmux maps <C-/> to <C-_>
       "<cmd>lua require('fzf-lua').live_grep({ cmd = [[rg --color=always --smart-case -uuu ]] })<CR>",
       desc = "Live grep no ignores",
+    },
+    {
+      "<C-p>",
+      "<cmd>lua require('fzf-lua').tmux_buffers({register='*'})<CR>",
+      mode = { "i" },
+      desc = "tmux copy buffers",
     },
   },
 }
