@@ -15,24 +15,13 @@ return {
 
       cmp.setup({
         sources = cmp.config.sources({
-          { name = "nvim_lsp" },
           { name = "luasnip" },
+          { name = "nvim_lsp" },
           { name = "buffer" },
         }),
+        preselect = cmp.PreselectMode.None,
         mapping = {
-          ["<CR>"] = cmp.mapping(function(fallback)
-            if cmp.visible() then
-              if luasnip.expandable() then
-                luasnip.expand()
-              else
-                cmp.confirm({
-                  select = true,
-                })
-              end
-            else
-              fallback()
-            end
-          end),
+          ["<CR>"] = cmp.mapping.confirm({ select = true }),
           ["<C-n>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
               cmp.select_next_item()
