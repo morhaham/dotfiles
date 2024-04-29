@@ -7,4 +7,5 @@ return {
   require("plugins.editor.auto-session"),
   require("plugins.editor.harpoon"),
   require("plugins.editor.smartyank"),
+  require("plugins.editor.nvim-dap"),
 }

@@ -4,7 +4,7 @@ return {
   cmd = { "ConformInfo" },
   keys = {
     {
-      "<leader>bf",
+      "<C-f>",
       '<cmd>lua require("conform").format({ async = true, lsp_fallback = false })<CR>',
       mode = "",
       desc = "Format buffer",
