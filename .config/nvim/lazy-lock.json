@@ -42,6 +42,7 @@
   "plenary": { "branch": "master", "commit": "08e301982b9a057110ede7a735dd1b5285eb341f" },
   "plenary.nvim": { "branch": "master", "commit": "08e301982b9a057110ede7a735dd1b5285eb341f" },
   "rose-pine": { "branch": "main", "commit": "17b466e79479758b332a3cac12544a3ad2be6241" },
+  "smart-splits.nvim": { "branch": "master", "commit": "85dc2e7db9aeda559b8965ea3cfde1026d691faf" },
   "smartyank.nvim": { "branch": "master", "commit": "d9e078fe08d6466e37ea45ac446a9f60e6866789" },
   "typescript-tools": { "branch": "master", "commit": "c43d9580c3ff5999a1eabca849f807ab33787ea7" },
   "vim-fugitive": { "branch": "master", "commit": "dac8e5c2d85926df92672bf2afb4fc48656d96c7" },
