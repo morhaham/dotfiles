@@ -5,22 +5,22 @@ return {
     priority = 1000,
     lazy = false,
     config = function()
+      vim.cmd("colorscheme rose-pine")
       require("rose-pine").setup({
         highlight_groups = {
           StatusLineTerm = { fg = "subtle", bg = "surface" },
           StatusLineTermNC = { fg = "muted", bg = "surface", blend = 60 },
         },
       })
-      vim.cmd("colorscheme rose-pine")
     end,
   },
   {
     "aktersnurra/no-clown-fiesta.nvim",
     name = "no-clown-fiesta",
     priority = 1000,
-    --[[ config = function()
-      vim.cmd("colorscheme no-clown-fiesta")
-    end, ]]
+    -- config = function()
+    --   vim.cmd("colorscheme no-clown-fiesta")
+    -- end,
   },
   {
     "alligator/accent.vim",

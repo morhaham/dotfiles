@@ -7,10 +7,6 @@ return {
       "folke/neodev.nvim",
     },
     config = function()
-      require("neodev").setup({
-        library = { plugins = { "nvim-dap-ui" }, types = true },
-      })
-      require("dapui").setup()
       local dap, dapui = require("dap"), require("dapui")
       dap.listeners.before.attach.dapui_config = function()
         dapui.open()
@@ -24,6 +20,14 @@ return {
       dap.listeners.before.event_exited.dapui_config = function()
         dapui.close()
       end
+      vim.fn.sign_define(
+        "DapBreakpoint",
+        { text = "🛑", texthl = "", linehl = "", numhl = "" }
+      )
+      require("neodev").setup({
+        library = { plugins = { "nvim-dap-ui" }, types = true },
+      })
+      require("dapui").setup()
     end,
   },
   {
@@ -64,9 +68,7 @@ return {
         {
           type = "pwa-node",
           request = "attach",
-          -- sourceMaps = true,
-          outDir = "dist",
-          -- restart = true,
+          sourceMaps = true,
           name = "Launch file",
           program = "${file}",
           cwd = "${workspaceFolder}",

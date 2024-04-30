@@ -30,8 +30,8 @@ config.initial_cols = 180
 config.initial_rows = 80
 config.freetype_load_flags = "NO_HINTING"
 config.font_size = 14.0
-config.line_height = 1.5
---[[ config.color_scheme = "rose-pine" ]]
+config.line_height = 1.4
+config.color_scheme = "rose-pine"
 config.bidi_enabled = true
 config.window_padding = {
 	left = 0,
@@ -42,9 +42,19 @@ config.window_padding = {
 config.enable_tab_bar = false
 config.colors = colors
 config.window_frame = window_frame
+-- config.window_background_opacity = 0.9
+-- config.macos_window_background_blur = 50
 --[[ config.colors = {
 	cursor_fg = "black",
 } ]]
+-- config.text_background_opacity = 0.8
+-- config.window_background_image =
+-- 	"/Users/morh/Downloads/cyberpunk background-1,cyberpunk background-2,cyberpunk background-3/cyberpunk background-1.png"
+-- config.window_background_image_hsb = {
+-- 	brightness = 0.3,
+-- 	hue = 1.0,
+-- 	saturation = 1.0,
+-- }
 
 -- Keybindings
 -- config.leader = { mods = "CMD", key = "", timeout_milliseconds = 1000 }
