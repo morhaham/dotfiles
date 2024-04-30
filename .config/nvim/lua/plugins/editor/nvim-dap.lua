@@ -30,6 +30,8 @@ return {
     "mfussenegger/nvim-dap",
     config = function()
       local dap = require("dap")
+
+      -- Go
       dap.adapters.go = {
         type = "executable",
         command = "node",
@@ -44,10 +46,34 @@ return {
           request = "launch",
           showLog = false,
           program = "${file}",
-          dlvToolPath = vim.fn.exepath("dlv"), -- Adjust to where delve is installed
+          dlvToolPath = vim.fn.exepath("dlv"),
         },
       }
 
+      -- Nodejs
+      require("dap").adapters["pwa-node"] = {
+        type = "server",
+        host = "localhost",
+        port = "${port}",
+        executable = {
+          command = "node",
+          args = { "/Users/morh/dap/js-debug/src/dapDebugServer.js", "${port}" },
+        },
+      }
+      require("dap").configurations.typescript = {
+        {
+          type = "pwa-node",
+          request = "attach",
+          -- sourceMaps = true,
+          outDir = "dist",
+          -- restart = true,
+          name = "Launch file",
+          program = "${file}",
+          cwd = "${workspaceFolder}",
+        },
+      }
+
+      -- keymaps
       vim.keymap.set("n", "<F5>", function()
         require("dap").continue()
       end, { desc = "Continue" })
