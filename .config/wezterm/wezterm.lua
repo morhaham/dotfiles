@@ -24,7 +24,7 @@ if wezterm.config_builder then
 	config = wezterm.config_builder()
 end
 
--- config.font = wezterm.font("SauceCodePro Nerd Font", { weight = "Medium" })
+-- config.font = wezterm.font("SauceCodePro Nerd Font", { weight = "Regular" })
 config.font = wezterm.font("FiraCode Nerd Font", { weight = "Regular" })
 config.initial_cols = 180
 config.initial_rows = 80
@@ -33,6 +33,7 @@ config.font_size = 14.0
 config.line_height = 1.4
 config.color_scheme = "rose-pine"
 config.bidi_enabled = true
+config.window_decorations = "RESIZE"
 config.window_padding = {
 	left = 0,
 	right = 0,

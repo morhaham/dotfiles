@@ -8,6 +8,7 @@ return {
       "saadparwaiz1/cmp_luasnip",
       "hrsh7th/cmp-nvim-lsp",
       "luasnip",
+      "hrsh7th/cmp-nvim-lsp-signature-help",
     },
     config = function()
       local cmp = require("cmp")
@@ -15,6 +16,7 @@ return {
 
       cmp.setup({
         sources = cmp.config.sources({
+          { name = "nvim_lsp_signature_help" },
           { name = "luasnip" },
           { name = "nvim_lsp" },
           { name = "buffer" },
@@ -78,5 +80,8 @@ return {
     "saadparwaiz1/cmp_luasnip",
     name = "cmp_luasnip",
     dependencies = { "nvim-cmp" },
+  },
+  {
+    "hrsh7th/cmp-nvim-lsp-signature-help",
   },
 }

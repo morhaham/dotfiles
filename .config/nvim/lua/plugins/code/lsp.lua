@@ -44,22 +44,22 @@ return {
     end,
     keys = {
       {
-        "<leader>df",
+        "<M-x>",
         "<cmd>lua vim.diagnostic.open_float()<CR>",
         desc = "Show diagnostic float",
       },
       {
-        "<leader>d[",
+        "<M-[>",
         "<cmd>lua vim.diagnostic.goto_prev()<CR>",
         desc = "Diagnostic prev",
       },
       {
-        "<leader>d]",
+        "<M-]>",
         "<cmd>lua vim.diagnostic.goto_next()<CR>",
         desc = "Diagnostic next",
       },
       {
-        "<leader>dl",
+        "<M-;>",
         "<cmd>lua vim.diagnostic.setloclist()<CR>",
         desc = "Diagnostic location list",
       },
