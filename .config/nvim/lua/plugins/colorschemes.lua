@@ -10,6 +10,9 @@ return {
           StatusLineTerm = { fg = "subtle", bg = "surface" },
           StatusLineTermNC = { fg = "muted", bg = "surface", blend = 60 },
         },
+        styles = {
+          transparency = true,
+        },
       })
       vim.cmd("colorscheme rose-pine")
     end,
