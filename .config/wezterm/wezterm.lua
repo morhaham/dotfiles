@@ -70,7 +70,7 @@ config.background = {
 		},
 		width = "100%",
 		repeat_x = "NoRepeat",
-		opacity = 0.4,
+		opacity = 0.3,
 		hsb = dimmer,
 	},
 }
