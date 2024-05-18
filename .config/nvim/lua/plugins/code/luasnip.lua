@@ -12,11 +12,7 @@ return {
         -- when going from select mode to normal and when leaving insert mode
         pattern = { "s:n", "i:*" },
         callback = function(event)
-          if
-            luasnip.session
-            and luasnip.session.current_nodes[event.buf]
-            and not luasnip.session.jump_active
-          then
+          if luasnip.session and luasnip.session.current_nodes[event.buf] and not luasnip.session.jump_active then
             luasnip.unlink_current()
           end
         end,
