@@ -1,5 +1,5 @@
 return {
-  require("plugins.editor.fzf-lua"),
+  -- require("plugins.editor.fzf-lua"),
   require("plugins.editor.oil"),
   require("plugins.editor.gitsigns"),
   require("plugins.editor.fugitive"),
@@ -8,4 +8,5 @@ return {
   require("plugins.editor.harpoon"),
   require("plugins.editor.smartyank"),
   require("plugins.editor.nvim-dap"),
+  require("plugins.editor.telescope"),
 }

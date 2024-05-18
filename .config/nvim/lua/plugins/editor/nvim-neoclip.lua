@@ -6,12 +6,4 @@ return {
   config = function()
     require("neoclip").setup()
   end,
-  -- keys = {
-  --   {"<C-p>", function ()
-  --     require('neoclip').paste(nil, true)
-  --   end, },
-  --   {"<C-n>", function ()
-  --     require('neoclip').paste(nil, false)
-  --   end}
-  -- }
 }
