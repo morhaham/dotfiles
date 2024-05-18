@@ -41,10 +41,9 @@ config.enable_tab_bar = false
 config.window_frame = window_frame
 config.macos_window_background_blur = 50
 config.colors = colors
-config.text_background_opacity = 0.9
+config.text_background_opacity = 1
 local dimmer = { brightness = 0.1 }
 config.background = {
-
 	{
 		source = {
 			Color = colors.background,
@@ -61,18 +60,19 @@ config.background = {
 		width = "100%",
 		height = "100%",
 		repeat_x = "NoRepeat",
-		opacity = 0.4,
+		opacity = 0.1,
 	},
 
-	{
-		source = {
-			File = "/Users/morh/wallpapers/cyberpunk.jpeg",
-		},
-		width = "100%",
-		repeat_x = "NoRepeat",
-		opacity = 0.3,
-		hsb = dimmer,
-	},
+	-- {
+	-- 	source = {
+	-- 		File = "/Users/morh/wallpapers/starwars9.jpeg",
+	-- 	},
+	-- 	width = "3900",
+	-- 	repeat_x = "NoRepeat",
+	-- 	horizontal_align = "Center",
+	-- 	opacity = 0.3,
+	-- 	hsb = dimmer,
+	-- },
 }
 
 -- Keybindings

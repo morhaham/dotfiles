@@ -20,13 +20,12 @@ return {
       dap.listeners.before.event_exited.dapui_config = function()
         dapui.close()
       end
-      vim.fn.sign_define(
-        "DapBreakpoint",
-        { text = "🛑", texthl = "", linehl = "", numhl = "" }
-      )
+      vim.fn.sign_define("DapBreakpoint", { text = "🔴", texthl = "", linehl = "", numhl = "" })
       require("neodev").setup({
         library = { plugins = { "nvim-dap-ui" }, types = true },
       })
+
+      vim.keymap.set({ "n", "v" }, "<M-;>", dapui.eval, { desc = "Evaluate expression" })
       require("dapui").setup()
     end,
   },
@@ -98,11 +97,7 @@ return {
         require("dap").set_breakpoint()
       end)
       vim.keymap.set("n", "<Leader>lp", function()
-        require("dap").set_breakpoint(
-          nil,
-          nil,
-          vim.fn.input("Log point message: ")
-        )
+        require("dap").set_breakpoint(nil, nil, vim.fn.input("Log point message: "))
       end)
       vim.keymap.set("n", "<Leader>dr", function()
         require("dap").repl.open()
@@ -127,7 +122,10 @@ return {
     end,
   },
   {
-    "folke/neodev.nvim",
-    opts = {},
+    "theHamsta/nvim-dap-virtual-text",
+    dependencies = { "mfussenegger/nvim-dap" },
+    config = function()
+      require("nvim-dap-virtual-text").setup()
+    end,
   },
 }

@@ -32,8 +32,6 @@ local options = {
   grepprg = "rg --vimgrep",
   ignorecase = true, -- Ignore case
   smartcase = true, -- Don't ignore case when search includes capitals
-  -- list = true, -- Show invisible characters
-  -- listchars = "tab:· ,extends:›,precedes:‹,nbsp:·,trail:·", -- Set the character for tab and trailing spaces
   pumblend = 10, -- Popup blend
   pumheight = 10, -- Maximum number of entries in a popup
   sessionoptions = "buffers,curdir,tabpages,winsize,help,globals,skiprtp,folds",
@@ -48,6 +46,7 @@ local options = {
   wildmode = "longest:full,full", -- Command-line completion mode
   winminwidth = 5, -- Minimum window width
   allowrevins = true, -- Allow reverse insert mode with <C-_> (for rtl text). in tmux use <C-/> instead
+  showtabline = 0, -- Hide tabline
 }
 
 for opt, val in pairs(options) do

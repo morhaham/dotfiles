@@ -42,7 +42,7 @@ return {
       desc = "Find git files",
     },
     {
-      "<leader>fb",
+      "<leader>f",
       '<cmd>lua require("fzf-lua").buffers()<CR>',
       desc = "Find buffers",
     },
