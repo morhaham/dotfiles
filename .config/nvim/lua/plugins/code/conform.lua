@@ -6,7 +6,7 @@ return {
     local conform = require("conform")
 
     vim.keymap.set("n", "<C-f>", function()
-      conform.format({ async = true })
+      conform.format({ async = false})
     end, { desc = "Format buffer" })
 
     conform.setup(opts)
