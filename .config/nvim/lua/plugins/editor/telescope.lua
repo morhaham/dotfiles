@@ -19,10 +19,27 @@ return {
       vim.keymap.set("n", "<C-x>", function()
         builtin.grep_string({ additional_args = { "--follow", "--hidden", "--glob=!.git/" } })
       end, { desc = "Grep string under cursor" })
-      vim.keymap.set("n", "<leader>fb", function()
+      vim.keymap.set("n", "<C-p>", function()
         builtin.buffers(themes.get_dropdown({ sort_mru = true, previewer = false }))
       end, { desc = "Find buffers" })
       vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Find help tags" })
+
+      require("telescope").setup({
+        pickers = {
+          buffers = {
+            mappings = {
+              i = {
+                ["<C-a>"] = actions.toggle_all,
+                ["<C-d>"] = actions.delete_buffer,
+              },
+              n = {
+                ["<C-a>"] = actions.toggle_all,
+                ["<C-d>"] = actions.delete_buffer,
+              },
+            },
+          },
+        },
+      })
     end,
   },
 }
