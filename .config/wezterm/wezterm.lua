@@ -24,7 +24,8 @@ if wezterm.config_builder then
 	config = wezterm.config_builder()
 end
 
-config.font = wezterm.font("FiraCode Nerd Font", { weight = "Regular" })
+-- config.font = wezterm.font("FiraCode Nerd Font", { weight = "Regular" })
+config.font = wezterm.font("JetbrainsMono Nerd Font", { weight = "Regular" })
 config.initial_cols = 180
 config.initial_rows = 80
 config.freetype_load_flags = "NO_HINTING"
