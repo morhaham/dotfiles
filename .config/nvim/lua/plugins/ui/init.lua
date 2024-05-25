@@ -3,4 +3,5 @@ return {
   require("plugins.ui.nvim-tmux-navigation"),
   require("plugins.ui.markdown-preview"),
   require("plugins.ui.smart-splits"),
+  -- require("plugins.ui.lualine"),
 }
