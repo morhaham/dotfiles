@@ -93,7 +93,7 @@ return {
           )
           vim.keymap.set(
             "n",
-            "<M-'>",
+            "<M-;>",
             vim.diagnostic.open_float,
             vim.tbl_extend("force", opts, { desc = "Show diagnostic float" })
           )
@@ -111,7 +111,7 @@ return {
           )
           vim.keymap.set(
             "n",
-            "<M-;>",
+            "<M-'>",
             vim.diagnostic.setloclist,
             vim.tbl_extend("force", opts, { desc = "Diagnostic location list" })
           )
@@ -119,17 +119,17 @@ return {
       })
     end,
   },
-  {
-    "pmizio/typescript-tools.nvim",
-    name = "typescript-tools",
-    dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
-    config = function(_, opts)
-      local ts_tools = require("typescript-tools")
-      vim.keymap.set("n", "<leader>oi", ":TSToolsOrganizeImports<CR>", { desc = "Organize imports" })
-      ts_tools.setup(opts)
-    end,
-    opts = {
-      expose_as_code_action = { "all" },
-    },
-  },
+  -- {
+  --   "pmizio/typescript-tools.nvim",
+  --   name = "typescript-tools",
+  --   dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
+  --   config = function(_, opts)
+  --     local ts_tools = require("typescript-tools")
+  --     vim.keymap.set("n", "<leader>oi", ":TSToolsOrganizeImports<CR>", { desc = "Organize imports" })
+  --     ts_tools.setup(opts)
+  --   end,
+  --   opts = {
+  --     expose_as_code_action = { "all" },
+  --   },
+  -- },
 }

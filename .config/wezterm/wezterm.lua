@@ -24,10 +24,12 @@ if wezterm.config_builder then
 	config = wezterm.config_builder()
 end
 
-config.font = wezterm.font("FiraCode Nerd Font", { weight = "Regular" })
--- config.font = wezterm.font("JetbrainsMono Nerd Font", { weight = "Regular" })
+-- config.font = wezterm.font("FiraCode Nerd Font", { weight = "Regular" })
+-- config.font = wezterm.font("IosevkaTerm Nerd Font Propo", { weight = "Medium" })
+config.font = wezterm.font("JetbrainsMono Nerd Font", { weight = "Medium" })
 config.initial_cols = 180
 config.initial_rows = 80
+config.cell_width = 0.9
 config.freetype_load_flags = "NO_HINTING"
 config.font_size = 14.0
 config.line_height = 1.4
@@ -61,7 +63,7 @@ config.background = {
 		width = "100%",
 		height = "100%",
 		repeat_x = "NoRepeat",
-		opacity = 0.3,
+		opacity = 1,
 	},
 
 	-- {
