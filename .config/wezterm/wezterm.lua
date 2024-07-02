@@ -24,22 +24,23 @@ if wezterm.config_builder then
 	config = wezterm.config_builder()
 end
 
--- config.font = wezterm.font("FiraCode Nerd Font", { weight = "Regular" })
+config.font = wezterm.font("FiraCode Nerd Font", { weight = "Medium" })
 -- config.font = wezterm.font("IosevkaTerm Nerd Font Propo", { weight = "Medium" })
-config.font = wezterm.font("JetbrainsMono Nerd Font", { weight = "Medium" })
+-- config.font = wezterm.font("Fragment Mono", { weight = "Medium" })
+-- config.font = wezterm.font("JetbrainsMono Nerd Font", { weight = "Medium" })
 config.initial_cols = 180
 config.initial_rows = 80
 config.cell_width = 0.9
 config.freetype_load_flags = "NO_HINTING"
 config.font_size = 14.0
-config.line_height = 1.4
-config.window_decorations = "RESIZE"
-config.window_padding = {
-	left = 0,
-	right = 0,
-	top = 0,
-	bottom = 0,
-}
+config.line_height = 1.2
+-- config.window_decorations = "RESIZE"
+-- config.window_padding = {
+-- 	left = 0,
+-- 	right = 0,
+-- 	top = 0,
+-- 	bottom = 0,
+-- }
 config.enable_tab_bar = false
 config.window_frame = window_frame
 config.macos_window_background_blur = 50
@@ -63,7 +64,7 @@ config.background = {
 		width = "100%",
 		height = "100%",
 		repeat_x = "NoRepeat",
-		opacity = 1,
+		opacity = 0,
 	},
 
 	-- {

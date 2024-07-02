@@ -139,3 +139,6 @@ PATH=~/.console-ninja/.bin:$PATH
 
 export GOPATH=$HOME/go
 export PATH=$PATH:$GOPATH/bin
+
+# some apps config
+export GREENLIGHT_DB_DSN='postgres://greenlight:qwerty123@localhost/greenlight?sslmode=disable'

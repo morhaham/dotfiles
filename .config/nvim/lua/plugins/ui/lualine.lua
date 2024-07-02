@@ -6,6 +6,7 @@ return {
       options = {
         --- @usage 'rose-pine' | 'rose-pine-alt'
         -- theme = "rose-pine",
+        theme = 'vscode',
         section_separators = "",
         component_separators = "",
       },
