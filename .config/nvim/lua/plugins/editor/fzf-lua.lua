@@ -62,12 +62,12 @@ return {
       desc = "Find in argument list",
     },
     {
-      "<leader>/",
+      "<leader>g",
       "<cmd>lua require('fzf-lua').live_grep({ resume = true })<CR>",
       desc = "Live grep",
     },
     {
-      "<leader><C-_>", -- since tmux maps <C-/> to <C-_>
+      "<leader><C-g>",
       "<cmd>lua require('fzf-lua').live_grep({ cmd = [[rg --color=always --smart-case -uuu ]] })<CR>",
       desc = "Live grep no ignores",
     },

@@ -64,7 +64,7 @@ config.background = {
 		width = "100%",
 		height = "100%",
 		repeat_x = "NoRepeat",
-		opacity = 0,
+		opacity = 0.2,
 	},
 
 	-- {

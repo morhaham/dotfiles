@@ -45,7 +45,7 @@ local options = {
   timeoutlen = 300, -- Time to wait for a mapped sequence to complete (in milliseconds)
   wildmode = "longest:full,full", -- Command-line completion mode
   winminwidth = 5, -- Minimum window width
-  allowrevins = true, -- Allow reverse insert mode with <C-_> (for rtl text). in tmux use <C-/> instead
+  allowrevins = true, -- Allow reverse insert mode with <C-/> (for rtl text)
   showtabline = 0, -- Hide tabline
 }
 

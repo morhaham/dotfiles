@@ -14,11 +14,11 @@ return {
       require("Comment").setup({
         pre_hook = require("ts_context_commentstring.integrations.comment_nvim").create_pre_hook(),
         opleader = {
-          line = "<C-_>", -- since tmux maps <C-/> to <C-_>
-          block = "<C-b>",
+          line = "gc",
+          block = "gb",
         },
         extra = {
-          eol = "<C-_>", -- since tmux maps <C-/> to <C-_>
+          eol = "gcA",
         },
       })
     end,
