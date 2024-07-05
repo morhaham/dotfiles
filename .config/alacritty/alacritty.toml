@@ -10,7 +10,26 @@ offset = { y = 7 }
 [window]
 option_as_alt = "Both"
 
-[[keyboard.bindings]]
-key = "Back"
-mods = "Command"
-chars = "\u0015"
+# [keyboard]
+# bindings = [
+#   { key = "Left",  mods = "Alt",     chars = "\u001bB"   },
+#   { key = "Right", mods = "Alt",     chars = "\u001bF"   },
+#   { key = "Back",  mods = "Command", chars = "\u0015"    },
+# ]
+
+# [[keyboard.bindings]]
+# key = "Back"
+# mods = "Command"
+# chars = "\u0015"
+#
+# [[keyboard.bindings]]
+# key = "Right"
+# mods = "Alt"
+# chars = "\u001BF"
+#
+# [[keyboard.bindings]]
+# key = "Left"
+# mods = "Alt"
+# chars = "\u001BB"
+
+
