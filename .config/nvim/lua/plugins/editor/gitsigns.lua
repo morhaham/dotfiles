@@ -5,6 +5,9 @@ return {
       signs = {
         add = { text = "+" },
       },
+      signs_staged = {
+        add = { text = "+" },
+      },
     })
   end,
 }
