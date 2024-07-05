@@ -9,3 +9,8 @@ offset = { y = 7 }
 
 [window]
 option_as_alt = "Both"
+
+[[keyboard.bindings]]
+key = "Back"
+mods = "Command"
+chars = "\u0015"
