@@ -61,6 +61,9 @@ ZSH_THEME=robbyrussell
 plugins=(git autojump)
 plugins+=(zsh-vi-mode)
 
+# Plugins config
+ZVM_CURSOR_STYLE_ENABLED=false
+
 source $ZSH/oh-my-zsh.sh
 
 # User configuration

@@ -10,7 +10,7 @@ return {
       local themes = require("telescope.themes")
 
       vim.keymap.set("n", "<leader>ff", function()
-        builtin.find_files({ follow = true, hidden = true })
+        builtin.find_files({ hidden = true, no_ignore = true })
       end, { desc = "Find files" })
       vim.keymap.set("n", "<leader><leader>", builtin.git_files, { desc = "Find git files" })
       vim.keymap.set("n", "<leader>fg", function()
@@ -40,6 +40,12 @@ return {
           },
         },
       })
+
+      require("telescope").load_extension("fzf")
     end,
+  },
+  {
+    "nvim-telescope/telescope-fzf-native.nvim",
+    build = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release",
   },
 }
