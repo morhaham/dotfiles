@@ -10,6 +10,7 @@ return {
         add = { text = "+" },
         change = { text = "~" },
       },
+      current_line_blame = true,
     })
   end,
 }
