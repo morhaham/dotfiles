@@ -7,8 +7,9 @@ return {
   require("plugins.code.copilot"),
   require("plugins.code.luasnip"),
   require("plugins.code.nvim-cmp"),
-  require("plugins.code.mini-ai"),
   require("plugins.code.go"),
   require("plugins.code.indent-blankline"),
   require("plugins.code.vim-doge"),
+  require("plugins.code.mini-move"),
+  require("plugins.code.vim-visual-multi"),
 }
