@@ -7,7 +7,7 @@ return {
     config = function()
       local builtin = require("telescope.builtin")
       local actions = require("telescope.actions")
-      local themes = require("telescope.themes")
+      -- local themes = require("telescope.themes")
 
       vim.keymap.set("n", "<leader>ff", function()
         builtin.find_files({ hidden = true, no_ignore = true })
@@ -20,7 +20,7 @@ return {
         builtin.grep_string({ additional_args = { "--follow", "--hidden", "--glob=!.git/" } })
       end, { desc = "Grep string under cursor" })
       vim.keymap.set("n", "<C-p>", function()
-        builtin.buffers(themes.get_dropdown({ sort_mru = true, previewer = false }))
+        builtin.buffers({ sort_mru = true })
       end, { desc = "Find buffers" })
       vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Find help tags" })
 
