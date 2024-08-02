@@ -9,3 +9,7 @@
 5. if there are conflicts due to existing files in `$HOME` you may run:
     - `stow --adopt .`
     * please read about this flag before use.
+
+## Additional tools
+1. Clipy - clipboard history manager - use `<CMD-SHIFT-v>` for pasting
+2. Fzf - fuzzy finder used by Telescope
