@@ -23,6 +23,7 @@ return {
         builtin.buffers({ sort_mru = true })
       end, { desc = "Find buffers" })
       vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Find help tags" })
+      vim.keymap.set("n", "<leader>wd", builtin.diagnostics, { desc = "workspace diagnostics" })
 
       require("telescope").setup({
         pickers = {
