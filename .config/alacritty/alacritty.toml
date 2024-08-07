@@ -5,7 +5,7 @@ normal = { family = "FiraCode Nerd Font", style = "Regular" }
 bold = { family = "FiraCode Nerd Font", style = "Bold" }
 italic = { family = "Menlo", style = "Italic" }
 size = 14
-offset = { y = 7 } 
+offset = { y = 5, x = 0 } 
 
 [window]
 option_as_alt = "Both"
