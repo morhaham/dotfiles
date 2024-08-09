@@ -2,7 +2,7 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 export ZSH="$HOME/.oh-my-zsh"
-ZSH_THEME=af-magic
+ZSH_THEME=robbyrussell
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -140,9 +140,11 @@ add-zsh-hook -Uz chpwd osc7_cwd
 ##############################################
 
 PATH=~/.console-ninja/.bin:$PATH
-export XDG_CONFIG_HOME=$HOME/.config
+
 export GOPATH=$HOME/go
 export PATH=$PATH:$GOPATH/bin
+
+export XDG_CONFIG_HOME=$HOME/.config
 
 # some apps config
 export GREENLIGHT_DB_DSN='postgres://greenlight:qwerty123@localhost/greenlight?sslmode=disable'
