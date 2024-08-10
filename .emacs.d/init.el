@@ -1,5 +1,5 @@
 ;;; General settings
-(delete-selection-mode 1)
+(delete-selection-mode 1)  ; Yank replaces the selected region
 (global-display-line-numbers-mode)
 (global-auto-revert-mode 1)  ; Auto revert/refresh file when change detected
 (tool-bar-mode 0)
@@ -80,11 +80,13 @@
 (use-package multiple-cursors
   :init
   (global-set-key (kbd "C->") 'mc/mark-next-like-this-word)
-  (global-set-key (kbd "C-s->") 'mc/skip-to-next-like-this)
+  (global-set-key (kbd "C-M->") 'mc/skip-to-next-like-this)
   (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
-  (global-set-key (kbd "C-s-<") 'mc/skip-to-previous-like-this)
-  (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
+  (global-set-key (kbd "C-M-<") 'mc/skip-to-previous-like-this)
+  (global-set-key (kbd "C-c C->") 'mc/mark-all-like-this)
   (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines))
+  (global-set-key (kbd "C-S-<mouse-1>") 'mc/add-cursor-on-click)
+
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
