@@ -1,0 +1,9 @@
+# -*- mode: tsx-ts -*-
+# contributor morh <moring3071@gmail.com>
+# name: useEffect
+# key: usee
+# --
+
+useEffect(() => {
+ ${1}
+}, [${2}])

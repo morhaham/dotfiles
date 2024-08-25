@@ -1,0 +1,7 @@
+# contributor morh <moring3071@gmail.com>
+# -*- mode: tsx-ts -*-
+# name: useMemo
+# key: useme
+# --
+
+const ${1:cachedValue} = useMemo(() => ${2:calculatedValue}, [${3:dependencies}])

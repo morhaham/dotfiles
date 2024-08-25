@@ -1,0 +1,7 @@
+# contributor morh <moring3071@gmail.com>
+# -*- mode: tsx-ts -*-
+# name: useState
+# key: uses
+# --
+
+const [${1}, set${1:$(my/capitalize-first-char yas-text)}] = useState(${2})
