@@ -59,7 +59,7 @@ ZSH_THEME="my-theme"
 # Example format: plugins=(rails git textmate y lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git autojump)
-plugins+=(zsh-vi-mode)
+# plugins+=(zsh-vi-mode)
 
 # Plugins config
 ZVM_CURSOR_STYLE_ENABLED=false

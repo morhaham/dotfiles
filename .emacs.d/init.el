@@ -1,26 +1,48 @@
 ;;; General settings
 (delete-selection-mode 1)  ; Yank replaces the selected region
 (global-display-line-numbers-mode)
-(global-auto-revert-mode 1)  ; Auto revert/refresh file when change detected
-(tool-bar-mode 0)            ; Hide top toolbar
-(setq ring-bell-function 'ignore)  ; Disable beep on C-g (keyboard-quit)
+;; Automatically reread from disk if the underlying file changes
+(setopt auto-revert-avoid-polling t)
+;; Some systems don't do file notifications well; see
+;; https://todo.sr.ht/~ashton314/emacs-bedrock/11
+(setopt auto-revert-interval 5)
+(setopt auto-revert-check-vc-info t)
+(global-auto-revert-mode)
+(menu-bar-mode -1)
+(tool-bar-mode -1)
+(scroll-bar-mode -1)
+(setopt ring-bell-function 'ignore)  ; Disable beep on C-g (keyboard-quit)
+(setopt tab-width 2)
+(setopt winner-mode t) ; Saves window configuration history, undo/redo history with C-c left/right
+;; (setopt desktop-save-mode 1)
+(add-to-list 'default-frame-alist '(fullscreen . maximized)) ; Fullscreen
+(set-frame-parameter nil 'fullscreen 'fullboth) ; Maximized, macos only solution
+
+;; Tab bar mode related
+(setopt tab-bar-mode t)
+(setopt tab-bar-history-mode t)
+(setopt tab-bar-show nil)
+(global-set-key (kbd "M-[") 'tab-bar-history-back)
+(global-set-key (kbd "M-]") 'tab-bar-history-forward)
+
+;; (setopt pixel-scroll-precision-large-scroll-height 40.0)
 (defun infer-indentation-style ()
   "If our source file use tabs, we use tabs.
 if spaces spaces, and if neither, we use the current `indent-tabs-mode`"
   (let ((space-count (how-many "^  " (point-min) (point-max)))
         (tab-count (how-many "^\t" (point-min) (point-max))))
-    (if (> space-count tab-count) (setq indent-tabs-mode nil))
-    (if (> tab-count space-count) (setq indent-tabs-mode t))))
-(setq-default indent-tabs-mode nil)    ; Use spaces instead of tabs
+    (if (> space-count tab-count) (setopt indent-tabs-mode nil))
+    (if (> tab-count space-count) (setopt indent-tabs-mode t))))
 (infer-indentation-style)
 (electric-pair-mode 1)
 (setopt sentence-end-double-space nil) ; Fix archaic defaults(default is not recommended anymore)
 
-
-;; improves performance
-;;https://emacs-lsp.github.io/lsp-mode/page/performance
-(setq read-process-output-max (* 1024 1024)) ;; 10mb
-(setq gc-cons-threshold 100000000)
+;; Ido mode - commented out since using Consult
+;; (ido-mode 1)
+;; (setopt ido-enable-flex-matching t)
+;; (setopt ido-everywhere t)
+;; (setopt ido-use-filename-at-point 'guess)
+;; (setopt ido-use-url-at-point nil)
 
 ;; Don't litter file system with *~ backup files; put them all inside
 ;; ~/.emacs.d/backup or wherever
@@ -30,18 +52,18 @@ if spaces spaces, and if neither, we use the current `indent-tabs-mode`"
   "Return a new file path of a given file path(FPATH).
 If the new path's directories does not exist, create them."
   (let* ((backupRootDir (concat user-emacs-directory "emacs-backup/"))
-         (filePath (replace-regexp-in-string "[A-Za-z]:" "" fpath )) ; remove Windows driver letter in path
+         (filePath (replace-regexp-in-string "[A-Za-z]:" "" fpath )) ; Remove Windows driver letter in path
          (backupFilePath (replace-regexp-in-string "//" "/" (concat backupRootDir filePath "~") )))
     (make-directory (file-name-directory backupFilePath) (file-name-directory backupFilePath))
     backupFilePath))
 (setopt make-backup-file-name-function 'bedrock--backup-file-name)
 
 ;;; General keybindings
-;; set keys for Apple keyboard, for emacs in OS X
-(setq mac-command-modifier 'meta) ; make cmd key do Meta
-(setq mac-option-modifier 'super) ; make opt key do Super
-(setq mac-control-modifier 'control) ; make Control key do Control
-(setq ns-function-modifier 'hyper) ; make Fn key do Hyper
+;; Set keys for Apple keyboard, for emacs in OS X
+(setopt mac-command-modifier 'meta) ; Make cmd key do Meta
+(setopt mac-option-modifier 'super) ; Make opt key do Super
+(setopt mac-control-modifier 'control) ; Make Control key do Control
+(setopt ns-function-modifier 'hyper) ; Make Fn key do Hyper
 (windmove-default-keybindings 'meta) ; Move through windows with Ctrl-<arrow keys>
 (global-set-key (kbd "M-o") 'other-window)
 (defun kill-other-buffers ()
@@ -49,6 +71,22 @@ If the new path's directories does not exist, create them."
   (interactive)
   (mapc 'kill-buffer (delq (current-buffer) (buffer-list))))
 (global-set-key (kbd "C-x K") 'kill-other-buffers)
+(global-set-key (kbd "C-x C-g") 'rgrep) ; Open rgrep in minibuffer
+(require 'project)
+
+;; (require 'recentf) ; Disabled while using Consult
+;; ;; enable recent files mode.
+;; (recentf-mode t)
+;; ;; get rid of `find-file-read-only' and replace it with something
+;; ;; more useful.
+;; (global-set-key (kbd "C-x C-r") 'ido-recentf-open)
+;; (setq recentf-max-saved-items 50)
+;; (defun ido-recentf-open ()
+;;   "Use `ido-completing-read' to \\[find-file] a recent file."
+;;   (interactive)
+;;   (if (find-file (ido-completing-read "Find recent file: " recentf-list))
+;;       (message "Opening file...")
+;;     (message "Aborting")))
 
 ;;; Font
 (set-frame-font "Iosevka Nerd Font 16" nil t)
@@ -77,8 +115,16 @@ If the new path's directories does not exist, create them."
 (use-package move-text
   :straight t
   :init
-  (move-text-default-bindings))
-
+  (global-set-key (kbd "s-<up>") 'move-text-up)
+  (global-set-key (kbd "s-<down>") 'move-text-down)
+  (defun indent-region-advice (&rest ignored)
+    (let ((deactivate deactivate-mark))
+      (if (region-active-p)
+          (indent-region (region-beginning) (region-end))
+        (indent-region (line-beginning-position) (line-end-position)))
+      (setq deactivate-mark deactivate)))
+  (advice-add 'move-text-up :after 'indent-region-advice)
+  (advice-add 'move-text-down :after 'indent-region-advice))
 
 (use-package treesit
   :mode (("\\.tsx\\'" . tsx-ts-mode)
@@ -161,6 +207,10 @@ If the new path's directories does not exist, create them."
   :init
   (load-theme 'gruber-darker :no-confirm))
 
+(use-package wgrep
+  :straight t
+  :bind (("C-x C-m" . wgrep-change-to-wgrep-mode)))
+
 (use-package magit
   :straight t)
 
@@ -172,8 +222,8 @@ If the new path's directories does not exist, create them."
   (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
   (global-set-key (kbd "C-M-<") 'mc/skip-to-previous-like-this)
   (global-set-key (kbd "C-c C->") 'mc/mark-all-like-this)
-  (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
-  (global-set-key (kbd "C-S-<mouse-1>") 'mc/add-cursor-on-click))
+  (global-set-key (kbd "C-c C-c") 'mc/edit-lines)
+  (global-set-key (kbd "C-s-<mouse-1>") 'mc/add-cursor-on-click))
 
 ;; Code Completion
 ;; (use-package corfu
@@ -190,7 +240,7 @@ If the new path's directories does not exist, create them."
   :init
   (global-set-key (kbd "C-c y") 'company-yasnippet))
 ;; :hook
-;; tsx-ts-mode . 'yas-minor-mode)
+;; tsx-ts-mode . 'yas-minor-mode))
 
 (use-package yasnippet-snippets         ; Collection of snippets
   :straight t)
@@ -210,14 +260,15 @@ If the new path's directories does not exist, create them."
 
 (use-package go-mode
   :straight t
-  )
+  :config
+  (setq go-ts-mode-indent-offset 2))
 
 (use-package lsp-ui
   :straight t
   :bind (:map lsp-mode-map
               ("C-c C-d" . 'lsp-ui-doc-glance)
               ("TAB" . 'lsp-ui-doc-focus-frame)
-              ("C-c C-a" . 'lsp-ui-flycheck-list))
+              ("C-c C-a" . 'lsp-ui-flycheck-list)) ;Show workspace diagnostics
   :config (setq lsp-ui-doc-enable t
                 lsp-ui-doc-show-with-cursor nil      ; Don't show doc when cursor is over symbol - too distracting
                 lsp-ui-doc-include-signature t       ; Show signature
@@ -272,50 +323,216 @@ If the new path's directories does not exist, create them."
   (define-key lsp-mode-map (kbd "C-c l") lsp-command-map)
   (setq lsp-use-plists t)
   :hook (
-	 (prog-mode . lsp))
+	       (prog-mode . lsp))
   :custom (
- 	   (lsp-log-io nil)                     ; IMPORTANT! Use only for debugging! Drastically affects performance
-	   (lsp-keep-workspace-alive nil)        ; Close LSP server if all project buffers are closed
-	   ;; core
-	   (lsp-eldoc-enable-hover t)            ; Display signature information in the echo area
-	   (lsp-enable-dap-auto-configure t)     ; Debug support
-	   (lsp-enable-file-watchers nil)
-	   (lsp-enable-indentation t)            ; Fallback to Apheleia formatters
-	   (lsp-enable-links nil)                ; No need since we have `browse-url'
-	   (lsp-enable-on-type-formatting nil)
+ 	         (lsp-log-io nil)                     ; IMPORTANT! Use only for debugging! Drastically affects performance
+	         (lsp-keep-workspace-alive nil)        ; Close LSP server if all project buffers are closed
+	         ;; core
+	         (lsp-eldoc-enable-hover nil)            ; Display signature information in the echo area
+	         (lsp-enable-dap-auto-configure t)     ; Debug support
+	         (lsp-enable-file-watchers nil)
+	         (lsp-enable-indentation t)            ; Fallback to Apheleia formatters
+	         (lsp-enable-links nil)                ; No need since we have `browse-url'
+	         (lsp-enable-on-type-formatting nil)
            (lsp-typescript-format-enable t)
            (lsp-javascript-format-enable t)
-	   (lsp-enable-suggest-server-download t) ; Useful prompt to download LSP providers
-	   (lsp-enable-symbol-highlighting t)     ; Shows usages of symbol at point in the current buffer
-	   (lsp-enable-text-document-color nil)   ; This is Treesitter's job
-	   (lsp-ui-sideline-show-hover nil)      ; Sideline used only for diagnostics
-	   (lsp-ui-sideline-diagnostic-max-lines 20) ; 20 lines since typescript errors can be quite big
+	         (lsp-enable-suggest-server-download t) ; Useful prompt to download LSP providers
+	         (lsp-enable-symbol-highlighting t)     ; Shows usages of symbol at point in the current buffer
+	         (lsp-enable-text-document-color nil)   ; This is Treesitter's job
+	         (lsp-ui-sideline-show-hover nil)      ; Sideline used only for diagnostics
+	         (lsp-ui-sideline-diagnostic-max-lines 20) ; 20 lines since typescript errors can be quite big
            (lsp-auto-execute-action nil) ;Disable automatic code actions
-	   ;; completion
-	   (lsp-enable-snippet t)                         ; Important to provide full JSX completion
-	   (lsp-completion-show-kind t)                   ; Optional
-	   ;; headerline
-	   (lsp-headerline-breadcrumb-enable nil)  ; Optional, I like the breadcrumbs
-	   (lsp-headerline-breadcrumb-enable-diagnostics nil) ; Don't make them red, too noisy
-	   (lsp-headerline-breadcrumb-enable-symbol-numbers nil)
-	   (lsp-headerline-breadcrumb-icons-enable nil)
-	   ;; modeline
-	   (lsp-modeline-code-actions-enable nil) ; Modeline should be relatively clean
-	   (lsp-modeline-diagnostics-enable nil)  ; Already supported through `flycheck'
-	   (lsp-modeline-workspace-status-enable nil) ; Modeline displays "LSP" when lsp-mode is enabled
-	   (lsp-signature-doc-lines 1)                ; Don't raise the echo area. It's distracting
-	   (lsp-ui-doc-use-childframe t)              ; Show docs for symbol at point
-	   (lsp-eldoc-render-all nil)            ; This would be very useful if it would respect `lsp-signature-doc-lines', currently it's distracting
-	   ;; lens
-	   (lsp-lens-enable nil)                 ; Optional, I don't need it
-	   ;; semantic
-	   (lsp-semantic-tokens-enable nil)))
+	         ;; completion
+	         (lsp-enable-snippet t)                         ; Important to provide full JSX completion
+	         (lsp-completion-show-kind t)                   ; Optional
+	         ;; headerline
+	         (lsp-headerline-breadcrumb-enable nil)  ; Optional, I like the breadcrumbs
+	         (lsp-headerline-breadcrumb-enable-diagnostics nil) ; Don't make them red, too noisy
+	         (lsp-headerline-breadcrumb-enable-symbol-numbers nil)
+	         (lsp-headerline-breadcrumb-icons-enable nil)
+	         ;; modeline
+	         (lsp-modeline-code-actions-enable nil) ; Modeline should be relatively clean
+	         (lsp-modeline-diagnostics-enable nil)  ; Already supported through `flycheck'
+	         (lsp-modeline-workspace-status-enable nil) ; Modeline displays "LSP" when lsp-mode is enabled
+	         (lsp-signature-doc-lines 1)                ; Don't raise the echo area. It's distracting
+	         (lsp-ui-doc-use-childframe t)              ; Show docs for symbol at point
+	         (lsp-eldoc-render-all nil)            ; This would be very useful if it would respect `lsp-signature-doc-lines', currently it's distracting
+	         ;; lens
+	         (lsp-lens-enable nil)                 ; Optional, I don't need it
+	         ;; semantic
+	         (lsp-semantic-tokens-enable nil)))
+
+(use-package vertico ; Vertical completion UI
+  :straight t
+  :init (vertico-mode t))
+
+;; Enable rich annotations using the Marginalia package
+(use-package marginalia
+  :straight t
+  ;; Bind `marginalia-cycle' locally in the minibuffer.  To make the binding
+  ;; available in the *Completions* buffer, add it to the
+  ;; `completion-list-mode-map'.
+  :bind (:map minibuffer-local-map
+              ("M-A" . marginalia-cycle))
+  ;; The :init section is always executed.
+  :init
+  ;; Marginalia must be activated in the :init section of use-package such that
+  ;; the mode gets enabled right away. Note that this forces loading the
+  ;; package.
+  (marginalia-mode))
+
+(use-package embark
+  :straight t
+
+  :bind
+  (("C-." . embark-act)         ;; pick some comfortable binding
+   ("C-;" . embark-dwim)        ;; good alternative: M-.
+   ("C-h B" . embark-bindings)) ;; alternative for `describe-bindings'
+
+  :init
+  ;; Optionally replace the key help with a completing-read interface
+  (setq prefix-help-command #'embark-prefix-help-command)
+
+  ;; Show the Embark target at point via Eldoc. You may adjust the
+  ;; Eldoc strategy, if you want to see the documentation from
+  ;; multiple providers. Beware that using this can be a little
+  ;; jarring since the message shown in the minibuffer can be more
+  ;; than one line, causing the modeline to move up and down:
+
+  ;; (add-hook 'eldoc-documentation-functions #'embark-eldoc-first-target)
+  ;; (setq eldoc-documentation-strategy #'eldoc-documentation-compose-eagerly)
+
+  :config
+  ;; Hide the mode line of the Embark live/completions buffers
+  (add-to-list 'display-buffer-alist
+               '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
+                 nil
+                 (window-parameters (mode-line-format . none)))))
+
+;; Consult users will also want the embark-consult package.
+(use-package embark-consult
+  :straight t ; only need to install it, embark loads it after consult if found
+  :hook
+  (embark-collect-mode . consult-preview-at-point-mode))
+
+(use-package orderless
+  :straight t
+  :custom
+  (completion-styles '(orderless flex))
+  (completion-category-overrides '((file (styles basic partial-completion)))))
+
+(use-package consult
+  :straight t
+  ;; Replace bindings. Lazily loaded by `use-package'.
+  :bind (;; C-c bindings in `mode-specific-map'
+         ("C-c M-x" . consult-mode-command)
+         ("C-c h" . consult-history)
+         ("C-c k" . consult-kmacro)
+         ("C-c m" . consult-man)
+         ("C-c i" . consult-info)
+         ([remap Info-search] . consult-info)
+         ;; C-x bindings in `ctl-x-map'
+         ("C-x M-:" . consult-complex-command)     ;; orig. repeat-complex-command
+         ("C-x b" . consult-buffer)                ;; orig. switch-to-buffer
+         ("C-x 4 b" . consult-buffer-other-window) ;; orig. switch-to-buffer-other-window
+         ("C-x 5 b" . consult-buffer-other-frame)  ;; orig. switch-to-buffer-other-frame
+         ("C-x t b" . consult-buffer-other-tab)    ;; orig. switch-to-buffer-other-tab
+         ("C-x r b" . consult-bookmark)            ;; orig. bookmark-jump
+         ("C-x p b" . consult-project-buffer)      ;; orig. project-switch-to-buffer
+         ;; Custom M-# bindings for fast register access
+         ("M-#" . consult-register-load)
+         ("M-'" . consult-register-store)          ;; orig. abbrev-prefix-mark (unrelated)
+         ("C-M-#" . consult-register)
+         ;; Other custom bindings
+         ("M-y" . consult-yank-pop)                ;; orig. yank-pop
+         ;; M-g bindings in `goto-map'
+         ("M-g e" . consult-compile-error)
+         ("M-g f" . consult-flymake)               ;; Alternative: consult-flycheck
+         ("M-g g" . consult-goto-line)             ;; orig. goto-line
+         ("M-g M-g" . consult-goto-line)           ;; orig. goto-line
+         ("M-g o" . consult-outline)               ;; Alternative: consult-org-heading
+         ("M-g m" . consult-mark)
+         ("M-g k" . consult-global-mark)
+         ("M-g i" . consult-imenu)
+         ("M-g I" . consult-imenu-multi)
+         ;; M-s bindings in `search-map'
+         ("M-s d" . consult-find)                  ;; Alternative: consult-fd
+         ("M-s c" . consult-locate)
+         ("M-s g" . consult-grep)
+         ("M-s G" . consult-git-grep)
+         ("M-s r" . consult-ripgrep)
+         ("M-s l" . consult-line)
+         ("M-s L" . consult-line-multi)
+         ("M-s k" . consult-keep-lines)
+         ("M-s u" . consult-focus-lines)
+         ;; Isearch integration
+         ("M-s e" . consult-isearch-history)
+         :map isearch-mode-map
+         ("M-e" . consult-isearch-history)         ;; orig. isearch-edit-string
+         ("M-s e" . consult-isearch-history)       ;; orig. isearch-edit-string
+         ("M-s l" . consult-line)                  ;; needed by consult-line to detect isearch
+         ("M-s L" . consult-line-multi)            ;; needed by consult-line to detect isearch
+         ;; Minibuffer history
+         :map minibuffer-local-map
+         ("M-s" . consult-history)                 ;; orig. next-matching-history-element
+         ("M-r" . consult-history))                ;; orig. previous-matching-history-element
+
+  ;; Enable automatic preview at point in the *Completions* buffer. This is
+  ;; relevant when you use the default completion UI.
+  :hook (completion-list-mode . consult-preview-at-point-mode)
+
+  ;; The :init configuration is always executed (Not lazy)
+  :init
+
+  ;; Optionally configure the register formatting. This improves the register
+  ;; preview for `consult-register', `consult-register-load',
+  ;; `consult-register-store' and the Emacs built-ins.
+  (setq register-preview-delay 0.5
+        register-preview-function #'consult-register-format)
+
+  ;; Optionally tweak the register preview window.
+  ;; This adds thin lines, sorting and hides the mode line of the window.
+  (advice-add #'register-preview :override #'consult-register-window)
+
+  ;; Use Consult to select xref locations with preview
+  (setq xref-show-xrefs-function #'consult-xref
+        xref-show-definitions-function #'consult-xref)
+
+  ;; Configure other variables and modes in the :config section,
+  ;; after lazily loading the package.
+  :config
+
+  ;; Optionally configure preview. The default value
+  ;; is 'any, such that any key triggers the preview.
+  ;; (setq consult-preview-key 'any)
+  ;; (setq consult-preview-key "M-.")
+  ;; (setq consult-preview-key '("S-<down>" "S-<up>"))
+  ;; For some commands and buffer sources it is useful to configure the
+  ;; :preview-key on a per-command basis using the `consult-customize' macro.
+  (consult-customize
+   consult-theme :preview-key '(:debounce 0.2 any)
+   consult-ripgrep consult-git-grep consult-grep
+   consult-bookmark consult-recent-file consult-xref
+   consult--source-bookmark consult--source-file-register
+   consult--source-recent-file consult--source-project-recent-file
+   ;; :preview-key "M-."
+   :preview-key '(:debounce 0.4 any))
+
+  ;; Optionally configure the narrowing key.
+  ;; Both < and C-+ work reasonably well.
+  (setq consult-narrow-key "<") ;; "C-+"
+
+  ;; Optionally make narrowing help available in the minibuffer.
+  ;; You may want to use `embark-prefix-help-command' or which-key instead.
+  ;; (keymap-set consult-narrow-map (concat consult-narrow-key " ?") #'consult-narrow-help)
+  )
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(tab-width 2))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
