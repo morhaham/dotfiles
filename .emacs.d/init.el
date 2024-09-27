@@ -72,7 +72,7 @@ If the new path's directories does not exist, create them."
   (mapc 'kill-buffer (delq (current-buffer) (buffer-list))))
 (global-set-key (kbd "C-x K") 'kill-other-buffers)
 (global-set-key (kbd "C-x C-g") 'rgrep) ; Open rgrep in minibuffer
-(require 'project)
+(global-set-key (kbd "C-x M-k") 'kill-buffer-and-window) ; Kill the buffer and close the window
 
 ;; (require 'recentf) ; Disabled while using Consult
 ;; ;; enable recent files mode.
@@ -111,6 +111,11 @@ If the new path's directories does not exist, create them."
 
 (setq package-enable-at-startup nil)
 (straight-use-package 'use-package)
+
+(use-package project)
+
+(use-package ansi-color
+  :hook (compilation-filter . ansi-color-compilation-filter))
 
 (use-package move-text
   :straight t
@@ -201,6 +206,12 @@ If the new path's directories does not exist, create them."
   :config
   (treesit-auto-add-to-auto-mode-alist 'all)
   (global-treesit-auto-mode))
+
+(use-package pug-mode
+	:straight t)
+;; :config
+;; ((add-to-list 'auto-mode-alist '("\\.pug\\'" . pug-mode))
+;;  add-to-list 'auto-mode-alist '("\\.\\'" . pug-mode)))
 
 (use-package gruber-darker-theme
   :straight (gruber-darker-theme :type git :host github :repo "rexim/gruber-darker-theme")
@@ -328,6 +339,7 @@ If the new path's directories does not exist, create them."
  	         (lsp-log-io nil)                     ; IMPORTANT! Use only for debugging! Drastically affects performance
 	         (lsp-keep-workspace-alive nil)        ; Close LSP server if all project buffers are closed
 	         ;; core
+           (lsp-warn-no-matched-clients nil)
 	         (lsp-eldoc-enable-hover nil)            ; Display signature information in the echo area
 	         (lsp-enable-dap-auto-configure t)     ; Debug support
 	         (lsp-enable-file-watchers nil)
@@ -532,6 +544,8 @@ If the new path's directories does not exist, create them."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(js-indent-level 2)
+ '(standard-indent 2)
  '(tab-width 2))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
