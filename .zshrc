@@ -2,7 +2,8 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 export ZSH="$HOME/.oh-my-zsh"
-ZSH_THEME="my-theme"
+# ZSH_THEME="my-theme"
+ZSH_THEME="robbyrussell"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -145,6 +146,20 @@ export GOPATH=$HOME/go
 export PATH=$PATH:$GOPATH/bin
 
 export XDG_CONFIG_HOME=$HOME/.config
+
+# For vterm ###################
+vterm_printf() {
+    if [ -n "$TMUX" ] && ([ "${TERM%%-*}" = "tmux" ] || [ "${TERM%%-*}" = "screen" ]); then
+        # Tell tmux to pass the escape sequences through
+        printf "\ePtmux;\e\e]%s\007\e\\" "$1"
+    elif [ "${TERM%%-*}" = "screen" ]; then
+        # GNU screen (screen, screen-256color, screen-256color-bce)
+        printf "\eP\e]%s\007\e\\" "$1"
+    else
+        printf "\e]%s\e\\" "$1"
+    fi
+}
+################################
 
 # some apps config
 export GREENLIGHT_DB_DSN='postgres://greenlight:qwerty123@localhost/greenlight?sslmode=disable'

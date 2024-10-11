@@ -1,3 +1,6 @@
+(setq custom-file "~/dotfiles/.emacs.d/emacs-custom.el")
+(load custom-file)
+
 ;;; General settings
 (delete-selection-mode 1)  ; Yank replaces the selected region
 (global-display-line-numbers-mode)
@@ -74,19 +77,9 @@ If the new path's directories does not exist, create them."
 (global-set-key (kbd "C-x C-g") 'rgrep) ; Open rgrep in minibuffer
 (global-set-key (kbd "C-x M-k") 'kill-buffer-and-window) ; Kill the buffer and close the window
 
-;; (require 'recentf) ; Disabled while using Consult
-;; ;; enable recent files mode.
-;; (recentf-mode t)
-;; ;; get rid of `find-file-read-only' and replace it with something
-;; ;; more useful.
-;; (global-set-key (kbd "C-x C-r") 'ido-recentf-open)
-;; (setq recentf-max-saved-items 50)
-;; (defun ido-recentf-open ()
-;;   "Use `ido-completing-read' to \\[find-file] a recent file."
-;;   (interactive)
-;;   (if (find-file (ido-completing-read "Find recent file: " recentf-list))
-;;       (message "Opening file...")
-;;     (message "Aborting")))
+(require 'recentf) ; Disabled while using Consult
+;; enable recent files mode.
+(recentf-mode t)
 
 ;;; Font
 (set-frame-font "Iosevka Nerd Font 16" nil t)
@@ -113,6 +106,9 @@ If the new path's directories does not exist, create them."
 (straight-use-package 'use-package)
 
 (use-package project)
+
+(use-package vterm
+	:straight t)
 
 (use-package ansi-color
   :hook (compilation-filter . ansi-color-compilation-filter))
@@ -230,7 +226,7 @@ If the new path's directories does not exist, create them."
   :init
   (global-set-key (kbd "C->") 'mc/mark-next-like-this-word)
   (global-set-key (kbd "C-M->") 'mc/skip-to-next-like-this)
-  (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+  (global-set-key (kbd "C-<") 'mc/mark-previous-like-this-word)
   (global-set-key (kbd "C-M-<") 'mc/skip-to-previous-like-this)
   (global-set-key (kbd "C-c C->") 'mc/mark-all-like-this)
   (global-set-key (kbd "C-c C-c") 'mc/edit-lines)
@@ -266,7 +262,7 @@ If the new path's directories does not exist, create them."
   :straight t
   :init (global-flycheck-mode)
   :bind (:map flycheck-mode-map
-              ("M-n" . flycheck-next-error) ; optional but recommended error navigation
+              ("M-n" . flycheck-next-error)
               ("M-p" . flycheck-previous-error)))
 
 (use-package go-mode
@@ -280,10 +276,13 @@ If the new path's directories does not exist, create them."
               ("C-c C-d" . 'lsp-ui-doc-glance)
               ("TAB" . 'lsp-ui-doc-focus-frame)
               ("C-c C-a" . 'lsp-ui-flycheck-list)) ;Show workspace diagnostics
-  :config (setq lsp-ui-doc-enable t
-                lsp-ui-doc-show-with-cursor nil      ; Don't show doc when cursor is over symbol - too distracting
-                lsp-ui-doc-include-signature t       ; Show signature
-                lsp-ui-doc-position 'at-point))
+  :custom
+  (lsp-ui-doc-enable t)
+  (lsp-ui-doc-show-with-cursor nil)      ; Don't show doc when cursor is over symbol - too distracting
+  (lsp-ui-doc-use-childframe t)              ; Show docs for symbol at point
+  (lsp-ui-sideline-enable nil)
+  (lsp-ui-sideline-show-diagnostics t)
+  (lsp-ui-doc-position 'at-point))
 
 (use-package lsp-eslint
   :demand t
@@ -340,7 +339,7 @@ If the new path's directories does not exist, create them."
 	         (lsp-keep-workspace-alive nil)        ; Close LSP server if all project buffers are closed
 	         ;; core
            (lsp-warn-no-matched-clients nil)
-	         (lsp-eldoc-enable-hover nil)            ; Display signature information in the echo area
+	         (lsp-eldoc-enable-hover nil)          ; Hide signature information in the echo area
 	         (lsp-enable-dap-auto-configure t)     ; Debug support
 	         (lsp-enable-file-watchers nil)
 	         (lsp-enable-indentation t)            ; Fallback to Apheleia formatters
@@ -348,17 +347,15 @@ If the new path's directories does not exist, create them."
 	         (lsp-enable-on-type-formatting nil)
            (lsp-typescript-format-enable t)
            (lsp-javascript-format-enable t)
-	         (lsp-enable-suggest-server-download t) ; Useful prompt to download LSP providers
+	         (lsp-enable-suggest-server-download nil) ; Useful prompt to download LSP providers
 	         (lsp-enable-symbol-highlighting t)     ; Shows usages of symbol at point in the current buffer
 	         (lsp-enable-text-document-color nil)   ; This is Treesitter's job
-	         (lsp-ui-sideline-show-hover nil)      ; Sideline used only for diagnostics
-	         (lsp-ui-sideline-diagnostic-max-lines 20) ; 20 lines since typescript errors can be quite big
            (lsp-auto-execute-action nil) ;Disable automatic code actions
 	         ;; completion
 	         (lsp-enable-snippet t)                         ; Important to provide full JSX completion
 	         (lsp-completion-show-kind t)                   ; Optional
 	         ;; headerline
-	         (lsp-headerline-breadcrumb-enable nil)  ; Optional, I like the breadcrumbs
+	         (lsp-headerline-breadcrumb-enable t)
 	         (lsp-headerline-breadcrumb-enable-diagnostics nil) ; Don't make them red, too noisy
 	         (lsp-headerline-breadcrumb-enable-symbol-numbers nil)
 	         (lsp-headerline-breadcrumb-icons-enable nil)
@@ -367,7 +364,6 @@ If the new path's directories does not exist, create them."
 	         (lsp-modeline-diagnostics-enable nil)  ; Already supported through `flycheck'
 	         (lsp-modeline-workspace-status-enable nil) ; Modeline displays "LSP" when lsp-mode is enabled
 	         (lsp-signature-doc-lines 1)                ; Don't raise the echo area. It's distracting
-	         (lsp-ui-doc-use-childframe t)              ; Show docs for symbol at point
 	         (lsp-eldoc-render-all nil)            ; This would be very useful if it would respect `lsp-signature-doc-lines', currently it's distracting
 	         ;; lens
 	         (lsp-lens-enable nil)                 ; Optional, I don't need it
@@ -433,6 +429,9 @@ If the new path's directories does not exist, create them."
   (completion-styles '(orderless flex))
   (completion-category-overrides '((file (styles basic partial-completion)))))
 
+(use-package consult-flycheck
+  :straight t)
+
 (use-package consult
   :straight t
   ;; Replace bindings. Lazily loaded by `use-package'.
@@ -459,7 +458,7 @@ If the new path's directories does not exist, create them."
          ("M-y" . consult-yank-pop)                ;; orig. yank-pop
          ;; M-g bindings in `goto-map'
          ("M-g e" . consult-compile-error)
-         ("M-g f" . consult-flymake)               ;; Alternative: consult-flycheck
+         ("M-g f" . consult-flycheck)               ;; Alternative: consult-flycheck
          ("M-g g" . consult-goto-line)             ;; orig. goto-line
          ("M-g M-g" . consult-goto-line)           ;; orig. goto-line
          ("M-g o" . consult-outline)               ;; Alternative: consult-org-heading
@@ -538,18 +537,3 @@ If the new path's directories does not exist, create them."
   ;; You may want to use `embark-prefix-help-command' or which-key instead.
   ;; (keymap-set consult-narrow-map (concat consult-narrow-key " ?") #'consult-narrow-help)
   )
-
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(js-indent-level 2)
- '(standard-indent 2)
- '(tab-width 2))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )

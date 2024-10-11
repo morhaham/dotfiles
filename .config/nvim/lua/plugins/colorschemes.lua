@@ -4,33 +4,33 @@ return {
     name = "rose-pine",
     priority = 1000,
     lazy = false,
-    -- config = function()
-    --   require("rose-pine").setup({
-    --     highlight_groups = {
-    --       StatusLineTerm = { fg = "subtle", bg = "surface" },
-    --       StatusLineTermNC = { fg = "muted", bg = "surface", blend = 60 },
-    --     },
-    --     styles = {
-    --       transparency = true,
-    --       italic = false,
-    --     },
-    --   })
-    --   vim.cmd("colorscheme rose-pine")
-    -- end,
+    config = function()
+      require("rose-pine").setup({
+        highlight_groups = {
+          StatusLineTerm = { fg = "subtle", bg = "surface" },
+          StatusLineTermNC = { fg = "muted", bg = "surface", blend = 60 },
+        },
+        styles = {
+          transparency = true,
+          italic = false,
+        },
+      })
+      vim.cmd("colorscheme rose-pine")
+    end,
   },
   {
     "sainnhe/gruvbox-material",
     lazy = false,
     priority = 1000,
-    config = function()
-      -- Optionally configure and load the colorscheme
-      -- directly inside the plugin declaration.
-      vim.g.gruvbox_material_background = "hard"
-      vim.g.gruvbox_material_foreground = "material"
-      vim.g.gruvbox_material_enable_italic = true
-      vim.g.gruvbox_material_visual = "reverse"
-      vim.cmd.colorscheme("gruvbox-material")
-    end,
+    -- config = function()
+    --   -- Optionally configure and load the colorscheme
+    --   -- directly inside the plugin declaration.
+    --   vim.g.gruvbox_material_background = "hard"
+    --   vim.g.gruvbox_material_foreground = "material"
+    --   vim.g.gruvbox_material_enable_italic = true
+    --   vim.g.gruvbox_material_visual = "reverse"
+    --   vim.cmd.colorscheme("gruvbox-material")
+    -- end,
   },
   {
     "Mofiqul/vscode.nvim",
