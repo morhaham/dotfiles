@@ -83,6 +83,9 @@ If the new path's directories does not exist, create them."
 
 ;;; Font
 (set-frame-font "Iosevka Nerd Font 16" nil t)
+;; (set-frame-font "Monaspace Neon Var 16" nil t)
+;; (set-frame-font "Monaspace Krypton Var 16" nil t)
+;; (set-frame-font "JetBrains Mono 16" nil t)
 
 ;; Packages
 ;; straight.el
@@ -104,6 +107,14 @@ If the new path's directories does not exist, create them."
 
 (setq package-enable-at-startup nil)
 (straight-use-package 'use-package)
+
+(use-package exec-path-from-shell
+  :straight t
+  :config
+  (when (memq window-system '(mac ns x))
+    (exec-path-from-shell-initialize))
+  (when (daemonp)
+    (exec-path-from-shell-initialize)))
 
 (use-package project)
 
@@ -274,7 +285,7 @@ If the new path's directories does not exist, create them."
   :straight t
   :bind (:map lsp-mode-map
               ("C-c C-d" . 'lsp-ui-doc-glance)
-              ("TAB" . 'lsp-ui-doc-focus-frame)
+              ("M-i" . 'lsp-ui-doc-focus-frame)
               ("C-c C-a" . 'lsp-ui-flycheck-list)) ;Show workspace diagnostics
   :custom
   (lsp-ui-doc-enable t)
@@ -291,11 +302,16 @@ If the new path's directories does not exist, create them."
 ;; Use formatting tools like Prettier easily (format on save by default)
 (use-package apheleia
   :straight t
-  :init
-  ;; Enable Apheleia
-  (apheleia-global-mode +1)
-  ;; Prevent Apheleia from respecting the buffer's indent level
-  (setq apheleia-formatters-respect-indent-level nil))
+  :hook (after-init . apheleia-global-mode)
+  :config
+  (setq apheleia-log-debug-info t)
+  ;; Use 'ruff' instead of 'black'. Remove 'ruff-isort' when 'ruff format'
+  ;; supports it.
+  ;; Check - https://docs.astral.sh/ruff/formatter/#sorting-imports
+  ;; https://github.com/astral-sh/ruff/issues/8232
+  (setf (alist-get 'python-mode apheleia-mode-alist) '(ruff-isort ruff))
+  (setf (alist-get 'python-ts-mode apheleia-mode-alist) '(ruff-isort ruff)))
+
 
 ;; Critical package for commenting jsx/tsx
 (use-package jtsx
@@ -337,29 +353,27 @@ If the new path's directories does not exist, create them."
   :custom (
  	         (lsp-log-io nil)                     ; IMPORTANT! Use only for debugging! Drastically affects performance
 	         (lsp-keep-workspace-alive nil)        ; Close LSP server if all project buffers are closed
-	         ;; core
+	         ;; Core
            (lsp-warn-no-matched-clients nil)
 	         (lsp-eldoc-enable-hover nil)          ; Hide signature information in the echo area
 	         (lsp-enable-dap-auto-configure t)     ; Debug support
 	         (lsp-enable-file-watchers nil)
-	         (lsp-enable-indentation t)            ; Fallback to Apheleia formatters
+	         (lsp-enable-indentation nil)
 	         (lsp-enable-links nil)                ; No need since we have `browse-url'
-	         (lsp-enable-on-type-formatting nil)
-           (lsp-typescript-format-enable t)
-           (lsp-javascript-format-enable t)
+	         (lsp-enable-on-type-formatting nil)   ; This is Apheleia job
 	         (lsp-enable-suggest-server-download nil) ; Useful prompt to download LSP providers
 	         (lsp-enable-symbol-highlighting t)     ; Shows usages of symbol at point in the current buffer
 	         (lsp-enable-text-document-color nil)   ; This is Treesitter's job
            (lsp-auto-execute-action nil) ;Disable automatic code actions
-	         ;; completion
+	         ;; Completion
 	         (lsp-enable-snippet t)                         ; Important to provide full JSX completion
 	         (lsp-completion-show-kind t)                   ; Optional
-	         ;; headerline
-	         (lsp-headerline-breadcrumb-enable t)
+	         ;; Headerline
+	         (lsp-headerline-breadcrumb-enable nil)
 	         (lsp-headerline-breadcrumb-enable-diagnostics nil) ; Don't make them red, too noisy
 	         (lsp-headerline-breadcrumb-enable-symbol-numbers nil)
 	         (lsp-headerline-breadcrumb-icons-enable nil)
-	         ;; modeline
+	         ;; Modeline
 	         (lsp-modeline-code-actions-enable nil) ; Modeline should be relatively clean
 	         (lsp-modeline-diagnostics-enable nil)  ; Already supported through `flycheck'
 	         (lsp-modeline-workspace-status-enable nil) ; Modeline displays "LSP" when lsp-mode is enabled
@@ -368,7 +382,14 @@ If the new path's directories does not exist, create them."
 	         ;; lens
 	         (lsp-lens-enable nil)                 ; Optional, I don't need it
 	         ;; semantic
-	         (lsp-semantic-tokens-enable nil)))
+	         (lsp-semantic-tokens-enable nil)
+           ;; Javascript/Typescript
+           (lsp-typescript-format-enable nil)
+           (lsp-javascript-format-enable nil)
+           ;; Python
+           (lsp-pylsp-plugins-pydocstyle-enabled nil)
+           (lsp-pylsp-plugins-flake8-enabled nil)
+           (lsp-pylsp-configuration-sources nil)))
 
 (use-package vertico ; Vertical completion UI
   :straight t

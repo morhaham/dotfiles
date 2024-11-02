@@ -1,14 +1,14 @@
 import = ["~/dotfiles/.config/alacritty/themes/themes/rose_pine"]
 
 [font]
-# normal = { family = "Iosevka Nerd Font", style = "Regular" }
-# bold = { family = "Iosevka Nerd Font", style = "Bold" }
-# italic = { family = "Iosevka Nerd Font", style = "Italic" }
-normal = { family = "FiraCode Nerd Font", style = "Regular" }
-bold = { family = "FiraCode Nerd Font", style = "Bold" }
-italic = { family = "FiraCode Nerd Font", style = "Italic" }
+normal = { family = "Iosevka Nerd Font", style = "Regular" }
+bold = { family = "Iosevka Nerd Font", style = "Bold" }
+italic = { family = "Iosevka Nerd Font", style = "Italic" }
+# normal = { family = "FiraCode Nerd Font", style = "Regular" }
+# bold = { family = "FiraCode Nerd Font", style = "Bold" }
+# italic = { family = "FiraCode Nerd Font", style = "Italic" }
 
-size = 14
+size = 16
 offset = { y = 5, x = 0 } 
 
 [window]
