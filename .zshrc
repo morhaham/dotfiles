@@ -110,7 +110,7 @@ export PATH="$PNPM_HOME:$PATH"
 # pnpm end
 
 export PATH="$PATH:/Users/morh/.local/bin"
-alias python="/opt/homebrew/bin/python3.10"
+# alias python="/opt/homebrew/bin/python3.12"
 export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
 export JAVA_HOME=/Library/Java/JavaVirtualMachines/zulu-11.jdk/Contents/Home
 [ -f /opt/homebrew/etc/profile.d/autojump.sh ] && . /opt/homebrew/etc/profile.d/autojump.sh

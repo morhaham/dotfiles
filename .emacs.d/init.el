@@ -15,7 +15,7 @@
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
 (setopt ring-bell-function 'ignore)  ; Disable beep on C-g (keyboard-quit)
-(setopt tab-width 2)
+(setopt tab-width 4)
 (setopt winner-mode t) ; Saves window configuration history, undo/redo history with C-c left/right
 ;; (setopt desktop-save-mode 1)
 (add-to-list 'default-frame-alist '(fullscreen . maximized)) ; Fullscreen
@@ -81,10 +81,9 @@ If the new path's directories does not exist, create them."
 ;; enable recent files mode.
 (recentf-mode t)
 
-;;; Font
-(set-frame-font "Iosevka Nerd Font 16" nil t)
+;;; Font 
+(set-frame-font "Iosevka Nerd Font 16" t t)
 ;; (set-frame-font "Monaspace Neon Var 16" nil t)
-;; (set-frame-font "Monaspace Krypton Var 16" nil t)
 ;; (set-frame-font "JetBrains Mono 16" nil t)
 
 ;; Packages
@@ -108,6 +107,9 @@ If the new path's directories does not exist, create them."
 (setq package-enable-at-startup nil)
 (straight-use-package 'use-package)
 
+(use-package jsdoc
+  :straight (:host github :repo "isamert/jsdoc.el"))
+
 (use-package exec-path-from-shell
   :straight t
   :config
@@ -119,7 +121,7 @@ If the new path's directories does not exist, create them."
 (use-package project)
 
 (use-package vterm
-	:straight t)
+  :straight t)
 
 (use-package ansi-color
   :hook (compilation-filter . ansi-color-compilation-filter))
@@ -215,7 +217,7 @@ If the new path's directories does not exist, create them."
   (global-treesit-auto-mode))
 
 (use-package pug-mode
-	:straight t)
+  :straight t)
 ;; :config
 ;; ((add-to-list 'auto-mode-alist '("\\.pug\\'" . pug-mode))
 ;;  add-to-list 'auto-mode-alist '("\\.\\'" . pug-mode)))
@@ -279,7 +281,7 @@ If the new path's directories does not exist, create them."
 (use-package go-mode
   :straight t
   :config
-  (setq go-ts-mode-indent-offset 2))
+  (setq go-ts-mode-indent-offset 4))
 
 (use-package lsp-ui
   :straight t
@@ -320,6 +322,7 @@ If the new path's directories does not exist, create them."
          ("\\.tsx\\'" . jtsx-tsx-mode)
          ("\\.ts\\'" . jtsx-typescript-mode))
   :custom
+  (typescript-ts-mode-indent-offset 4)
   (jtsx-enable-jsx-element-tags-auto-sync t)
   :commands jtsx-install-treesit-language
   :hook ((jtsx-jsx-mode . hs-minor-mode)
@@ -349,40 +352,40 @@ If the new path's directories does not exist, create them."
   (define-key lsp-mode-map (kbd "C-c l") lsp-command-map)
   (setq lsp-use-plists t)
   :hook (
-	       (prog-mode . lsp))
+	     (prog-mode . lsp))
   :custom (
- 	         (lsp-log-io nil)                     ; IMPORTANT! Use only for debugging! Drastically affects performance
-	         (lsp-keep-workspace-alive nil)        ; Close LSP server if all project buffers are closed
-	         ;; Core
+ 	       (lsp-log-io nil)                     ; IMPORTANT! Use only for debugging! Drastically affects performance
+	       (lsp-keep-workspace-alive nil)        ; Close LSP server if all project buffers are closed
+	       ;; Core
            (lsp-warn-no-matched-clients nil)
-	         (lsp-eldoc-enable-hover nil)          ; Hide signature information in the echo area
-	         (lsp-enable-dap-auto-configure t)     ; Debug support
-	         (lsp-enable-file-watchers nil)
-	         (lsp-enable-indentation nil)
-	         (lsp-enable-links nil)                ; No need since we have `browse-url'
-	         (lsp-enable-on-type-formatting nil)   ; This is Apheleia job
-	         (lsp-enable-suggest-server-download nil) ; Useful prompt to download LSP providers
-	         (lsp-enable-symbol-highlighting t)     ; Shows usages of symbol at point in the current buffer
-	         (lsp-enable-text-document-color nil)   ; This is Treesitter's job
+	       (lsp-eldoc-enable-hover nil)          ; Hide signature information in the echo area
+	       (lsp-enable-dap-auto-configure t)     ; Debug support
+	       (lsp-enable-file-watchers nil)
+	       (lsp-enable-indentation nil)
+	       (lsp-enable-links nil)                ; No need since we have `browse-url'
+	       (lsp-enable-on-type-formatting nil)   ; This is Apheleia job
+	       (lsp-enable-suggest-server-download nil) ; Useful prompt to download LSP providers
+	       (lsp-enable-symbol-highlighting t)     ; Shows usages of symbol at point in the current buffer
+	       (lsp-enable-text-document-color nil)   ; This is Treesitter's job
            (lsp-auto-execute-action nil) ;Disable automatic code actions
-	         ;; Completion
-	         (lsp-enable-snippet t)                         ; Important to provide full JSX completion
-	         (lsp-completion-show-kind t)                   ; Optional
-	         ;; Headerline
-	         (lsp-headerline-breadcrumb-enable nil)
-	         (lsp-headerline-breadcrumb-enable-diagnostics nil) ; Don't make them red, too noisy
-	         (lsp-headerline-breadcrumb-enable-symbol-numbers nil)
-	         (lsp-headerline-breadcrumb-icons-enable nil)
-	         ;; Modeline
-	         (lsp-modeline-code-actions-enable nil) ; Modeline should be relatively clean
-	         (lsp-modeline-diagnostics-enable nil)  ; Already supported through `flycheck'
-	         (lsp-modeline-workspace-status-enable nil) ; Modeline displays "LSP" when lsp-mode is enabled
-	         (lsp-signature-doc-lines 1)                ; Don't raise the echo area. It's distracting
-	         (lsp-eldoc-render-all nil)            ; This would be very useful if it would respect `lsp-signature-doc-lines', currently it's distracting
-	         ;; lens
-	         (lsp-lens-enable nil)                 ; Optional, I don't need it
-	         ;; semantic
-	         (lsp-semantic-tokens-enable nil)
+	       ;; Completion
+	       (lsp-enable-snippet t)                         ; Important to provide full JSX completion
+	       (lsp-completion-show-kind t)                   ; Optional
+	       ;; Headerline
+	       (lsp-headerline-breadcrumb-enable nil)
+	       (lsp-headerline-breadcrumb-enable-diagnostics nil) ; Don't make them red, too noisy
+	       (lsp-headerline-breadcrumb-enable-symbol-numbers nil)
+	       (lsp-headerline-breadcrumb-icons-enable nil)
+	       ;; Modeline
+	       (lsp-modeline-code-actions-enable nil) ; Modeline should be relatively clean
+	       (lsp-modeline-diagnostics-enable nil)  ; Already supported through `flycheck'
+	       (lsp-modeline-workspace-status-enable nil) ; Modeline displays "LSP" when lsp-mode is enabled
+	       (lsp-signature-doc-lines 1)                ; Don't raise the echo area. It's distracting
+	       (lsp-eldoc-render-all nil)            ; This would be very useful if it would respect `lsp-signature-doc-lines', currently it's distracting
+	       ;; lens
+	       (lsp-lens-enable nil)                 ; Optional, I don't need it
+	       ;; semantic
+	       (lsp-semantic-tokens-enable nil)
            ;; Javascript/Typescript
            (lsp-typescript-format-enable nil)
            (lsp-javascript-format-enable nil)
