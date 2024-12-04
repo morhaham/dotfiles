@@ -1,6 +1,8 @@
 (setq custom-file "~/dotfiles/.emacs.d/emacs-custom.el")
 (load custom-file)
 
+(set-fringe-mode 14) ;; Adjust to a suitable value
+
 ;;; General settings
 (delete-selection-mode 1)  ; Yank replaces the selected region
 (global-display-line-numbers-mode)
@@ -17,9 +19,6 @@
 (setopt ring-bell-function 'ignore)  ; Disable beep on C-g (keyboard-quit)
 (setopt tab-width 4)
 (setopt winner-mode t) ; Saves window configuration history, undo/redo history with C-c left/right
-;; (setopt desktop-save-mode 1)
-(add-to-list 'default-frame-alist '(fullscreen . maximized)) ; Fullscreen
-(set-frame-parameter nil 'fullscreen 'fullboth) ; Maximized, macos only solution
 
 ;; Tab bar mode related
 (setopt tab-bar-mode t)
@@ -68,6 +67,7 @@ If the new path's directories does not exist, create them."
 (setopt mac-control-modifier 'control) ; Make Control key do Control
 (setopt ns-function-modifier 'hyper) ; Make Fn key do Hyper
 (windmove-default-keybindings 'meta) ; Move through windows with Ctrl-<arrow keys>
+
 (global-set-key (kbd "M-o") 'other-window)
 (defun kill-other-buffers ()
   "Kill all other buffers."
@@ -82,9 +82,10 @@ If the new path's directories does not exist, create them."
 (recentf-mode t)
 
 ;;; Font 
-(set-frame-font "Iosevka Nerd Font 16" t t)
+;; (set-frame-font "Iosevka Nerd Font 16" t t)
 ;; (set-frame-font "Monaspace Neon Var 16" nil t)
-;; (set-frame-font "JetBrains Mono 16" nil t)
+(set-frame-font "JetBrains Mono 14" nil t)
+(setopt line-spacing 0.3)
 
 ;; Packages
 ;; straight.el
@@ -106,6 +107,48 @@ If the new path's directories does not exist, create them."
 
 (setq package-enable-at-startup nil)
 (straight-use-package 'use-package)
+
+(use-package beacon
+  :straight t
+  :init
+  (beacon-mode 1))
+
+(use-package sublimity
+  :straight t
+  :init
+  (require 'sublimity-attractive)
+  (require 'sublimity-scroll)
+  ;; (require 'sublimity-map)
+  :config
+  (sublimity-mode 1)
+  (setq sublimity-attractive-centering-width 180))
+
+(use-package autothemer :straight t)
+
+(straight-use-package
+ '(rose-pine-emacs
+   :host github
+   :repo "thongpv87/rose-pine-emacs"
+   :branch "master"))
+(load-theme 'rose-pine-color t)
+
+(use-package indent-bars
+  :straight (indent-bars :type git :host github :repo "jdtsmith/indent-bars")
+  :custom
+  (indent-bars-no-descend-lists t) ; no extra bars in continued func arg lists
+  (indent-bars-treesit-support t)
+  (indent-bars-treesit-ignore-blank-lines-types '("module"))
+  (indent-bars-color-by-depth '(:regexp "outline-\\([0-9]+\\)" :blend 1))
+  (indent-bars-highlight-current-depth '(:pattern "." :pad 0.1 :width 0.45))
+  ;; Add other languages as needed
+  (indent-bars-treesit-scope '((python function_definition class_definition for_statement
+									   if_statement with_statement while_statement)))
+  ;; Note: wrap may not be needed if no-descend-list is enough
+  ;;(indent-bars-treesit-wrap '((python argument_list parameters ; for python, as an example
+  ;;				      list list_comprehension
+  ;;				      dictionary dictionary_comprehension
+  ;;				      parenthesized_expression subscript)))
+  :hook ((python-ts-mode yaml-mode js-mode emacs-elisp-mode) . indent-bars-mode))
 
 (use-package jsdoc
   :straight (:host github :repo "isamert/jsdoc.el"))
@@ -222,10 +265,10 @@ If the new path's directories does not exist, create them."
 ;; ((add-to-list 'auto-mode-alist '("\\.pug\\'" . pug-mode))
 ;;  add-to-list 'auto-mode-alist '("\\.\\'" . pug-mode)))
 
-(use-package gruber-darker-theme
-  :straight (gruber-darker-theme :type git :host github :repo "rexim/gruber-darker-theme")
-  :init
-  (load-theme 'gruber-darker :no-confirm))
+;; (use-package gruber-darker-theme
+;;   :straight (gruber-darker-theme :type git :host github :repo "rexim/gruber-darker-theme")
+;;   :init
+;;   (load-theme 'gruber-darker :no-confirm))
 
 (use-package wgrep
   :straight t
@@ -267,6 +310,8 @@ If the new path's directories does not exist, create them."
 
 (use-package company
   :straight t
+  :config
+  (setq company-backends '((company-capf company-yasnippet)))
   :hook
   (after-init . global-company-mode))
 

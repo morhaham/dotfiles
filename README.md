@@ -11,5 +11,6 @@
     * please read about this flag before use.
 
 ## Additional tools
-1. Clipy - clipboard history manager - use `<CMD-SHIFT-v>` for pasting
-2. Fzf - fuzzy finder used by Telescope
+* Emacs Plus - https://github.com/d12frosted/homebrew-emacs-plus
+* Clipy - clipboard history manager - use `<CMD-SHIFT-v>` for pasting
+* Fzf - fuzzy finder used by Telescope
