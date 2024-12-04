@@ -1,10 +1,9 @@
 (setq custom-file "~/dotfiles/.emacs.d/emacs-custom.el")
 (load custom-file)
 
-(set-fringe-mode 14) ;; Adjust to a suitable value
-
 ;;; General settings
 (delete-selection-mode 1)  ; Yank replaces the selected region
+(set-fringe-mode 14)
 (global-display-line-numbers-mode)
 ;; Automatically reread from disk if the underlying file changes
 (setopt auto-revert-avoid-polling t)
@@ -108,11 +107,21 @@ If the new path's directories does not exist, create them."
 (setq package-enable-at-startup nil)
 (straight-use-package 'use-package)
 
+;; Scroll without moving the cursor position
+(use-package scroll-page-without-moving-point
+  :straight (:host github :repo "tanrax/scroll-page-without-moving-point.el" :files ("scroll-page-without-moving-point.el"))
+  :config
+  (global-set-key "\C-v" 'scroll-page-without-moving-point-down)
+  (global-set-key "\M-v" 'scroll-page-without-moving-point-up)
+  :ensure t)
+
+;; Highlights the cursor line on special movements
 (use-package beacon
   :straight t
   :init
   (beacon-mode 1))
 
+;; Smooth scroll and focus mode(centers the window)
 (use-package sublimity
   :straight t
   :init
@@ -123,14 +132,13 @@ If the new path's directories does not exist, create them."
   (sublimity-mode 1)
   (setq sublimity-attractive-centering-width 180))
 
-(use-package autothemer :straight t)
+(use-package autothemer
+  :straight t)
 
-(straight-use-package
- '(rose-pine-emacs
-   :host github
-   :repo "thongpv87/rose-pine-emacs"
-   :branch "master"))
-(load-theme 'rose-pine-color t)
+(use-package rose-pine-theme
+  :straight (rose-pine-theme :type git :host github :repo "konrad1977/pinerose-emacs")
+  :after autothemer
+  :init (load-theme 'rose-pine t))
 
 (use-package indent-bars
   :straight (indent-bars :type git :host github :repo "jdtsmith/indent-bars")

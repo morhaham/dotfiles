@@ -5,3 +5,4 @@
 (setopt gc-cons-threshold 100000000)
 (setopt frame-resize-pixelwise t)
 (add-to-list 'default-frame-alist '(undecorated . t))
+;; (add-to-list 'default-frame-alist '(fullscreen . maximized))
