@@ -4,9 +4,10 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(flycheck-clang-args nil)
- '(json-ts-mode-indent-offset 4)
+ '(json-ts-mode-indent-offset 2)
  '(pug-tab-width 4)
- '(tab-width 4))
+ '(tab-width 4)
+ '(vertico-resize nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
