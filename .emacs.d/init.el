@@ -3,6 +3,7 @@
 
 ;;; General settings
 (delete-selection-mode 1)  ; Yank replaces the selected region
+(set-fringe-mode 14)
 (global-display-line-numbers-mode)
 ;; Automatically reread from disk if the underlying file changes
 (setopt auto-revert-avoid-polling t)
@@ -17,7 +18,6 @@
 (setopt ring-bell-function 'ignore)  ; Disable beep on C-g (keyboard-quit)
 (setopt tab-width 4)
 (setopt winner-mode t) ; Saves window configuration history, undo/redo history with C-c left/right
-(setopt electric-pair-mode t)	   ;auto close parenthesis and more.
 
 ;; Tab bar mode related
 (setopt tab-bar-mode t)
@@ -27,15 +27,15 @@
 (global-set-key (kbd "M-]") 'tab-bar-history-forward)
 
 ;; (setopt pixel-scroll-precision-large-scroll-height 40.0)
-;; (defun infer-indentation-style ()
-;;   "If our source file use tabs, we use tabs.
-;; if spaces spaces, and if neither, we use the current `indent-tabs-mode`"
-;;   (let ((space-count (how-many "^  " (point-min) (point-max)))
-;;         (tab-count (how-many "^\t" (point-min) (point-max))))
-;;     (if (> space-count tab-count) (setopt indent-tabs-mode nil))
-;;     (if (> tab-count space-count) (setopt indent-tabs-mode t))))
-;; (infer-indentation-style)
-;; (electric-pair-mode 1)
+(defun infer-indentation-style ()
+  "If our source file use tabs, we use tabs.
+if spaces spaces, and if neither, we use the current `indent-tabs-mode`"
+  (let ((space-count (how-many "^  " (point-min) (point-max)))
+        (tab-count (how-many "^\t" (point-min) (point-max))))
+    (if (> space-count tab-count) (setopt indent-tabs-mode nil))
+    (if (> tab-count space-count) (setopt indent-tabs-mode t))))
+(infer-indentation-style)
+(electric-pair-mode 1)
 (setopt sentence-end-double-space nil) ; Fix archaic defaults(default is not recommended anymore)
 
 ;; Ido mode - commented out since using Consult
@@ -81,10 +81,9 @@ If the new path's directories does not exist, create them."
 (recentf-mode t)
 
 ;;; Font 
-(set-frame-font "Iosevka Nerd Font 14" t t)
-;; (set-frame-font "Monaspace Argon Var 14" nil t)
-;; (set-frame-font "Hasklig 14" nil t)
-;; (set-frame-font "JetBrains Mono 16" nil t)
+;; (set-frame-font "Iosevka Nerd Font 16" t t)
+;; (set-frame-font "Monaspace Neon Var 16" nil t)
+(set-frame-font "Fantasque Sans Mono 16" nil t)
 (setopt line-spacing 0.3)
 
 ;; Packages
@@ -122,59 +121,24 @@ If the new path's directories does not exist, create them."
   :init
   (beacon-mode 1))
 
-;; Origami and its dependencies
-(use-package dash
-  :straight t)
-
-(use-package s
-  :straight t)
-
-(use-package origami
-  :straight t
-  :bind (:map origami-mode-map
-	          ("C-c f" . origami-toggle-node)))
-;; ---------------------
-
-;; Guesses the indentation offset originally used for creating source code files and transparently adjusts the corresponding settings in Emacs
-(use-package dtrt-indent
-  :straight t
-  :config
-  (dtrt-indent-mode 1)
-  (setq dtrt-indent-verbosity 0))
-
 ;; Smooth scroll and focus mode(centers the window)
 (use-package sublimity
   :straight t
   :init
-  (require 'sublimity-attractive)
+  ;; (require 'sublimity-attractive)
   (require 'sublimity-scroll)
   ;; (require 'sublimity-map)
   :config
-  (sublimity-mode 1)
-  (setq sublimity-attractive-centering-width 160))
+  (sublimity-mode 1))
+;; (setq sublimity-attractive-centering-width 180))
 
-;; Theme related
 (use-package autothemer
   :straight t)
-
-
-(use-package gruber-darker-theme
-  :straight (gruber-darker-theme :type git :host github :repo "rexim/gruber-darker-theme"))
-;; :init
-;; (load-theme 'gruber-darker :no-confirm))
-
-(straight-use-package
- '(rose-pine-emacs
-   :host github
-   :repo "thongpv87/rose-pine-emacs"
-   :branch "master"))
-;; (load-theme 'rose-pine-color t)
 
 (use-package rose-pine-theme
   :straight (rose-pine-theme :type git :host github :repo "konrad1977/pinerose-emacs")
   :after autothemer
   :init (load-theme 'rose-pine t))
-;; ------------------------
 
 (use-package indent-bars
   :straight (indent-bars :type git :host github :repo "jdtsmith/indent-bars")
@@ -207,11 +171,24 @@ If the new path's directories does not exist, create them."
 
 (use-package project)
 
+
+;; Terminal related
 (use-package vterm
   :straight t)
 
+;; (straight-use-package
+;;  '(eat :type git
+;;        :host codeberg
+;;        :repo "akib/emacs-eat"
+;;        :files ("*.el" ("term" "term/*.el") "*.texi"
+;;                "*.ti" ("terminfo/e" "terminfo/e/*")
+;;                ("terminfo/65" "terminfo/65/*")
+;;                ("integration" "integration/*")
+;;                (:exclude ".dir-locals.el" "*-tests.el"))))
+
 (use-package ansi-color
   :hook (compilation-filter . ansi-color-compilation-filter))
+;; -----------------------------
 
 (use-package move-text
   :straight t
@@ -309,6 +286,11 @@ If the new path's directories does not exist, create them."
 ;; ((add-to-list 'auto-mode-alist '("\\.pug\\'" . pug-mode))
 ;;  add-to-list 'auto-mode-alist '("\\.\\'" . pug-mode)))
 
+;; (use-package gruber-darker-theme
+;;   :straight (gruber-darker-theme :type git :host github :repo "rexim/gruber-darker-theme")
+;;   :init
+;;   (load-theme 'gruber-darker :no-confirm))
+
 (use-package wgrep
   :straight t
   :bind (("C-x C-m" . wgrep-change-to-wgrep-mode)))
@@ -326,6 +308,14 @@ If the new path's directories does not exist, create them."
   (global-set-key (kbd "C-c C->") 'mc/mark-all-like-this)
   (global-set-key (kbd "C-c C-c") 'mc/edit-lines)
   (global-set-key (kbd "C-s-<mouse-1>") 'mc/add-cursor-on-click))
+
+;; Code Completion
+;; (use-package corfu
+;;   :ensure t
+;;   :init
+;;   (global-corfu-mode)
+;;   (corfu-popupinfo-mode) ; Popup completion info
+;;   )
 
 (use-package yasnippet ;; Snippets
   :straight t
@@ -381,8 +371,6 @@ If the new path's directories does not exist, create them."
 (use-package apheleia
   :straight t
   :hook (after-init . apheleia-global-mode)
-  :bind
-  ("C-c C-f" . apheleia-format-buffer)
   :config
   (setq apheleia-log-debug-info t)
   ;; Use 'ruff' instead of 'black'. Remove 'ruff-isort' when 'ruff format'
@@ -392,6 +380,7 @@ If the new path's directories does not exist, create them."
   (setf (alist-get 'python-mode apheleia-mode-alist) '(ruff-isort ruff))
   (setf (alist-get 'python-ts-mode apheleia-mode-alist) '(ruff-isort ruff)))
 
+
 ;; Critical package for commenting jsx/tsx
 (use-package jtsx
   :straight t
@@ -399,7 +388,7 @@ If the new path's directories does not exist, create them."
          ("\\.tsx\\'" . jtsx-tsx-mode)
          ("\\.ts\\'" . jtsx-typescript-mode))
   :custom
-  (typescript-ts-mode-indent-offset 2)
+  (typescript-ts-mode-indent-offset 4)
   (jtsx-enable-jsx-element-tags-auto-sync t)
   :commands jtsx-install-treesit-language
   :hook ((jtsx-jsx-mode . hs-minor-mode)
@@ -473,13 +462,6 @@ If the new path's directories does not exist, create them."
 
 (use-package vertico ; Vertical completion UI
   :straight t
-  :config
-  (setq completion-in-region-function
-        (lambda (&rest args)
-          (apply (if vertico-mode
-                     #'consult-completion-in-region
-                   #'completion--in-region)
-                 args)))
   :init (vertico-mode t))
 
 ;; Enable rich annotations using the Marginalia package
@@ -645,16 +627,3 @@ If the new path's directories does not exist, create them."
   ;; You may want to use `embark-prefix-help-command' or which-key instead.
   ;; (keymap-set consult-narrow-map (concat consult-narrow-key " ?") #'consult-narrow-help)
   )
-
-
-;; Managing the window sizes by enforcing a fixed and automatic balanced layout
-(use-package zoom
-  :straight t
-  :init
-  (setq zoom-size '(0.618 . 0.618))
-  :bind ("C-c z" . zoom))
-
-(use-package editorconfig
-  :straight t
-  :config
-  (editorconfig-mode 1))

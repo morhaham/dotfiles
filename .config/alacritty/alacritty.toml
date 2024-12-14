@@ -1,14 +1,17 @@
-import = ["~/dotfiles/.config/alacritty/themes/themes/rose_pine.toml"]
+general.import = ["~/dotfiles/.config/alacritty/themes/themes/rose_pine.toml"]
 
 [font]
 # normal = { family = "Iosevka Nerd Font", style = "Regular" }
 # bold = { family = "Iosevka Nerd Font", style = "Bold" }
 # italic = { family = "Iosevka Nerd Font", style = "Italic" }
-normal = { family = "JetBrains Mono", style = "Regular" }
-bold = { family = "JetBrains Mono", style = "Bold" }
-italic = { family = "JetBrains Mono", style = "Italic" }
+# normal = { family = "JetBrains Mono", style = "Regular" }
+# bold = { family = "JetBrains Mono", style = "Bold" }
+# italic = { family = "JetBrains Mono", style = "Italic" }
+normal = { family = "Fantasque Sans Mono", style = "Regular" }
+bold = { family = "Fantasque Sans Mono", style = "Bold" }
+italic = { family = "Fantasque Sans Mono", style = "Italic" }
 
-size = 14
+size = 18
 offset = { y = 5, x = 0 } 
 
 [window]
