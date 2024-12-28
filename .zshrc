@@ -19,6 +19,8 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias vim="nvim"
+alias python="python3"
+alias pip="pip3"
 # aliases end
 
 export NVM_DIR="$HOME/.nvm"
@@ -38,10 +40,6 @@ export JAVA_HOME=/Library/Java/JavaVirtualMachines/zulu-11.jdk/Contents/Home
 [ -f /opt/homebrew/etc/profile.d/autojump.sh ] && . /opt/homebrew/etc/profile.d/autojump.sh
 export LANG="en_US.UTF-8"
 export LC_CTYPE="en_US.UTF-8"
-
-autoload -Uz add-zsh-hook
-add-zsh-hook -Uz chpwd osc7_cwd
-##############################################
 
 PATH=~/.console-ninja/.bin:$PATH
 
@@ -64,20 +62,20 @@ vterm_printf() {
 # vterm end
 
 # some apps config
-export GREENLIGHT_DB_DSN='postgres://greenlight:qwerty123@localhost/greenlight?sslmode=disable'
+export GREENLIGHT_DB_DSN='postgres://postgres:morh123@localhost:5432/greenlight?sslmode=disable'
 export PATH=/usr/local/anaconda3/bin:$PATH
 export PATH=/opt/homebrew/anaconda3/bin:$PATH
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/opt/homebrew/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+__conda_setup="$('/Users/morhaham/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
 if [ $? -eq 0 ]; then
     eval "$__conda_setup"
 else
-    if [ -f "/opt/homebrew/anaconda3/etc/profile.d/conda.sh" ]; then
-        . "/opt/homebrew/anaconda3/etc/profile.d/conda.sh"
+    if [ -f "/Users/morhaham/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "/Users/morhaham/miniconda3/etc/profile.d/conda.sh"
     else
-        export PATH="/opt/homebrew/anaconda3/bin:$PATH"
+        export PATH="/Users/morhaham/miniconda3/bin:$PATH"
     fi
 fi
 unset __conda_setup

@@ -4,6 +4,7 @@
 ;;; General settings
 (delete-selection-mode 1)  ; Yank replaces the selected region
 (set-fringe-mode 14)
+(load-theme 'modus-operandi-tinted t)
 (global-display-line-numbers-mode)
 ;; Automatically reread from disk if the underlying file changes
 (setopt auto-revert-avoid-polling t)
@@ -76,14 +77,14 @@ If the new path's directories does not exist, create them."
 (global-set-key (kbd "C-x C-g") 'rgrep) ; Open rgrep in minibuffer
 (global-set-key (kbd "C-x M-k") 'kill-buffer-and-window) ; Kill the buffer and close the window
 
-(require 'recentf) ; Disabled while using Consult
+(require 'recentf) ; Disabled while using Consultx
 ;; enable recent files mode.
 (recentf-mode t)
 
-;;; Font 
+;;; Font
 ;; (set-frame-font "Iosevka Nerd Font 16" t t)
-;; (set-frame-font "Monaspace Neon Var 16" nil t)
-(set-frame-font "Fantasque Sans Mono 16" nil t)
+(set-frame-font "Monaspace Neon Var 16" nil t)
+;; (set-frame-font "Fantasque Sans Mono 18" nil t)
 (setopt line-spacing 0.3)
 
 ;; Packages
@@ -137,8 +138,8 @@ If the new path's directories does not exist, create them."
 
 (use-package rose-pine-theme
   :straight (rose-pine-theme :type git :host github :repo "konrad1977/pinerose-emacs")
-  :after autothemer
-  :init (load-theme 'rose-pine t))
+  :after autothemer)
+;; :init (load-theme 'rose-pine t))
 
 (use-package indent-bars
   :straight (indent-bars :type git :host github :repo "jdtsmith/indent-bars")
@@ -150,13 +151,13 @@ If the new path's directories does not exist, create them."
   (indent-bars-highlight-current-depth '(:pattern "." :pad 0.1 :width 0.45))
   ;; Add other languages as needed
   (indent-bars-treesit-scope '((python function_definition class_definition for_statement
-									   if_statement with_statement while_statement)))
-  ;; Note: wrap may not be needed if no-descend-list is enough
-  ;;(indent-bars-treesit-wrap '((python argument_list parameters ; for python, as an example
-  ;;				      list list_comprehension
-  ;;				      dictionary dictionary_comprehension
-  ;;				      parenthesized_expression subscript)))
-  :hook ((python-ts-mode yaml-mode js-mode emacs-elisp-mode) . indent-bars-mode))
+									   if_statement with_statement while_statement))))
+;; Note: wrap may not be needed if no-descend-list is enough
+;;(indent-bars-treesit-wrap '((python argument_list parameters ; for python, as an example
+;;				      list list_comprehension
+;;				      dictionary dictionary_comprehension
+;;				      parenthesized_expression subscript)))
+;; :hook ((python-ts-mode yaml-mode js-mode emacs-elisp-mode) . indent-bars-mode)
 
 (use-package jsdoc
   :straight (:host github :repo "isamert/jsdoc.el"))
@@ -225,10 +226,12 @@ If the new path's directories does not exist, create them."
              '((css . ("https://github.com/tree-sitter/tree-sitter-css" "v0.20.0"))
                (bash "https://github.com/tree-sitter/tree-sitter-bash")
                (html . ("https://github.com/tree-sitter/tree-sitter-html" "v0.20.1"))
+               (css "https://github.com/tree-sitter/tree-sitter-css")
                (javascript . ("https://github.com/tree-sitter/tree-sitter-javascript" "v0.21.2" "src"))
                (json . ("https://github.com/tree-sitter/tree-sitter-json" "v0.20.2"))
                (python . ("https://github.com/tree-sitter/tree-sitter-python" "v0.20.4"))
                (go "https://github.com/tree-sitter/tree-sitter-go" "v0.20.0")
+               (gomod "https://github.com/camdencheek/tree-sitter-go-mod")
                (markdown "https://github.com/ikatyang/tree-sitter-markdown")
                (make "https://github.com/alemuller/tree-sitter-make")
                (elisp "https://github.com/Wilfred/tree-sitter-elisp")
@@ -236,6 +239,7 @@ If the new path's directories does not exist, create them."
                (c "https://github.com/tree-sitter/tree-sitter-c")
                (cpp "https://github.com/tree-sitter/tree-sitter-cpp")
                (toml "https://github.com/tree-sitter/tree-sitter-toml")
+               (dockerfile "https://github.com/camdencheek/tree-sitter-dockerfile")
                (tsx . ("https://github.com/tree-sitter/tree-sitter-typescript" "v0.20.3" "tsx/src"))
                (typescript . ("https://github.com/tree-sitter/tree-sitter-typescript" "v0.20.3" "typescript/src"))
                (yaml . ("https://github.com/ikatyang/tree-sitter-yaml" "v0.5.0"))
@@ -471,7 +475,7 @@ If the new path's directories does not exist, create them."
   ;; available in the *Completions* buffer, add it to the
   ;; `completion-list-mode-map'.
   :bind (:map minibuffer-local-map
-              ("M-A" . marginalia-cycle))
+			  ("M-A" . marginalia-cycle))
   ;; The :init section is always executed.
   :init
   ;; Marginalia must be activated in the :init section of use-package such that
@@ -503,7 +507,7 @@ If the new path's directories does not exist, create them."
   :config
   ;; Hide the mode line of the Embark live/completions buffers
   (add-to-list 'display-buffer-alist
-               '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
+			   '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
                  nil
                  (window-parameters (mode-line-format . none)))))
 
