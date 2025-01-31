@@ -4,7 +4,7 @@
 ;;; General settings
 (delete-selection-mode 1)  ; Yank replaces the selected region
 (set-fringe-mode 14)
-(load-theme 'modus-operandi-tinted t)
+;; (load-theme 'modus-operandi-tinted t)
 (global-display-line-numbers-mode)
 ;; Automatically reread from disk if the underlying file changes
 (setopt auto-revert-avoid-polling t)
@@ -82,8 +82,8 @@ If the new path's directories does not exist, create them."
 (recentf-mode t)
 
 ;;; Font
-;; (set-frame-font "Iosevka Nerd Font 16" t t)
-(set-frame-font "Monaspace Neon Var 16" nil t)
+(set-frame-font "Iosevka Nerd Font 16" t t)
+;; (set-frame-font "Monaspace Neon Var 16" nil t)
 ;; (set-frame-font "Fantasque Sans Mono 18" nil t)
 (setopt line-spacing 0.3)
 
@@ -133,6 +133,7 @@ If the new path's directories does not exist, create them."
   (sublimity-mode 1))
 ;; (setq sublimity-attractive-centering-width 180))
 
+;; Themes
 (use-package autothemer
   :straight t)
 
@@ -140,6 +141,12 @@ If the new path's directories does not exist, create them."
   :straight (rose-pine-theme :type git :host github :repo "konrad1977/pinerose-emacs")
   :after autothemer)
 ;; :init (load-theme 'rose-pine t))
+
+(use-package ef-themes
+  :straight t
+  :config
+  (mapc #'disable-theme custom-enabled-themes)
+  (load-theme 'ef-eagle :no-confirm))
 
 (use-package indent-bars
   :straight (indent-bars :type git :host github :repo "jdtsmith/indent-bars")
@@ -631,3 +638,17 @@ If the new path's directories does not exist, create them."
   ;; You may want to use `embark-prefix-help-command' or which-key instead.
   ;; (keymap-set consult-narrow-map (concat consult-narrow-key " ?") #'consult-narrow-help)
   )
+
+;; Major mode for editing web templates including Golang tmpl files
+(use-package web-mode
+  :straight t
+  :mode
+  (("\\.phtml\\'" . web-mode)
+   ("\\.php\\'" . web-mode)
+   ("\\.tpl\\'" . web-mode)
+   ("\\.[agj]sp\\'" . web-mode)
+   ("\\.as[cp]x\\'" . web-mode)
+   ("\\.erb\\'" . web-mode)
+   ("\\.mustache\\'" . web-mode)
+   ("\\.djhtml\\'" . web-mode)
+   ("\\.tmpl\\'" . web-mode)))
