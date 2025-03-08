@@ -4,5 +4,6 @@
 (setopt read-process-output-max (* 1024 1024)) ;; 10mb
 (setopt gc-cons-threshold 100000000)
 (setopt frame-resize-pixelwise t)
+(load-theme 'wombat t)
 (add-to-list 'default-frame-alist '(undecorated . t))
 ;; (add-to-list 'default-frame-alist '(fullscreen . maximized))

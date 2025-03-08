@@ -4,7 +4,6 @@
 ;;; General settings
 (delete-selection-mode 1)  ; Yank replaces the selected region
 (set-fringe-mode 14)
-;; (load-theme 'modus-operandi-tinted t)
 (global-display-line-numbers-mode)
 ;; Automatically reread from disk if the underlying file changes
 (setopt auto-revert-avoid-polling t)
@@ -144,9 +143,9 @@ If the new path's directories does not exist, create them."
 
 (use-package ef-themes
   :straight t
-  :config
-  (mapc #'disable-theme custom-enabled-themes)
-  (load-theme 'ef-eagle :no-confirm))
+  :config)
+;; (mapc #'disable-theme custom-enabled-themes))
+;; (load-theme 'ef-eagle :no-confirm))
 
 (use-package indent-bars
   :straight (indent-bars :type git :host github :repo "jdtsmith/indent-bars")
@@ -652,3 +651,26 @@ If the new path's directories does not exist, create them."
    ("\\.mustache\\'" . web-mode)
    ("\\.djhtml\\'" . web-mode)
    ("\\.tmpl\\'" . web-mode)))
+
+
+;; Aider is an AI companion for coding tasks
+(use-package aider
+  :straight (:host github :repo "tninja/aider.el" :files ("aider.el"))
+  :config
+  ;; Use claude-3-5-sonnet cause it is best in aider benchmark
+  (setq aider-args '("--model" "ollama_chat/deepseek-coder-v2:16b"))
+  ;; (setenv "GEMINI_API_KEY" (getenv "GEMINI_API_KEY"))
+  (setenv "OLLAMA_API_BASE" (getenv "OLLAMA_API_BASE"))
+  ;; Or use chatgpt model since it is most well known
+  ;; (setq aider-args '("--model" "o3-mini"))
+  ;; (setenv "OPENAI_API_KEY" <your-openai-api-key>)
+  ;; Or use gemini v2 model since it is very good and free
+  ;; (setq aider-args '("--model" "gemini/gemini-exp-1206"))
+  ;; (setenv "GEMINI_API_KEY" <your-gemini-api-key>)
+  ;; Or use your personal config file
+  ;; (setq aider-args `("--config" ,(expand-file-name "~/.aider.conf.yml")))
+  ;; ;;
+  ;; Optional: Set a key binding for the transient menu
+  (global-set-key (kbd "C-c a") 'aider-transient-menu))
+
+

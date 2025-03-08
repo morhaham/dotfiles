@@ -29,6 +29,8 @@ export NVM_DIR="$HOME/.nvm"
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
+export PATH="/Users/morhaham/.local/bin:$PATH"
+
 # pnpm
 export PNPM_HOME="/Users/morh/Library/pnpm"
 export PATH="$PNPM_HOME:$PATH"
@@ -61,8 +63,15 @@ vterm_printf() {
 }
 # vterm end
 
-# some apps config
+# apps config
+
+# Greenlight
 export GREENLIGHT_DB_DSN='postgres://postgres:morh123@localhost:5432/greenlight?sslmode=disable'
+export MAILTRAP_USERNAME='06fa34b5a5be95'
+export MAILTRAP_PASSWORD='e49042661e65df'
+# Greenlight end
+
+# Conda
 export PATH=/usr/local/anaconda3/bin:$PATH
 export PATH=/opt/homebrew/anaconda3/bin:$PATH
 
@@ -80,4 +89,14 @@ else
 fi
 unset __conda_setup
 # <<< conda initialize <<<
+# Conda end
 
+# Gemini
+export GEMINI_API_KEY=AIzaSyDxKnkJVNNBeYC1F6lTjROPpayl6Pn0vHg
+# end Gemini
+
+# Aider
+export OLLAMA_API_BASE=http://127.0.0.1:11434
+# Aider end
+
+## apps config end
