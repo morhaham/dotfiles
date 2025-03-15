@@ -75,13 +75,18 @@ If the new path's directories does not exist, create them."
 (global-set-key (kbd "C-x K") 'kill-other-buffers)
 (global-set-key (kbd "C-x C-g") 'rgrep) ; Open rgrep in minibuffer
 (global-set-key (kbd "C-x M-k") 'kill-buffer-and-window) ; Kill the buffer and close the window
+;; Toggle fold current subtree
+(global-set-key (kbd "C-c C-f") 'outline-toggle-children)
+;; Fold all
+(global-set-key (kbd "C-c C-h") 'outline-hide-body)
 
 (require 'recentf) ; Disabled while using Consultx
 ;; enable recent files mode.
 (recentf-mode t)
 
 ;;; Font
-(set-frame-font "Iosevka Nerd Font 16" t t)
+(set-frame-font "JetBrains Mono 15" t t)
+;; (set-frame-font "Iosevka Nerd Font 16" t t)
 ;; (set-frame-font "Monaspace Neon Var 16" nil t)
 ;; (set-frame-font "Fantasque Sans Mono 18" nil t)
 (setopt line-spacing 0.3)
@@ -672,5 +677,3 @@ If the new path's directories does not exist, create them."
   ;; ;;
   ;; Optional: Set a key binding for the transient menu
   (global-set-key (kbd "C-c a") 'aider-transient-menu))
-
-
