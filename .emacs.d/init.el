@@ -176,10 +176,9 @@ If the new path's directories does not exist, create them."
 (use-package exec-path-from-shell
   :straight t
   :config
-  (when (memq window-system '(mac ns x))
-    (exec-path-from-shell-initialize))
-  (when (daemonp)
-    (exec-path-from-shell-initialize)))
+  (when (or (daemonp) (memq window-system '(mac ns x)))
+    (exec-path-from-shell-initialize)
+    (exec-path-from-shell-copy-envs '("OLLAMA_API_BASE" "GEMINI_API_KEY"))))
 
 (use-package project)
 
@@ -659,21 +658,39 @@ If the new path's directories does not exist, create them."
 
 
 ;; Aider is an AI companion for coding tasks
-(use-package aider
-  :straight (:host github :repo "tninja/aider.el" :files ("aider.el"))
+;; (use-package aider
+;;   :straight (:host github :repo "tninja/aider.el" :files ("aider.el"))
+;;   :config
+;;   ;; Use claude-3-5-sonnet cause it is best in aider benchmark
+;;   ;; (setq aider-args '("--model" "ollama_chat/deepseek-coder-v2:16b"))
+;;   ;; (setenv "GEMINI_API_KEY" (getenv "GEMINI_API_KEY"))
+;;   (setenv "OLLAMA_API_BASE" (getenv "OLLAMA_API_BASE"))
+;;   (setenv "GEMINI_API_KEY" (getenv "GEMINI_API_KEY"))
+;;   ;; Or use chatgpt model since it is most well known
+;;   ;; (setq aider-args '("--model" "o3-mini"))
+;;   ;; (setenv "OPENAI_API_KEY" <your-openai-api-key>)
+;;   ;; Or use gemini v2 model since it is very good and free
+;;   (setq aider-args '("--model" "gemini/gemini-2.0-pro-exp-02-05" "--no-auto-commits"))
+;;   ;; (setenv "GEMINI_API_KEY" <your-gemini-api-key>)
+;;   ;; Or use your personal config file
+;;   ;; (setq aider-args `("--config" ,(expand-file-name "~/.aider.conf.yml")))
+;;   ;; ;;
+;;   ;; Optional: Set a key binding for the transient menu
+;;   (global-set-key (kbd "C-c a") 'aider-transient-menu))
+
+(use-package aidermacs
+  :if (executable-find "aider")
+  :straight (:host github :repo "MatthewZMD/aidermacs" :files ("*.el"))
+  :bind (("C-c a" . aidermacs-transient-menu))
   :config
-  ;; Use claude-3-5-sonnet cause it is best in aider benchmark
-  (setq aider-args '("--model" "ollama_chat/deepseek-coder-v2:16b"))
-  ;; (setenv "GEMINI_API_KEY" (getenv "GEMINI_API_KEY"))
-  (setenv "OLLAMA_API_BASE" (getenv "OLLAMA_API_BASE"))
-  ;; Or use chatgpt model since it is most well known
-  ;; (setq aider-args '("--model" "o3-mini"))
-  ;; (setenv "OPENAI_API_KEY" <your-openai-api-key>)
-  ;; Or use gemini v2 model since it is very good and free
-  ;; (setq aider-args '("--model" "gemini/gemini-exp-1206"))
-  ;; (setenv "GEMINI_API_KEY" <your-gemini-api-key>)
-  ;; Or use your personal config file
-  ;; (setq aider-args `("--config" ,(expand-file-name "~/.aider.conf.yml")))
-  ;; ;;
-  ;; Optional: Set a key binding for the transient menu
-  (global-set-key (kbd "C-c a") 'aider-transient-menu))
+                                        ; Set API_KEY in .bashrc, that will automatically picked up by aider or in elisp
+  ;; (setenv "ANTHROPIC_API_KEY" "sk-...")
+                                        ; defun my-get-openrouter-api-key yourself elsewhere for security reasons
+  ;; (setenv "OPENROUTER_API_KEY" (my-get-openrouter-api-key))
+  (setenv "GEMINI_API_KEY" (getenv "GEMINI_API_KEY"))
+  :custom
+                                        ; See the Configuration section below
+  (aidermacs-use-architect-mode nil)
+  (aidermacs-auto-commits nil)
+  (aidermacs-backend 'vterm)
+  (aidermacs-default-model "gemini/gemini-2.0-pro-exp-02-05"))
