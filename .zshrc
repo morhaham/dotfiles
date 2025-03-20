@@ -1,5 +1,3 @@
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
 export ZSH="$HOME/.oh-my-zsh"
 # ZSH_THEME="my-theme"
 ZSH_THEME="robbyrussell"
@@ -23,6 +21,10 @@ alias python="python3"
 alias pip="pip3"
 # aliases end
 
+# hombrew
+HOMEBREW_NO_AUTO_UPDATE=0
+# hombrew end
+
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
@@ -37,8 +39,15 @@ export PATH="$PNPM_HOME:$PATH"
 # pnpm end
 
 export PATH="$PATH:/Users/morh/.local/bin"
-export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
-export JAVA_HOME=/Library/Java/JavaVirtualMachines/zulu-11.jdk/Contents/Home
+
+# java related
+# export JAVA_HOME=/Library/Java/JavaVirtualMachines/zulu-11.jdk/Contents/Home
+# jenv java env manager
+export PATH="$HOME/.jenv/bin:$PATH"
+eval "$(jenv init -)"
+jenv enable-plugin export
+# java related end
+
 [ -f /opt/homebrew/etc/profile.d/autojump.sh ] && . /opt/homebrew/etc/profile.d/autojump.sh
 export LANG="en_US.UTF-8"
 export LC_CTYPE="en_US.UTF-8"
@@ -99,4 +108,7 @@ export GEMINI_API_KEY=AIzaSyDxKnkJVNNBeYC1F6lTjROPpayl6Pn0vHg
 export OLLAMA_API_BASE=http://127.0.0.1:11434
 # Aider end
 
-## apps config end
+# Added by Windsurf
+export PATH="/Users/morh/.codeium/windsurf/bin:$PATH"
+export PATH="/usr/local/opt/ruby/bin:$PATH"
+
