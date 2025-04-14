@@ -151,24 +151,6 @@ If the new path's directories does not exist, create them."
 ;; (mapc #'disable-theme custom-enabled-themes))
 ;; (load-theme 'ef-eagle :no-confirm))
 
-(use-package indent-bars
-  :straight (indent-bars :type git :host github :repo "jdtsmith/indent-bars")
-  :custom
-  (indent-bars-no-descend-lists t) ; no extra bars in continued func arg lists
-  (indent-bars-treesit-support t)
-  (indent-bars-treesit-ignore-blank-lines-types '("module"))
-  (indent-bars-color-by-depth '(:regexp "outline-\\([0-9]+\\)" :blend 1))
-  (indent-bars-highlight-current-depth '(:pattern "." :pad 0.1 :width 0.45))
-  ;; Add other languages as needed
-  (indent-bars-treesit-scope '((python function_definition class_definition for_statement
-									   if_statement with_statement while_statement))))
-;; Note: wrap may not be needed if no-descend-list is enough
-;;(indent-bars-treesit-wrap '((python argument_list parameters ; for python, as an example
-;;				      list list_comprehension
-;;				      dictionary dictionary_comprehension
-;;				      parenthesized_expression subscript)))
-;; :hook ((python-ts-mode yaml-mode js-mode emacs-elisp-mode) . indent-bars-mode)
-
 (use-package jsdoc
   :straight (:host github :repo "isamert/jsdoc.el"))
 
@@ -663,28 +645,6 @@ If the new path's directories does not exist, create them."
    ("\\.djhtml\\'" . web-mode)
    ("\\.tmpl\\'" . web-mode)))
 
-
-;; Aider is an AI companion for coding tasks
-;; (use-package aider
-;;   :straight (:host github :repo "tninja/aider.el" :files ("aider.el"))
-;;   :config
-;;   ;; Use claude-3-5-sonnet cause it is best in aider benchmark
-;;   ;; (setq aider-args '("--model" "ollama_chat/deepseek-coder-v2:16b"))
-;;   ;; (setenv "GEMINI_API_KEY" (getenv "GEMINI_API_KEY"))
-;;   (setenv "OLLAMA_API_BASE" (getenv "OLLAMA_API_BASE"))
-;;   (setenv "GEMINI_API_KEY" (getenv "GEMINI_API_KEY"))
-;;   ;; Or use chatgpt model since it is most well known
-;;   ;; (setq aider-args '("--model" "o3-mini"))
-;;   ;; (setenv "OPENAI_API_KEY" <your-openai-api-key>)
-;;   ;; Or use gemini v2 model since it is very good and free
-;;   (setq aider-args '("--model" "gemini/gemini-2.0-pro-exp-02-05" "--no-auto-commits"))
-;;   ;; (setenv "GEMINI_API_KEY" <your-gemini-api-key>)
-;;   ;; Or use your personal config file
-;;   ;; (setq aider-args `("--config" ,(expand-file-name "~/.aider.conf.yml")))
-;;   ;; ;;
-;;   ;; Optional: Set a key binding for the transient menu
-;;   (global-set-key (kbd "C-c a") 'aider-transient-menu))
-
 (use-package aidermacs
   :if (executable-find "aider")
   :straight (:host github :repo "MatthewZMD/aidermacs" :files ("*.el"))
@@ -696,7 +656,7 @@ If the new path's directories does not exist, create them."
   ;; (setenv "OPENROUTER_API_KEY" (my-get-openrouter-api-key))
   (setenv "GEMINI_API_KEY" (getenv "GEMINI_API_KEY"))
   :custom
-                                        ; See the Configuration section below
+										; See the Configuration section below
   (aidermacs-use-architect-mode nil)
   (aidermacs-auto-commits nil)
   (aidermacs-backend 'vterm)
@@ -705,16 +665,12 @@ If the new path's directories does not exist, create them."
   (aidermacs-default-model "ollama_chat/deepseek-r1:14b")
   )
 
-(use-package highlight-indentation
-  :straight (:host github :repo "antonj/Highlight-Indentation-for-Emacs")
+(use-package highlight-indent-guides
+  :straight t
+  :hook
+  (prog-mode . highlight-indent-guides-mode)
   :config
-  (setq highlight-indentation-blank-lines t)
-  (set-face-background 'highlight-indentation-face "#332c26")
-  (set-face-background 'highlight-indentation-current-column-face "#66615c")
-  :hook (;; (yaml-mode . highlight-indentation-mode)
-         ;; (python-mode . highlight-indentation-mode)
-         ;; (typescript-ts-mode . highlight-indentation-mode)
-         (prog-mode . highlight-indentation-mode)))
+  (setq highlight-indent-guides-method 'fill))
 
 (use-package ultra-scroll
   :straight (ultra-scroll
@@ -727,3 +683,7 @@ If the new path's directories does not exist, create them."
         scroll-margin 0) 
   :config
   (ultra-scroll-mode 1))
+
+(use-package rainbow-delimiters
+  :straight t
+  :hook (prog-mode . rainbow-delimiters-mode))
