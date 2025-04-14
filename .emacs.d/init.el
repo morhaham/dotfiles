@@ -2,6 +2,13 @@
 (load custom-file)
 
 ;;; General settings
+;; Ensure auto-save directory exists
+(let ((autosave-dir (expand-file-name "auto-saves/" user-emacs-directory)))
+  (unless (file-directory-p autosave-dir)
+    (make-directory autosave-dir t)))
+
+(setq auto-save-file-name-transforms	; Redirect all auto-save files into ~/.emacs.d/auto-saves/
+      `((".*" ,"~/.emacs.d/auto-saves/" t)))
 (delete-selection-mode 1)  ; Yank replaces the selected region
 (set-fringe-mode 14)
 (global-display-line-numbers-mode)
@@ -47,8 +54,7 @@ if spaces spaces, and if neither, we use the current `indent-tabs-mode`"
 
 ;; Don't litter file system with *~ backup files; put them all inside
 ;; ~/.emacs.d/backup or wherever
-;; taken from emacs-bedrock:
-;; https://codeberg.org/ashton314/emacs-bedrock/src/branch/main/init.el
+;; taken from emacs-bedrock:  https://codeberg.org/ashton314/emacs-bedrock/src/branch/main/init.el
 (defun bedrock--backup-file-name (fpath)
   "Return a new file path of a given file path(FPATH).
 If the new path's directories does not exist, create them."
@@ -117,8 +123,7 @@ If the new path's directories does not exist, create them."
   :straight (:host github :repo "tanrax/scroll-page-without-moving-point.el" :files ("scroll-page-without-moving-point.el"))
   :config
   (global-set-key "\C-v" 'scroll-page-without-moving-point-down)
-  (global-set-key "\M-v" 'scroll-page-without-moving-point-up)
-  :ensure t)
+  (global-set-key "\M-v" 'scroll-page-without-moving-point-up))
 
 ;; Highlights the cursor line on special movements
 (use-package beacon
@@ -126,20 +131,14 @@ If the new path's directories does not exist, create them."
   :init
   (beacon-mode 1))
 
-;; Smooth scroll and focus mode(centers the window)
-(use-package sublimity
-  :straight t
-  :init
-  ;; (require 'sublimity-attractive)
-  (require 'sublimity-scroll)
-  ;; (require 'sublimity-map)
-  :config
-  (sublimity-mode 1))
-;; (setq sublimity-attractive-centering-width 180))
-
 ;; Themes
 (use-package autothemer
   :straight t)
+
+(use-package vscode-dark-plus-theme
+  :straight t
+  :config
+  (load-theme 'vscode-dark-plus t))
 
 (use-package rose-pine-theme
   :straight (rose-pine-theme :type git :host github :repo "konrad1977/pinerose-emacs")
@@ -437,6 +436,13 @@ If the new path's directories does not exist, create them."
  	       (lsp-log-io nil)                     ; IMPORTANT! Use only for debugging! Drastically affects performance
 	       (lsp-keep-workspace-alive nil)        ; Close LSP server if all project buffers are closed
 	       ;; Core
+           (lsp-file-watch-ignored
+			'("[/\\\\]\\.git$"
+			  "[/\\\\]node_modules$"
+			  "[/\\\\]dist$"
+			  "[/\\\\]\\.emacs\\.d/emacs-backup$"  ; Ignore backups
+			  ".*\\.ts~$"))
+           (lsp-apply-edits-after-file-operations nil)
            (lsp-warn-no-matched-clients nil)
 	       (lsp-eldoc-enable-hover nil)          ; Hide signature information in the echo area
 	       (lsp-enable-dap-auto-configure t)     ; Debug support
@@ -472,7 +478,8 @@ If the new path's directories does not exist, create them."
            ;; Python
            (lsp-pylsp-plugins-pydocstyle-enabled nil)
            (lsp-pylsp-plugins-flake8-enabled nil)
-           (lsp-pylsp-configuration-sources nil)))
+           (lsp-pylsp-configuration-sources nil)
+           ))                        ; Ignore `.ts~` files directly)
 
 (use-package vertico ; Vertical completion UI
   :straight t
@@ -693,4 +700,30 @@ If the new path's directories does not exist, create them."
   (aidermacs-use-architect-mode nil)
   (aidermacs-auto-commits nil)
   (aidermacs-backend 'vterm)
-  (aidermacs-default-model "gemini/gemini-2.0-pro-exp-02-05"))
+  ;; (aidermacs-default-model "gemini/gemini-2.0-pro-exp-02-05")
+  ;; (aidermacs-default-model "ollama_chat/deepseek-coder-v2:16b")
+  (aidermacs-default-model "ollama_chat/deepseek-r1:14b")
+  )
+
+(use-package highlight-indentation
+  :straight (:host github :repo "antonj/Highlight-Indentation-for-Emacs")
+  :config
+  (setq highlight-indentation-blank-lines t)
+  (set-face-background 'highlight-indentation-face "#332c26")
+  (set-face-background 'highlight-indentation-current-column-face "#66615c")
+  :hook (;; (yaml-mode . highlight-indentation-mode)
+         ;; (python-mode . highlight-indentation-mode)
+         ;; (typescript-ts-mode . highlight-indentation-mode)
+         (prog-mode . highlight-indentation-mode)))
+
+(use-package ultra-scroll
+  :straight (ultra-scroll
+             :type git
+             :host github
+             :repo "jdtsmith/ultra-scroll"
+             :branch "main")
+  :init
+  (setq scroll-conservatively 101 ; important!
+        scroll-margin 0) 
+  :config
+  (ultra-scroll-mode 1))
