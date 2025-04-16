@@ -7,9 +7,9 @@
   (unless (file-directory-p autosave-dir)
     (make-directory autosave-dir t)))
 
-(setq auto-save-file-name-transforms	; Redirect all auto-save files into ~/.emacs.d/auto-saves/
+(setq auto-save-file-name-transforms ; Redirect all auto-save files into ~/.emacs.d/auto-saves/
       `((".*" ,"~/.emacs.d/auto-saves/" t)))
-(delete-selection-mode 1)  ; Yank replaces the selected region
+(delete-selection-mode 1) ; Yank replaces the selected region
 (set-fringe-style 0) ; Fringes are the little gutters on the left and right sides of each window
 (global-display-line-numbers-mode)
 ;; Automatically reread from disk if the underlying file changes
@@ -170,17 +170,44 @@ If the new path's directories does not exist, create them."
 
 ;; Terminal related
 (use-package vterm
-  :straight t)
+  :straight t
+  :config
+  (require 'project)
 
-;; (straight-use-package
-;;  '(eat :type git
-;;        :host codeberg
-;;        :repo "akib/emacs-eat"
-;;        :files ("*.el" ("term" "term/*.el") "*.texi"
-;;                "*.ti" ("terminfo/e" "terminfo/e/*")
-;;                ("terminfo/65" "terminfo/65/*")
-;;                ("integration" "integration/*")
-;;                (:exclude ".dir-locals.el" "*-tests.el"))))
+  (defun my/vterm-buffer-name-from-project ()
+    "Return a vterm buffer name based on the current project."
+    (let* ((project (project-current))
+           (name (if project
+                     (file-name-nondirectory (directory-file-name (project-root project)))
+                   "vterm")))
+      (generate-new-buffer-name (format "*vterm: %s*" name))))
+
+  (defun my/vterm-new-buffer-in-project ()
+    "Open a new vterm buffer named after the current project."
+    (interactive)
+    (let ((default-directory (or (when-let ((proj (project-current)))
+                                   (project-root proj))
+                                 default-directory)))
+      (vterm (my/vterm-buffer-name-from-project))))
+
+  (defun my/vterm-vertical-split ()
+    "Open a new vterm in a vertical split, using the current project root."
+    (interactive)
+    (split-window-right)
+    (other-window 1)
+    (my/vterm-new-buffer-in-project))
+
+  (defun my/vterm-horizontal-split ()
+    "Open a new vterm in a horizontal split, using the current project root."
+    (interactive)
+    (split-window-below)
+    (other-window 1)
+    (my/vterm-new-buffer-in-project))
+
+  ;; Keybindings
+  (global-set-key (kbd "C-c t") #'my/vterm-new-buffer-in-project)
+  (global-set-key (kbd "C-c v") #'my/vterm-vertical-split)
+  (global-set-key (kbd "C-c s") #'my/vterm-horizontal-split))
 
 (use-package ansi-color
   :hook (compilation-filter . ansi-color-compilation-filter))
