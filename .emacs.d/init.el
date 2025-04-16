@@ -33,8 +33,8 @@
 ;; (setopt tab-bar-history-mode t)
 (setopt tab-bar-show t)
 (setopt tab-bar-tab-hints t)
-(global-set-key (kbd "s-{") 'tab-bar-switch-to-prev-tab)
-(global-set-key (kbd "s-}") 'tab-bar-switch-to-next-tab)
+(global-set-key (kbd "s-[") 'tab-bar-switch-to-prev-tab)
+(global-set-key (kbd "s-]") 'tab-bar-switch-to-next-tab)
 (global-set-key (kbd "s-t") 'tab-bar-new-tab)
 (global-set-key (kbd "s-w") 'tab-bar-close-tab)
 
@@ -77,8 +77,8 @@ If the new path's directories does not exist, create them."
 (setopt ns-function-modifier 'hyper) ; Make Fn key do Hyper
 (windmove-default-keybindings 'meta) ; Move through windows with Ctrl-<arrow keys>
 
-(global-set-key (kbd "s-[") 'previous-buffer)
-(global-set-key (kbd "s-]") 'next-buffer)
+(global-set-key (kbd "M-[") 'previous-buffer)
+(global-set-key (kbd "M-]") 'next-buffer)
 
 (global-set-key (kbd "M-o") 'other-window)
 (defun kill-other-buffers ()
