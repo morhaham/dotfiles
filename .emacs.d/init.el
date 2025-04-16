@@ -10,7 +10,7 @@
 (setq auto-save-file-name-transforms	; Redirect all auto-save files into ~/.emacs.d/auto-saves/
       `((".*" ,"~/.emacs.d/auto-saves/" t)))
 (delete-selection-mode 1)  ; Yank replaces the selected region
-(set-fringe-mode 14)
+(set-fringe-style 0) ; Fringes are the little gutters on the left and right sides of each window
 (global-display-line-numbers-mode)
 ;; Automatically reread from disk if the underlying file changes
 (setopt auto-revert-avoid-polling t)
@@ -25,16 +25,20 @@
 (setopt ring-bell-function 'ignore)  ; Disable beep on C-g (keyboard-quit)
 (setopt tab-width 4)
 (setopt winner-mode t) ; Saves window configuration history, undo/redo history with C-c left/right
+(setopt hl-line-mode t)
+(setopt cursor-type 'bar)
 
 ;; Tab bar mode related
 (setopt tab-bar-mode t)
-(setopt tab-bar-history-mode t)
-(setopt tab-bar-show nil)
-(global-set-key (kbd "M-[") 'tab-bar-history-back)
-(global-set-key (kbd "M-]") 'tab-bar-history-forward)
+;; (setopt tab-bar-history-mode t)
+(setopt tab-bar-show t)
+(setopt tab-bar-tab-hints t)
+(global-set-key (kbd "s-{") 'tab-bar-switch-to-prev-tab)
+(global-set-key (kbd "s-}") 'tab-bar-switch-to-next-tab)
+(global-set-key (kbd "s-t") 'tab-bar-new-tab)
+(global-set-key (kbd "s-w") 'tab-bar-close-tab)
 
-;; (setopt pixel-scroll-precision-large-scroll-height 40.0)
-(defun infer-indentation-style ()
+(defun infer-indentation-style()
   "If our source file use tabs, we use tabs.
 if spaces spaces, and if neither, we use the current `indent-tabs-mode`"
   (let ((space-count (how-many "^  " (point-min) (point-max)))
@@ -73,6 +77,9 @@ If the new path's directories does not exist, create them."
 (setopt ns-function-modifier 'hyper) ; Make Fn key do Hyper
 (windmove-default-keybindings 'meta) ; Move through windows with Ctrl-<arrow keys>
 
+(global-set-key (kbd "s-[") 'previous-buffer)
+(global-set-key (kbd "s-]") 'next-buffer)
+
 (global-set-key (kbd "M-o") 'other-window)
 (defun kill-other-buffers ()
   "Kill all other buffers."
@@ -91,7 +98,7 @@ If the new path's directories does not exist, create them."
 (recentf-mode t)
 
 ;;; Font
-(set-frame-font "JetBrains Mono 15" t t)
+(set-frame-font "JetBrains Mono 14" t t)
 ;; (set-frame-font "Iosevka Nerd Font 16" t t)
 ;; (set-frame-font "Monaspace Neon Var 16" nil t)
 ;; (set-frame-font "Fantasque Sans Mono 18" nil t)
@@ -160,9 +167,6 @@ If the new path's directories does not exist, create them."
   (when (or (daemonp) (memq window-system '(mac ns x)))
     (exec-path-from-shell-initialize)
     (exec-path-from-shell-copy-envs '("OLLAMA_API_BASE" "GEMINI_API_KEY"))))
-
-(use-package project)
-
 
 ;; Terminal related
 (use-package vterm
@@ -484,12 +488,10 @@ If the new path's directories does not exist, create them."
 
 (use-package embark
   :straight t
-
   :bind
   (("C-." . embark-act)         ;; pick some comfortable binding
    ("C-;" . embark-dwim)        ;; good alternative: M-.
    ("C-h B" . embark-bindings)) ;; alternative for `describe-bindings'
-
   :init
   ;; Optionally replace the key help with a completing-read interface
   (setq prefix-help-command #'embark-prefix-help-command)
@@ -662,8 +664,7 @@ If the new path's directories does not exist, create them."
   (aidermacs-backend 'vterm)
   ;; (aidermacs-default-model "gemini/gemini-2.0-pro-exp-02-05")
   ;; (aidermacs-default-model "ollama_chat/deepseek-coder-v2:16b")
-  (aidermacs-default-model "ollama_chat/deepseek-r1:14b")
-  )
+  (aidermacs-default-model "ollama_chat/deepseek-r1:14b"))
 
 (use-package highlight-indent-guides
   :straight t
