@@ -7,6 +7,9 @@ return {
     config = function()
       local builtin = require("telescope.builtin")
       local actions = require("telescope.actions")
+      local open_with_trouble = require("trouble.sources.telescope").open
+      -- Use this to add more results without clearing the trouble list
+      local add_to_trouble = require("trouble.sources.telescope").add
       -- local themes = require("telescope.themes")
 
       vim.keymap.set("n", "<leader>ff", function()
@@ -26,7 +29,17 @@ return {
       vim.keymap.set("n", "<leader>wd", builtin.diagnostics, { desc = "workspace diagnostics" })
 
       require("telescope").setup({
+        defaults = {
+          mappings = {
+            i = { ["<C-q>"] = open_with_trouble },
+            n = { ["<C-q>"] = open_with_trouble },
+          },
+        },
         pickers = {
+          find_files = {
+            hidden = true,
+            no_ignore = true,
+          },
           buffers = {
             mappings = {
               i = {
@@ -54,6 +67,7 @@ return {
     opts = {
       detection_methods = { "lsp", "pattern" },
       patterns = { ".git", "Cargo.toml", ".hg", ".bzr", ".svn", "Makefile" },
+      show_hidden = true,
     },
     event = "VeryLazy",
     config = function(_, opts)

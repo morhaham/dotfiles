@@ -5,4 +5,5 @@ return {
   require("plugins.ui.smart-splits"),
   require("plugins.ui.noice"),
   require("plugins.ui.lualine"),
+  require("plugins.ui.trouble"),
 }
