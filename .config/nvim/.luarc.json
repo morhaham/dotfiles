@@ -3,5 +3,8 @@
         "vim",
         "_wezterm_osc_cwd",
         "url_encode"
+    ],
+    "diagnostics.disable": [
+        "deprecated"
     ]
 }

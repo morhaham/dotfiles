@@ -25,6 +25,9 @@ return {
           "gopls",
           "golangci_lint_ls",
           "templ",
+          "tsserver",
+          "lua_ls",
+          "pylsp",
         },
         handlers = { default_setup },
       }

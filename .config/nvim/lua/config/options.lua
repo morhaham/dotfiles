@@ -2,7 +2,7 @@ vim.g.mapleader = " "
 
 local options = {
   termguicolors = true, -- Enable 24 bits color in terminal
-  guicursor = "n-v-c-i:block", -- Set the gui cursor to nothing for each mode
+  -- guicursor = "n-v-c-i:block", -- Set the gui cursor to nothing for each mode
   inccommand = "nosplit", -- Show effect of command incrementally while writing it (substitution)
   showmode = false, -- Don't need to show mode
   mouse = "a", -- Enable mouse in all mode

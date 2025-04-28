@@ -49,4 +49,17 @@ return {
     "nvim-telescope/telescope-fzf-native.nvim",
     build = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release",
   },
+  {
+    "ahmedkhalf/project.nvim",
+    opts = {
+      detection_methods = { "lsp", "pattern" },
+      patterns = { ".git", "Cargo.toml", ".hg", ".bzr", ".svn", "Makefile" },
+    },
+    event = "VeryLazy",
+    config = function(_, opts)
+      require("project_nvim").setup(opts)
+      require("telescope").load_extension("projects")
+      vim.keymap.set("n", "<leader>fp", ":Telescope projects <CR>")
+    end,
+  },
 }
