@@ -3,6 +3,7 @@ return {
   event = "VeryLazy",
   config = function()
     require("noice").setup({
+      background_colour = "#000000",
       routes = {
         {
           view = "notify",

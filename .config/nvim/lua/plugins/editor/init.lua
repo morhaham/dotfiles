@@ -9,4 +9,5 @@ return {
   require("plugins.editor.smartyank"),
   require("plugins.editor.nvim-dap"),
   require("plugins.editor.telescope"),
+  require("plugins.editor.lazygit"),
 }

@@ -8,14 +8,14 @@ return {
       require("rose-pine").setup({
         highlight_groups = {
           StatusLineTerm = { fg = "subtle", bg = "surface" },
-          StatusLineTermNC = { fg = "muted", bg = "surface", blend = 60 },
+          StatusLineTermNC = { fg = "muted", bg = "surface", blend = 0 },
         },
         styles = {
           transparency = true,
           italic = false,
         },
       })
-      -- vim.cmd("colorscheme rose-pine")
+      vim.cmd("colorscheme rose-pine")
     end,
   },
   {

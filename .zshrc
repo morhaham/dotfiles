@@ -46,7 +46,7 @@ export PATH="$PATH:/Users/morh/.local/bin"
 # jenv java env manager
 export PATH="$HOME/.jenv/bin:$PATH"
 eval "$(jenv init -)"
-jenv enable-plugin export
+# jenv enable-plugin export
 # java related end
 
 [ -f /opt/homebrew/etc/profile.d/autojump.sh ] && . /opt/homebrew/etc/profile.d/autojump.sh

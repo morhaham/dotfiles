@@ -15,6 +15,7 @@ offset = { y = 5, x = 0 }
 
 [window]
 option_as_alt = "Both"
+decorations = "None"
 
 [keyboard]
 # Remove line with Cmd+Backspace 

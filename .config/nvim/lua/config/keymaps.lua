@@ -9,4 +9,4 @@ vim.keymap.set({ "n" }, "<leader>n", ":cnext<CR>", {
 vim.keymap.set({ "n" }, "<leader>p", ":cprev<CR>", {
   desc = "Go to the prev item in the quickfix list",
 })
--- vim.keymap.set("i", "kk", "<ESC>", { desc = "Exit insert mode with kj" })
+vim.keymap.set("i", "jj", "<ESC>", { desc = "Exit insert mode with jj" })
