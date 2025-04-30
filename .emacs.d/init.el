@@ -1,7 +1,7 @@
 (setq custom-file "~/dotfiles/.emacs.d/emacs-custom.el")
 (load custom-file)
 
-;;; General settings
+ ;;; General settings
 ;; Ensure auto-save directory exists
 (let ((autosave-dir (expand-file-name "auto-saves/" user-emacs-directory)))
   (unless (file-directory-p autosave-dir)
@@ -31,8 +31,8 @@
 ;; Tab bar mode related
 (setopt tab-bar-mode t)
 ;; (setopt tab-bar-history-mode t)
-(setopt tab-bar-show t)
-(setopt tab-bar-tab-hints t)
+;; (setopt tab-bar-show t)
+;; (setopt tab-bar-tab-hints t)
 (global-set-key (kbd "s-[") 'tab-bar-switch-to-prev-tab)
 (global-set-key (kbd "s-]") 'tab-bar-switch-to-next-tab)
 (global-set-key (kbd "s-t") 'tab-bar-new-tab)
@@ -142,15 +142,15 @@ If the new path's directories does not exist, create them."
 (use-package autothemer
   :straight t)
 
-(use-package vscode-dark-plus-theme
-  :straight t
-  :config
-  (load-theme 'vscode-dark-plus t))
+;; (use-package vscode-dark-plus-theme
+;;   :straight t
+;;   :config
+;;   (load-theme 'vscode-dark-plus t))
 
 (use-package rose-pine-theme
   :straight (rose-pine-theme :type git :host github :repo "konrad1977/pinerose-emacs")
-  :after autothemer)
-;; :init (load-theme 'rose-pine t))
+  :after autothemer
+  :init (load-theme 'rose-pine t))
 
 (use-package ef-themes
   :straight t
