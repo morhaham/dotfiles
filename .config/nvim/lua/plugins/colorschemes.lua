@@ -12,7 +12,8 @@ return {
         },
         styles = {
           transparency = true,
-          italic = false,
+          italic = true,
+          bold= true,
         },
       })
       vim.cmd("colorscheme rose-pine")

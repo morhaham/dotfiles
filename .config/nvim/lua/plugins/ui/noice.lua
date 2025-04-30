@@ -3,7 +3,6 @@ return {
   event = "VeryLazy",
   config = function()
     require("noice").setup({
-      background_colour = "#000000",
       routes = {
         {
           view = "notify",
@@ -39,4 +38,10 @@ return {
     --   If not available, we use `mini` as the fallback
     "rcarriga/nvim-notify",
   },
+  -- {
+  --   "nvim-notify",
+  --   opts = {
+  --     background_colour = "#000000",
+  --   },
+  -- },
 }

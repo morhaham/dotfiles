@@ -1,7 +1,7 @@
 (setq custom-file "~/dotfiles/.emacs.d/emacs-custom.el")
 (load custom-file)
 
- ;;; General settings
+;;; General settings
 ;; Ensure auto-save directory exists
 (let ((autosave-dir (expand-file-name "auto-saves/" user-emacs-directory)))
   (unless (file-directory-p autosave-dir)
@@ -31,7 +31,7 @@
 ;; Tab bar mode related
 (setopt tab-bar-mode t)
 ;; (setopt tab-bar-history-mode t)
-;; (setopt tab-bar-show t)
+(setopt tab-bar-show -1)
 ;; (setopt tab-bar-tab-hints t)
 (global-set-key (kbd "s-[") 'tab-bar-switch-to-prev-tab)
 (global-set-key (kbd "s-]") 'tab-bar-switch-to-next-tab)

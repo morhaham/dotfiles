@@ -6,4 +6,5 @@ return {
   require("plugins.ui.noice"),
   require("plugins.ui.lualine"),
   require("plugins.ui.trouble"),
+  require("plugins.ui.neoscroll"),
 }

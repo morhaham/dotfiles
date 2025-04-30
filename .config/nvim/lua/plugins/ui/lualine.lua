@@ -1,5 +1,5 @@
 return {
-  "nvim-lualine/lualine.nvim",
+"nvim-lualine/lualine.nvim",
   event = "ColorScheme",
   config = function()
     require("lualine").setup({
@@ -11,18 +11,20 @@ return {
         component_separators = "",
       },
       sections = {
-        lualine_a = {
-          {
-            "mode",
-            fmt = function(str)
-              return "[" .. str .. "]"
-            end,
-          },
-        },
+        -- lualine_a = {
+        --   -- {
+        --   --   "mode",
+        --   --   fmt = function(str)
+        --   --     return "[" .. str .. "]"
+        --   --   end,
+        --   -- }
+        --   ,
+        -- },
+        lualine_a = { "filename" },
         lualine_b = { "branch" },
-        lualine_c = { "filename" },
-        lualine_x = { "encoding", "fileformat", "filetype" },
-        lualine_y = { "progress" },
+        lualine_c = { "" },
+        lualine_x = { "filetype", "encoding" },
+        lualine_y = { "" },
         lualine_z = { "location" },
       },
     })

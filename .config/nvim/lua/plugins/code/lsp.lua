@@ -25,7 +25,7 @@ return {
           "gopls",
           "golangci_lint_ls",
           "templ",
-          "tsserver",
+          "ts_ls",
           "lua_ls",
           "pylsp",
         },
@@ -95,7 +95,7 @@ return {
           )
           vim.keymap.set(
             "n",
-            "<M-;>",
+            "<M-k>",
             vim.diagnostic.open_float,
             vim.tbl_extend("force", opts, { desc = "Show diagnostic float" })
           )
