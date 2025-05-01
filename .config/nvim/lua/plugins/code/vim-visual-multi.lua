@@ -8,7 +8,7 @@ return {
       ["Find Subword Under"] = "<M-n>",
       ["Add Cursor Down"] = "<M-Down>",
       ["Add Cursor Up"] = "<M-Up>",
-      ["Add Cursor At Pos"] = "<C-e>",
+      ["Add Cursor At Pos"] = "<C-m>",
     }
   end,
 }
