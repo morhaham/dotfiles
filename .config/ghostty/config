@@ -6,7 +6,12 @@ font-size = 14
 theme = rose-pine
 
 # Window
-window-decoration = none
+window-decoration = false
+macos-titlebar-style = hidden
+maximize = true
+window-save-state = always
+window-width = 9999
+window-height = 9999
 
 # Misc
 macos-option-as-alt = true

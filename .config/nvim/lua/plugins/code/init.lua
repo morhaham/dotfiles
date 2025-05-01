@@ -12,4 +12,5 @@ return {
   require("plugins.code.vim-doge"),
   require("plugins.code.mini-move"),
   require("plugins.code.vim-visual-multi"),
+  require("plugins.code.rainbow-delimiters"),
 }

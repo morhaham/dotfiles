@@ -31,7 +31,7 @@
 ;; Tab bar mode related
 (setopt tab-bar-mode t)
 ;; (setopt tab-bar-history-mode t)
-(setopt tab-bar-show -1)
+(setopt tab-bar-show nil)
 ;; (setopt tab-bar-tab-hints t)
 (global-set-key (kbd "s-[") 'tab-bar-switch-to-prev-tab)
 (global-set-key (kbd "s-]") 'tab-bar-switch-to-next-tab)
