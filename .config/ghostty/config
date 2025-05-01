@@ -1,0 +1,12 @@
+# Font
+font-family = JetBrains Mono Nerd Font
+font-size = 14
+
+# Theme
+theme = rose-pine
+
+# Window
+window-decoration = none
+
+# Misc
+macos-option-as-alt = true

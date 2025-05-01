@@ -4,7 +4,7 @@ return {
   cmd = { "ConformInfo" },
   config = function(_, opts)
     local conform = require("conform")
-    vim.keymap.set("n", "<C-f>", function()
+    vim.keymap.set({"n", "i", "v"}, "<Leader>fb", function()
       conform.format({ async = false })
     end, { desc = "Format buffer" })
     conform.setup(opts)

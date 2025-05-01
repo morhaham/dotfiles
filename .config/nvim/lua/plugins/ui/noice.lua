@@ -26,6 +26,10 @@ return {
         lsp_doc_border = false, -- add a border to hover docs and signature help
       },
     })
+    local notify = require("notify")
+    notify.setup({
+      background_colour = "#000000",
+    })
   end,
   opts = {
     -- add any options here
@@ -38,10 +42,4 @@ return {
     --   If not available, we use `mini` as the fallback
     "rcarriga/nvim-notify",
   },
-  -- {
-  --   "nvim-notify",
-  --   opts = {
-  --     background_colour = "#000000",
-  --   },
-  -- },
 }

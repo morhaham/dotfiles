@@ -39,6 +39,7 @@ config.font = wezterm.font("JetbrainsMono Nerd Font", { weight = "DemiBold", str
 -- 	},
 -- }
 config.window_decorations = "RESIZE|MACOS_FORCE_DISABLE_SHADOW"
+-- config.send_composed_key_when_left_alt_is_pressed = true
 config.audible_bell = "Disabled"
 config.initial_cols = 180
 config.initial_rows = 80
@@ -91,22 +92,22 @@ config.background = {
 
 -- Keybindings
 config.keys = {
-	{ mods = "OPT", key = "LeftArrow", action = act.SendKey({ mods = "ALT", key = "b" }) },
-	{ mods = "OPT", key = "RightArrow", action = act.SendKey({ mods = "ALT", key = "f" }) },
-	{ mods = "CMD", key = "LeftArrow", action = act.SendKey({ mods = "CTRL", key = "a" }) },
-	{ mods = "CMD", key = "RightArrow", action = act.SendKey({ mods = "CTRL", key = "e" }) },
-	{ mods = "CMD", key = "Backspace", action = act.SendKey({ mods = "CTRL", key = "u" }) },
-	{ key = "d", mods = "CMD", action = act.SplitPane({ direction = "Right", size = { Percent = 30 } }) },
-	{ key = "D", mods = "CMD", action = act.SplitPane({ direction = "Down", size = { Percent = 30 } }) },
-	{ key = "w", mods = "CMD", action = act.CloseCurrentPane({ confirm = true }) },
-	{ key = "H", mods = "CMD", action = act.AdjustPaneSize({ "Left", 10 }) },
-	{ key = "J", mods = "CMD", action = act.AdjustPaneSize({ "Down", 10 }) },
-	{ key = "K", mods = "CMD", action = act.AdjustPaneSize({ "Up", 10 }) },
-	{ key = "L", mods = "CMD", action = act.AdjustPaneSize({ "Right", 10 }) },
-	{ key = "h", mods = "CMD", action = act.ActivatePaneDirection("Left") },
-	{ key = "l", mods = "CMD", action = act.ActivatePaneDirection("Right") },
-	{ key = "k", mods = "CMD", action = act.ActivatePaneDirection("Up") },
-	{ key = "j", mods = "CMD", action = act.ActivatePaneDirection("Down") },
+	-- { mods = "OPT", key = "LeftArrow", action = act.SendKey({ mods = "ALT", key = "b" }) },
+	-- { mods = "OPT", key = "RightArrow", action = act.SendKey({ mods = "ALT", key = "f" }) },
+	-- { mods = "CMD", key = "LeftArrow", action = act.SendKey({ mods = "CTRL", key = "a" }) },
+	-- { mods = "CMD", key = "RightArrow", action = act.SendKey({ mods = "CTRL", key = "e" }) },
+	-- { mods = "CMD", key = "Backspace", action = act.SendKey({ mods = "CTRL", key = "u" }) },
+	-- { key = "d", mods = "CMD", action = act.SplitPane({ direction = "Right", size = { Percent = 30 } }) },
+	-- { key = "D", mods = "CMD", action = act.SplitPane({ direction = "Down", size = { Percent = 30 } }) },
+	-- { key = "w", mods = "CMD", action = act.CloseCurrentPane({ confirm = true }) },
+	-- { key = "H", mods = "CMD", action = act.AdjustPaneSize({ "Left", 10 }) },
+	-- { key = "J", mods = "CMD", action = act.AdjustPaneSize({ "Down", 10 }) },
+	-- { key = "K", mods = "CMD", action = act.AdjustPaneSize({ "Up", 10 }) },
+	-- { key = "L", mods = "CMD", action = act.AdjustPaneSize({ "Right", 10 }) },
+	-- { key = "h", mods = "CMD", action = act.ActivatePaneDirection("Left") },
+	-- { key = "l", mods = "CMD", action = act.ActivatePaneDirection("Right") },
+	-- { key = "k", mods = "CMD", action = act.ActivatePaneDirection("Up") },
+	-- { key = "j", mods = "CMD", action = act.ActivatePaneDirection("Down") },
 }
 
 return config

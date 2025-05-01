@@ -14,3 +14,7 @@
 * Emacs Plus - https://github.com/d12frosted/homebrew-emacs-plus
 * Clipy - clipboard history manager - use `<CMD-SHIFT-v>` for pasting
 * Fzf - fuzzy finder used by Telescope
+
+
+## Useful commands:
+* `brew bundle dump --force --file=Brewfile`

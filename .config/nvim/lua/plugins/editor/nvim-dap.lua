@@ -20,7 +20,7 @@ return {
       dap.listeners.before.event_exited.dapui_config = function()
         dapui.close()
       end
-      vim.fn.sign_define("DapBreakpoint", { text = "🔴", texthl = "", linehl = "", numhl = "" })
+      vim.fn.sign_define("DapBreakpoint", { text = "◉", texthl = "", linehl = "", numhl = "" })
       require("neodev").setup({
         library = { plugins = { "nvim-dap-ui" }, types = true },
       })
@@ -90,12 +90,12 @@ return {
       vim.keymap.set("n", "<F4>", function()
         require("dap").step_out()
       end)
-      vim.keymap.set("n", "<Leader>b", function()
+      vim.keymap.set({ "i", "n" }, "<M-b>", function()
         require("dap").toggle_breakpoint()
       end, { desc = "Toggle breakpoint" })
-      vim.keymap.set("n", "<Leader>B", function()
-        require("dap").set_breakpoint()
-      end)
+      -- vim.keymap.set("n", "<Leader>B", function()
+      --   require("dap").set_breakpoint()
+      -- end)
       vim.keymap.set("n", "<Leader>lp", function()
         require("dap").set_breakpoint(nil, nil, vim.fn.input("Log point message: "))
       end)

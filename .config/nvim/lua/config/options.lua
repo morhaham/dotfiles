@@ -45,6 +45,8 @@ local options = {
   winminwidth = 5, -- Minimum window width
   allowrevins = true, -- Allow reverse insert mode with <C-/> (for rtl text)
   showtabline = 0, -- Hide tabline
+  belloff = "all"
+
 }
 
 for opt, val in pairs(options) do
