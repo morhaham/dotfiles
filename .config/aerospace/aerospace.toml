@@ -79,7 +79,7 @@ automatically-unhide-macos-hidden-apps = true
     inner.vertical =   0
     outer.left =       2
     outer.bottom =     2
-    outer.top =        30
+    outer.top =        33
     outer.right =      2
 
 # 'main' binding mode declaration
@@ -121,16 +121,16 @@ automatically-unhide-macos-hidden-apps = true
     cmd-shift-m = 'fullscreen'
 
     # See: https://nikitabobko.github.io/AeroSpace/commands#focus
-    cmd-left = 'focus left'
-    cmd-down = 'focus down'
-    cmd-up = 'focus up'
-    cmd-right = 'focus right'
+    cmd-h = 'focus left'
+    cmd-j = 'focus down'
+    cmd-k = 'focus up'
+    cmd-l = 'focus right'
 
     # See: https://nikitabobko.github.io/AeroSpace/commands#move
-    cmd-shift-left = 'move left'
-    cmd-shift-down = 'move down'
-    cmd-shift-up = 'move up'
-    cmd-shift-right = 'move right'
+    cmd-shift-h = 'move left'
+    cmd-shift-j = 'move down'
+    cmd-shift-k = 'move up'
+    cmd-shift-l = 'move right'
 
     # See: https://nikitabobko.github.io/AeroSpace/commands#resize
     cmd-shift-minus = 'resize smart -50'
