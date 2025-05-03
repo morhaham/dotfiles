@@ -25,10 +25,11 @@ if [ "$sid" = "$focused" ]; then
   sketchybar --set space.$sid \
     drawing=on \
     label="$icon_strip" \
-    background.color=0xFFEB6F92 \
+    background.color=0xFFB4637A \
     label.shadow.drawing=on \
     icon.shadow.drawing=on \
-    background.border_width=2
+    background.height=23 \
+    background.border_width=1
 else
   sketchybar --set space.$sid \
     drawing=on \

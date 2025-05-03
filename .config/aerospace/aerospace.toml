@@ -18,7 +18,7 @@ after-startup-command = [
     'exec-and-forget sketchybar',   
     # jankyborders has a built-in detection of already running process,
     # so it won't be run twice on aerospace restart
-    'exec-and-forget borders active_color=0xffeb6f92 inactive_color=0xff26233a width=5.0'
+    'exec-and-forget borders active_color=0xFFB4637A inactive_color=0xff26233a width=5.0'
 
 ,
 ]
