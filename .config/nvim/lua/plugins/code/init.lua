@@ -13,4 +13,6 @@ return {
   require("plugins.code.mini-move"),
   require("plugins.code.vim-visual-multi"),
   require("plugins.code.rainbow-delimiters"),
+  require("plugins.code.yanky"),
+  require("plugins.code.vim-illuminate"),
 }

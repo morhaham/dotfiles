@@ -40,13 +40,13 @@ local options = {
   splitright = true, -- Put new windows right of current
   splitkeep = "screen",
   virtualedit = "block", -- Allow cursor to move where there is no text in visual block mode
-  timeoutlen = 300, -- Time to wait for a mapped sequence to complete (in milliseconds)
   wildmode = "longest:full,full", -- Command-line completion mode
   winminwidth = 5, -- Minimum window width
   allowrevins = true, -- Allow reverse insert mode with <C-/> (for rtl text)
   showtabline = 0, -- Hide tabline
-  belloff = "all"
-
+  belloff = "all",
+  timeout = true,
+  timeoutlen = 300,
 }
 
 for opt, val in pairs(options) do

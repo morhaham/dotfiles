@@ -10,4 +10,5 @@ return {
   require("plugins.editor.nvim-dap"),
   require("plugins.editor.telescope"),
   require("plugins.editor.lazygit"),
+  require("plugins.editor.nvim-spectre"),
 }

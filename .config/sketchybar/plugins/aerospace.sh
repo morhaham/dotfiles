@@ -29,7 +29,7 @@ if [ "$sid" = "$focused" ]; then
     label.shadow.drawing=on \
     icon.shadow.drawing=on \
     background.height=23 \
-    background.border_width=1
+    background.border_width=2
 else
   sketchybar --set space.$sid \
     drawing=on \

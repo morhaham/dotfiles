@@ -9,6 +9,7 @@ return {
       ["Add Cursor Down"] = "<M-Down>",
       ["Add Cursor Up"] = "<M-Up>",
       ["Add Cursor At Pos"] = "<C-m>",
+      ['Select All'] = "\\a"
     }
   end,
 }
