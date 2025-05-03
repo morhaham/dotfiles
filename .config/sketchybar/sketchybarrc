@@ -21,7 +21,7 @@ default=(
   padding_left=5
   padding_right=5
   icon.font="JetBrainsMono Nerd Font:Bold:14.0"
-  label.font="SF Pro:Semibold:14.0"
+  label.font="JetBrainsMono Nerd Font:Semibold:14.0"
   icon.color=0xffffffff
   label.color=0xffffffff
   icon.padding_left=4
@@ -37,10 +37,12 @@ sketchybar --default "${default[@]}"
 # Add the aerospace_workspace_change event we specified in aerospace.toml
 sketchybar --add event aerospace_workspace_change
 
-# --- Monitor 1 Workspaces ---
-for sid in $(aerospace list-workspaces --monitor 1 --empty no); do
+# --- Workspace items ---
+for sid in $(aerospace list-workspaces --all); do
+  apps=$(aerospace list-windows --workspace "$sid" | awk -F'|' '{print $2}' | sed '/^\s*$/d')
+  
+  # Add the item first (drawing=off by default)
   sketchybar --add item space.$sid left \
-    --subscribe space.$sid aerospace_workspace_change \
     --set space.$sid \
     drawing=off \
     background.color=0x44ffffff \
@@ -56,51 +58,55 @@ for sid in $(aerospace list-workspaces --monitor 1 --empty no); do
     label.font="sketchybar-app-font:Regular:14.0" \
     label.padding_right=20 \
     label.padding_left=0 \
-    label.y_offset=-1 \
+    label.y_offset=-2 \
     label.shadow.drawing=off \
     label.shadow.color=0xA0000000 \
     label.shadow.distance=4 \
     click_script="aerospace workspace $sid" \
-    script="$CONFIG_DIR/plugins/aerospace.sh $sid"
+    script="$CONFIG_DIR/plugins/aerospace.sh $sid" \
+    --subscribe space.$sid aerospace_workspace_change
+
+  # Manually trigger the script to update initial state
+  "$CONFIG_DIR/plugins/aerospace.sh" "$sid" &
 done
 
-# --- Separator between Monitor 1 and Monitor 2 ---
-sketchybar --add item separator.monitor2 left \
-  --set separator.monitor2 \
-  icon="|" \
-  icon.font="sketchybar-app-font:Regular:14.0" \
-  icon.color=0x55FFFFFF \
-  label.drawing=off \
-  background.drawing=off \
-  padding_left=6 \
-  padding_right=6
-
-# --- Monitor 2 Workspaces ---
-for sid in $(aerospace list-workspaces --monitor 2 --empty no); do
-  sketchybar --add item space.$sid left \
-    --subscribe space.$sid aerospace_workspace_change \
-    --set space.$sid \
-    drawing=off \
-    background.color=0x44ffffff \
-    background.corner_radius=5 \
-    background.drawing=on \
-    background.border_color=0xAAFFFFFF \
-    background.border_width=0 \
-    background.height=22 \
-    icon="$sid" \
-    icon.padding_left=10 \
-    icon.shadow.distance=4 \
-    icon.shadow.color=0xA0000000 \
-    label.font="sketchybar-app-font:Regular:14.0" \
-    label.padding_right=20 \
-    label.padding_left=0 \
-    label.y_offset=-1 \
-    label.shadow.drawing=off \
-    label.shadow.color=0xA0000000 \
-    label.shadow.distance=4 \
-    click_script="aerospace workspace $sid" \
-    script="$CONFIG_DIR/plugins/aerospace.sh $sid"
-done
+# # --- Separator between Monitor 1 and Monitor 2 ---
+# sketchybar --add item separator.monitor2 left \
+#   --set separator.monitor2 \
+#   icon="|" \
+#   icon.font="sketchybar-app-font:Regular:14.0" \
+#   icon.color=0x55FFFFFF \
+#   label.drawing=off \
+#   background.drawing=off \
+#   padding_left=6 \
+#   padding_right=6
+#
+# # --- Monitor 2 Workspaces ---
+# for sid in $(aerospace list-workspaces --monitor 2 --empty no); do
+#   sketchybar --add item space.$sid left \
+#     --subscribe space.$sid aerospace_workspace_change \
+#     --set space.$sid \
+#     drawing=off \
+#     background.color=0x44ffffff \
+#     background.corner_radius=5 \
+#     background.drawing=on \
+#     background.border_color=0xAAFFFFFF \
+#     background.border_width=0 \
+#     background.height=22 \
+#     icon="$sid" \
+#     icon.padding_left=10 \
+#     icon.shadow.distance=4 \
+#     icon.shadow.color=0xA0000000 \
+#     label.font="sketchybar-app-font:Regular:14.0" \
+#     label.padding_right=20 \
+#     label.padding_left=0 \
+#     label.y_offset=-2 \
+#     label.shadow.drawing=off \
+#     label.shadow.color=0xA0000000 \
+#     label.shadow.distance=4 \
+#     click_script="aerospace workspace $sid" \
+#     script="$CONFIG_DIR/plugins/aerospace.sh $sid"
+# done
 
 # --- Separator before Front App ---
 sketchybar --add item separator.frontapp left \
@@ -121,19 +127,33 @@ sketchybar --add item front_app left \
   --subscribe front_app front_app_switched
 
 # --- Populate App Icons in Workspaces ---
-for sid in $(aerospace list-workspaces --all); do
-  apps=$(aerospace list-windows --workspace "$sid" | awk -F'|' '{gsub(/^ *| *$/, "", $2); print $2}')
-  sketchybar --set space.$sid drawing=on
-
-  icon_strip=""
-  if [ -n "$apps" ]; then
-    while read -r app; do
-      icon_strip+=" $($CONFIG_DIR/plugins/icon_map_fn.sh "$app")"
-    done <<< "$apps"
-  fi
-
-  sketchybar --set space.$sid label="$icon_strip"
-done
+# for sid in $(aerospace list-workspaces --all); do
+#   apps=$(aerospace list-windows --workspace "$sid" | awk -F'|' '{gsub(/^ *| *$/, "", $2); print $2}')
+#   icon_strip=""
+#
+#   if [ -n "$apps" ]; then
+#     while read -r app; do
+#       icon_strip+=" $($CONFIG_DIR/plugins/icon_map_fn.sh "$app")"
+#     done <<< "$apps"
+#   fi
+#
+#   # Set workspace appearance
+#   if [ "$sid" = "$FOCUSED_WORKSPACE" ]; then
+#     sketchybar --set space.$sid \
+#       label="$icon_strip" \
+#       background.color=0x88FF00FF \
+#       label.shadow.drawing=on \
+#       icon.shadow.drawing=on \
+#       background.border_width=2
+#   else
+#     sketchybar --set space.$sid \
+#       label="$icon_strip" \
+#       background.color=0x44FFFFFF \
+#       label.shadow.drawing=off \
+#       icon.shadow.drawing=off \
+#       background.border_width=0
+#   fi
+# done
 
 ##### Adding Right Items #####
 # In the same way as the left items we can add items to the right side.
