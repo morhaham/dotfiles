@@ -11,7 +11,7 @@ vim.keymap.set({ "n" }, "<Leader>p", ":cprev<CR>", {
 })
 vim.keymap.set("i", "kk", "<ESC>", { desc = "Exit insert mode with kk" })
 
-vim.keymap.set({"n", "v"}, "<Leader>bf", function()
-        local conform = require("conform")
-      conform.format({ async = false })
+vim.keymap.set({ "n", "v" }, "<Leader>bf", function()
+  local conform = require("conform")
+  conform.format({ async = false })
 end, { desc = "Format buffer" })
