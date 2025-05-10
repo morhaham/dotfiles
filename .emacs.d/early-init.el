@@ -5,5 +5,5 @@
 (setopt gc-cons-threshold 100000000)
 (setopt frame-resize-pixelwise t)
 (load-theme 'wombat t)
-;; (add-to-list 'default-frame-alist '(undecorated . t))
-;; (add-to-list 'default-frame-alist '(fullscreen . maximized))
+(add-to-list 'default-frame-alist '(undecorated . t))
+(add-to-list 'default-frame-alist '(fullscreen . maximized))

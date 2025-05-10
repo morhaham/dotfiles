@@ -22,7 +22,7 @@ return {
       vim.keymap.set("n", "<C-x>", function()
         builtin.grep_string({ additional_args = { "--follow", "--hidden", "--glob=!.git/" } })
       end, { desc = "Grep string under cursor" })
-      vim.keymap.set("n", "<C-p>", function()
+      vim.keymap.set("n", "<leader>fb", function()
         builtin.buffers({ sort_mru = true })
       end, { desc = "Find buffers" })
       vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Find help tags" })

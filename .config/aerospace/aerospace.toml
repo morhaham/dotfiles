@@ -18,7 +18,7 @@ after-startup-command = [
     'exec-and-forget sketchybar',   
     # jankyborders has a built-in detection of already running process,
     # so it won't be run twice on aerospace restart
-    'exec-and-forget borders active_color=0xFFB4637A inactive_color=0xff26233a width=5.0'
+    'exec-and-forget borders active_color=0xFFB4637A inactive_color=0xff26233a width=3.0'
 
 ,
 ]
@@ -78,7 +78,7 @@ automatically-unhide-macos-hidden-apps = true
     inner.vertical =   0
     outer.left =       3
     outer.bottom =     2
-    outer.top =        33
+    outer.top =        31
     outer.right =      3
 
 # 'main' binding mode declaration
@@ -120,10 +120,10 @@ automatically-unhide-macos-hidden-apps = true
     cmd-shift-m = 'fullscreen'
 
     # See: https://nikitabobko.github.io/AeroSpace/commands#focus
-    cmd-h = 'focus left'
-    cmd-j = 'focus down'
-    cmd-k = 'focus up'
-    cmd-l = 'focus right'
+    cmd-ctrl-h = 'focus left'
+    cmd-ctrl-j = 'focus down'
+    cmd-ctrl-k = 'focus up'
+    cmd-ctrl-l = 'focus right'
 
     # See: https://nikitabobko.github.io/AeroSpace/commands#move
     cmd-shift-h = 'move left'

@@ -98,7 +98,7 @@ If the new path's directories does not exist, create them."
 (recentf-mode t)
 
 ;;; Font
-(set-frame-font "JetBrains Mono 14" t t)
+(set-frame-font "Terminess Nerd Font 16" t t)
 ;; (set-frame-font "Iosevka Nerd Font 16" t t)
 ;; (set-frame-font "Monaspace Neon Var 16" nil t)
 ;; (set-frame-font "Fantasque Sans Mono 18" nil t)

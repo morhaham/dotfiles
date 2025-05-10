@@ -1,0 +1,8 @@
+# Config relating to the Lazygit UI
+gui:
+  # See https://github.com/jesseduffield/lazygit/blob/master/docs/Config.md#custom-author-color
+  # Config relating to colors and styles.
+  # See https://github.com/jesseduffield/lazygit/blob/master/docs/Config.md#color-attributes
+  theme:
+    selectedLineBgColor:
+     - reverse
