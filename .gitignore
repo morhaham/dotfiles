@@ -7,3 +7,5 @@
 !**/.emcas.d/snippets
 !**/.emacs.d/straight/versions
 .aider*
+.config/cargo/*
+!.config/cargo/config.toml

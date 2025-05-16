@@ -5,10 +5,11 @@ return {
   require("plugins.editor.fugitive"),
   require("plugins.editor.flash"),
   require("plugins.editor.auto-session"),
-  -- require("plugins.editor.harpoon"),
+  require("plugins.editor.harpoon"),
   require("plugins.editor.smartyank"),
   require("plugins.editor.nvim-dap"),
   require("plugins.editor.telescope"),
   require("plugins.editor.lazygit"),
   require("plugins.editor.nvim-spectre"),
+  require("plugins.editor.undotree"),
 }

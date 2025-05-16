@@ -4,6 +4,11 @@ return {
     config = function()
       require("mason").setup()
     end,
+    opts = function(_, opts)
+      if type(opts.ensure_installed) == "table" then
+        M.list_insert_unique(opts.ensure_installed, { "css-lsp", "html-lsp", "js-debug-adapter" })
+      end
+    end,
   },
   {
     "williamboman/mason-lspconfig.nvim",
@@ -121,17 +126,17 @@ return {
       })
     end,
   },
-  -- {
-  --   "pmizio/typescript-tools.nvim",
-  --   name = "typescript-tools",
-  --   dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
-  --   config = function(_, opts)
-  --     local ts_tools = require("typescript-tools")
-  --     vim.keymap.set("n", "<leader>oi", ":TSToolsOrganizeImports<CR>", { desc = "Organize imports" })
-  --     ts_tools.setup(opts)
-  --   end,
-  --   opts = {
-  --     expose_as_code_action = { "all" },
-  --   },
-  -- },
+  {
+    "jay-babu/mason-nvim-dap.nvim",
+    dependencies = { "williamboman/mason.nvim" },
+    cmd = { "DapInstall", "DapUninstall" },
+    opts = {
+      automatic_installation = true,
+      handlers = {},
+      ensure_installed = {
+        "delve",
+        "js",
+      },
+    },
+  },
 }

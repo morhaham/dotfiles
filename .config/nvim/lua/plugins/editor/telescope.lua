@@ -34,7 +34,7 @@ return {
       vim.keymap.set("n", "<leader>wd", builtin.diagnostics, { desc = "Workspace diagnostics" })
 
       -- Git related
-      vim.keymap.set("n", "<leader>fc", builtin.git_bcommits, { desc = "Buffer commits" })
+      vim.keymap.set("n", "<leader>fc", builtin.git_bcommits, { desc = "File commits" })
 
       require("telescope").setup({
         defaults = {
