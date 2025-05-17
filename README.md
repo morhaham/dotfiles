@@ -18,3 +18,7 @@
 
 ## Useful commands:
 * `brew bundle dump --force --file=Brewfile`
+
+# Dump Brewfile
+* `brew bundle dump --force --file=~/dotfiles/mac/Brewfile`
+

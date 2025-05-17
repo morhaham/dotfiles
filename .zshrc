@@ -32,10 +32,10 @@ export NVM_DIR="$HOME/.nvm"
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
-export PATH="/Users/morhaham/.local/bin:$PATH"
+export PATH="/Users/morh/.local/bin:$PATH"
 
 # pnpm
-export PNPM_HOME="/Users/morhaham/Library/pnpm"
+export PNPM_HOME="/Users/morh/Library/pnpm"
 export PATH="$PNPM_HOME:$PATH"
 # pnpm end
 
@@ -113,4 +113,11 @@ export OLLAMA_API_BASE=http://127.0.0.1:11434
 export PATH="/Users/morh/.codeium/windsurf/bin:$PATH"
 export PATH="/usr/local/opt/ruby/bin:$PATH"
 
+# cargo
 export CARGO_HOME="$XDG_CONFIG_HOME/cargo"
+# cargo end
+
+# Source local config file with sensitive information
+if [ -f "$HOME/.zshrc.local" ]; then
+  source "$HOME/.zshrc.local"
+fi
