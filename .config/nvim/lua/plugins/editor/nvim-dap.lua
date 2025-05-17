@@ -42,41 +42,41 @@ return {
       local dap_utils = require("dap.utils")
       vim.keymap.set("n", "<F2>", function()
         dap.step_over()
-      end, { desc = "Step over" })
+      end, { desc = "Dap Step over" })
       vim.keymap.set("n", "<F3>", function()
         dap.step_into()
-      end, { desc = "Step into" })
+      end, { desc = "Dap Step into" })
       vim.keymap.set("n", "<F4>", function()
         dap.step_out()
-      end, { desc = "Step out" })
+      end, { desc = "Dap step out" })
       vim.keymap.set("n", "<F5>", function()
         dap.continue()
-      end, { desc = "Continue" })
+      end, { desc = "Dap continue" })
       vim.keymap.set("n", "<F6>", function()
         dap.disconnect()
-      end, { desc = "Disconnect" })
+      end, { desc = "Dap disconnect" })
       vim.keymap.set("n", "<F7>", function()
         dap.terminate()
-      end, { desc = "Terminate" })
+      end, { desc = "Dap terminate" })
       vim.keymap.set({ "i", "n" }, "<M-b>", function()
         dap.toggle_breakpoint()
-      end, { desc = "Toggle breakpoint" })
+      end, { desc = "Dap toggle breakpoint" })
       vim.keymap.set("n", "<Leader>dr", function()
         dap.repl.open()
       end)
       vim.keymap.set("n", "<Leader>dl", function()
         dap.run_last()
-      end)
+      end, { desc = "Dap run last config" })
       vim.keymap.set({ "n", "v" }, "<Leader>dh", function()
         require("dap.ui.widgets").hover()
-      end)
+      end, { desc = "Dap hover" })
       vim.keymap.set({ "n", "v" }, "<Leader>dp", function()
         require("dap.ui.widgets").preview()
       end)
       vim.keymap.set("n", "<Leader>df", function()
         local widgets = require("dap.ui.widgets")
         widgets.centered_float(widgets.frames)
-      end)
+      end, { desc = "Dap " })
       vim.keymap.set("n", "<Leader>ds", function()
         local widgets = require("dap.ui.widgets")
         widgets.centered_float(widgets.scopes)
@@ -164,8 +164,8 @@ return {
             request = "launch",
             port = 9231,
             skipFiles = { "<node_internals>/**", "node_modules/**" },
-            cwd = "${workspaceFolder}/apps/web",
-            command = "pnpm dev",
+            cwd = "${workspaceFolder}",
+            command = "pnpm start",
           },
           {
             name = "Next.js: debug full stack (pwa-node)",
@@ -187,7 +187,7 @@ return {
             type = "pwa-node",
             request = "launch",
             name = "Launch Current File (pwa-node)",
-            cwd = vim.fn.getcwd(),
+            cwd = "${workspaceFolder}",
             args = { "${file}" },
             sourceMaps = true,
             protocol = "inspector",
@@ -205,10 +205,9 @@ return {
             type = "pwa-node",
             request = "launch",
             name = "Launch Current File (pwa-node with ts-node)",
-            cwd = vim.fn.getcwd(),
-            runtimeArgs = { "--loader", "ts-node/esm" },
-            runtimeExecutable = "node",
+            cwd = "${workspaceFolder}",
             args = { "${file}" },
+            runtimeExecutable = "${workspaceFolder}/node_modules/.bin/ts-node",
             sourceMaps = true,
             protocol = "inspector",
             skipFiles = { "<node_internals>/**", "node_modules/**" },
