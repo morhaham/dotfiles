@@ -15,4 +15,5 @@ return {
   require("plugins.code.rainbow-delimiters"),
   require("plugins.code.yanky"),
   require("plugins.code.vim-illuminate"),
+  require("plugins.code.nvim-surround"),
 }
