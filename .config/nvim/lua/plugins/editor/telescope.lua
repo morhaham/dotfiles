@@ -1,9 +1,16 @@
+local have_make = vim.fn.executable("make") == 1
+local have_cmake = vim.fn.executable("cmake") == 1
+
 return {
   {
     "nvim-telescope/telescope.nvim",
     tag = "0.1.6",
     name = "telescope.nvim",
-    dependencies = { "nvim-lua/plenary.nvim" },
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-telescope/telescope-dap.nvim",
+      "nvim-telescope/telescope-ui-select.nvim",
+    },
     config = function()
       local builtin = require("telescope.builtin")
       local actions = require("telescope.actions")
@@ -64,11 +71,15 @@ return {
       })
 
       require("telescope").load_extension("fzf")
+      require("telescope").load_extension("dap")
+      require("telescope").load_extension("ui-select")
     end,
   },
   {
     "nvim-telescope/telescope-fzf-native.nvim",
-    build = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release",
+    build = have_make and "make"
+      or "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
+    enabled = have_make or have_cmake,
   },
   {
     "ahmedkhalf/project.nvim",

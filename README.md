@@ -19,6 +19,9 @@
 ## Useful commands:
 * `brew bundle dump --force --file=Brewfile`
 
-# Dump Brewfile
+# Dump to Brewfile
 * `brew bundle dump --force --file=~/dotfiles/mac/Brewfile`
+
+# Install from Brewfile
+* `brew bundle install --file=~/dotfiles/mac/Brewfile`
 
