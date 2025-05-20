@@ -5,7 +5,8 @@
 # 'start-at-login' needs to be 'true' for 'after-login-command' to work
 # Available commands: https://nikitabobko.github.io/AeroSpace/commands
 after-login-command = [
-  "exec-and-forget defaults write -g NSWindowShouldDragOnGesture -bool true"
+  "exec-and-forget defaults write -g NSWindowShouldDragOnGesture -bool true",
+  "exec-and-forget defaults write com.apple.spaces 'spans-displays' -bool 'false' && killall SystemUIServer"
 ]
 
 # You can use it to add commands that run after AeroSpace startup.
@@ -76,10 +77,10 @@ automatically-unhide-macos-hidden-apps = true
 [gaps]
     inner.horizontal = 0
     inner.vertical =   0
-    outer.left =       40
-    outer.bottom =     40
-    outer.top =        50
-    outer.right =      40
+    outer.left =       25
+    outer.bottom =     25
+    outer.top =        45
+    outer.right =      25
 
 # 'main' binding mode declaration
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
