@@ -1,3 +1,5 @@
+# Dotfiles
+
 ## Setup
 1. install stow: 
     - `brew install stow`
@@ -18,9 +20,8 @@
     - Fzf - fuzzy finder used by Telescope
 
 # Useful commands:
-    - Dump packages to Brewfile
+## Dump packages to Brewfile
     - `brew bundle dump --force --file=~/dotfiles/mac/Brewfile`
-
-# Install from Brewfile
+## Install from Brewfile
     - `brew bundle install --file=~/dotfiles/mac/Brewfile`
 
