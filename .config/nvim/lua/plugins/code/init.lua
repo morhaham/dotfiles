@@ -16,4 +16,5 @@ return {
   require("plugins.code.yanky"),
   require("plugins.code.vim-illuminate"),
   require("plugins.code.nvim-surround"),
+  -- require("plugins.code.neotest"),
 }

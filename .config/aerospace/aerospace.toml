@@ -16,7 +16,7 @@ after-startup-command = [
     # Run Sketchybar together with AeroSpace
     # sketchbar has a built-in detection of already running process,
     # so it won't be run twice on AeroSpace restart
-    'exec-and-forget sketchybar',   
+    # 'exec-and-forget sketchybar',   
     # jankyborders has a built-in detection of already running process,
     # so it won't be run twice on aerospace restart
     'exec-and-forget borders active_color=0xFFB4637A inactive_color=0xff26233a width=3.0'
@@ -79,7 +79,7 @@ automatically-unhide-macos-hidden-apps = true
     inner.vertical =   0
     outer.left =       25
     outer.bottom =     25
-    outer.top =        45
+    outer.top =        25
     outer.right =      25
 
 # 'main' binding mode declaration
