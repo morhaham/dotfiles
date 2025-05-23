@@ -12,4 +12,5 @@ return {
   require("plugins.editor.lazygit"),
   require("plugins.editor.nvim-spectre"),
   require("plugins.editor.undotree"),
+  require("plugins.editor.diffview"),
 }
