@@ -41,23 +41,23 @@ return {
       local dap = require("dap")
       local dap_utils = require("dap.utils")
       vim.keymap.set("n", "<F2>", function()
-        dap.step_over()
-      end, { desc = "Dap Step over" })
-      vim.keymap.set("n", "<F3>", function()
-        dap.step_into()
-      end, { desc = "Dap Step into" })
-      vim.keymap.set("n", "<F4>", function()
-        dap.step_out()
-      end, { desc = "Dap step out" })
-      vim.keymap.set("n", "<F5>", function()
         dap.continue()
-      end, { desc = "Dap continue" })
+      end, { desc = "Dap Continue" })
+      vim.keymap.set("n", "<F3>", function()
+        dap.step_over()
+      end, { desc = "Dap Step Over" })
+      vim.keymap.set("n", "<F4>", function()
+        dap.step_into()
+      end, { desc = "Dap Step Into" })
+      vim.keymap.set("n", "<F5>", function()
+        dap.step_out()
+      end, { desc = "Dap Step Out" })
       vim.keymap.set("n", "<F6>", function()
         dap.disconnect()
-      end, { desc = "Dap disconnect" })
+      end, { desc = "Dap Disconnect" })
       vim.keymap.set("n", "<F7>", function()
         dap.terminate()
-      end, { desc = "Dap terminate" })
+      end, { desc = "Dap Terminate" })
       vim.keymap.set({ "i", "n" }, "<M-b>", function()
         dap.toggle_breakpoint()
       end, { desc = "Dap toggle breakpoint" })
@@ -91,6 +91,9 @@ return {
         "typescriptreact",
         "vue",
         "svelte",
+        "markdown",
+        "json",
+        "oil"
       }
       -- ╭──────────────────────────────────────────────────────────╮
       -- │ Adapters                                                 │

@@ -1,7 +1,7 @@
 return {
   "AckslD/nvim-neoclip.lua",
   dependencies = {
-    { "ibhagwan/fzf-lua" },
+    { "nvim-telescope/telescope.nvim" },
   },
   config = function()
     require("neoclip").setup()

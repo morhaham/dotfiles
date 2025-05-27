@@ -17,4 +17,5 @@ return {
   require("plugins.code.vim-illuminate"),
   require("plugins.code.nvim-surround"),
   -- require("plugins.code.neotest"),
+  require("plugins.editor.smartyank"),
 }

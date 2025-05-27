@@ -9,6 +9,10 @@ return {
     dependencies = {
       "nvim-lua/plenary.nvim",
       "nvim-telescope/telescope-dap.nvim",
+      {
+        "nvim-telescope/telescope-live-grep-args.nvim",
+        version = "^1.0.0",
+      },
       "nvim-telescope/telescope-ui-select.nvim",
     },
     config = function()
@@ -26,8 +30,8 @@ return {
       vim.keymap.set("n", "<leader><leader>", builtin.git_files, { desc = "Find git files" })
 
       vim.keymap.set("n", "<leader>fg", function()
-        builtin.live_grep({ additional_args = { "--follow", "--hidden", "--glob=!.git/" } })
-      end, { desc = "Live grep" })
+        require("telescope").extensions.live_grep_args.live_grep_args({ additional_args = { "--follow", "--hidden", "--glob=!.git/" } })
+      end, { desc = "Live grep(args)" })
 
       vim.keymap.set("n", "<C-x>", function()
         builtin.grep_string({ additional_args = { "--follow", "--hidden", "--glob=!.git/" } })
