@@ -10,6 +10,7 @@ return {
         section_separators = "",
         component_separators = "",
       },
+      extensions = { "oil" },
       sections = {
         -- lualine_a = {
         --   -- {
