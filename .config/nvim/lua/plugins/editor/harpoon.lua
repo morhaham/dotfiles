@@ -10,13 +10,13 @@ return {
           harpoon.ui:select_menu_item({ vsplit = true })
         end, { buffer = cx.bufnr })
 
-        vim.keymap.set("n", "<C-x>", function()
+        vim.keymap.set("n", "<C-s>", function()
           harpoon.ui:select_menu_item({ split = true })
         end, { buffer = cx.bufnr })
 
-        vim.keymap.set("n", "<C-s>", function()
-          require("harpoon"):save()
-        end)
+        -- vim.keymap.set("n", "<Leader>hs", function()
+        --   require("harpoon"):save()
+        -- end, { desc = "Save harpoon state" })
       end,
     })
 
@@ -67,7 +67,6 @@ return {
         )
         :find()
     end
-    
 
     harpoon:setup()
     vim.keymap.set("n", "<Leader>h", function()
