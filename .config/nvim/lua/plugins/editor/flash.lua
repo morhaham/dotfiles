@@ -4,6 +4,6 @@ return {
   config = function()
     vim.keymap.set({ "n", "x", "o" }, "s", function()
       require("flash").jump()
-    end, { noremap = true, silent = true })
+    end, { noremap = true, silent = true, desc = "Flash jump" })
   end,
 }

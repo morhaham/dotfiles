@@ -1,18 +1,10 @@
 return {
   {
-    "williamboman/mason.nvim",
-    config = function()
-      require("mason").setup()
-    end,
-    opts = function(_, opts)
-      if type(opts.ensure_installed) == "table" then
-        M.list_insert_unique(opts.ensure_installed, { "css-lsp", "html-lsp", "js-debug-adapter" })
-      end
-    end,
-  },
-  {
-    "williamboman/mason-lspconfig.nvim",
-    dependencies = { "williamboman/mason.nvim", "lspconfig" },
+    "mason-org/mason-lspconfig.nvim",
+    dependencies = {
+      { "mason-org/mason.nvim", opts = {} },
+      "lspconfig",
+    },
     config = function(_, opts)
       require("mason-lspconfig").setup(opts)
     end,
@@ -33,6 +25,9 @@ return {
           "ts_ls",
           "lua_ls",
           "pylsp",
+          "ts_ls",
+          "cssls",
+          "html",
         },
         handlers = { default_setup },
       }
@@ -128,7 +123,7 @@ return {
   },
   {
     "jay-babu/mason-nvim-dap.nvim",
-    dependencies = { "williamboman/mason.nvim" },
+    dependencies = { "mason-org/mason.nvim" },
     cmd = { "DapInstall", "DapUninstall" },
     opts = {
       automatic_installation = true,

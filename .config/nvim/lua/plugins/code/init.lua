@@ -18,4 +18,5 @@ return {
   require("plugins.code.nvim-surround"),
   require("plugins.code.neotest"),
   require("plugins.code.smartyank"),
+  require("plugins.code.substitute"),
 }
