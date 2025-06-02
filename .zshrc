@@ -3,11 +3,9 @@ export ZSH="$HOME/.oh-my-zsh"
 ZSH_THEME="robbyrussell"
 
 # plugins
-plugins=(git autojump)
-# plugins+=(zsh-vi-mode)
+# plugins end
 
 # Plugins config
-ZVM_CURSOR_STYLE_ENABLED=false
 # plugins end
 
 source $ZSH/oh-my-zsh.sh
@@ -25,8 +23,6 @@ alias k="kubectl"
 # hombrew
 HOMEBREW_NO_AUTO_UPDATE=0
 # hombrew end
-
-export EDITOR="vim"
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
@@ -51,11 +47,6 @@ eval "$(jenv init -)"
 # jenv enable-plugin export
 # java related end
 
-[ -f /opt/homebrew/etc/profile.d/autojump.sh ] && . /opt/homebrew/etc/profile.d/autojump.sh
-export LANG="en_US.UTF-8"
-export LC_CTYPE="en_US.UTF-8"
-
-PATH=~/.console-ninja/.bin:$PATH
 
 export GOPATH=$HOME/go
 export PATH=$PATH:$GOPATH/bin
@@ -123,3 +114,7 @@ export CARGO_HOME="$XDG_CONFIG_HOME/cargo"
 if [ -f "$HOME/.zshrc.local" ]; then
   source "$HOME/.zshrc.local"
 fi
+
+# zoxide
+eval "$(zoxide init zsh)"
+# zoxide end

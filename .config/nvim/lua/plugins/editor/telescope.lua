@@ -30,7 +30,9 @@ return {
       vim.keymap.set("n", "<leader><leader>", builtin.git_files, { desc = "Find git files" })
 
       vim.keymap.set("n", "<leader>fg", function()
-        require("telescope").extensions.live_grep_args.live_grep_args({ additional_args = { "--follow", "--hidden", "--glob=!.git/" } })
+        require("telescope").extensions.live_grep_args.live_grep_args({
+          additional_args = { "--follow", "--hidden", "--glob=!.git/" },
+        })
       end, { desc = "Live grep(args)" })
 
       vim.keymap.set("n", "<C-x>", function()
@@ -47,11 +49,16 @@ return {
       -- Git related
       vim.keymap.set("n", "<leader>fc", builtin.git_bcommits, { desc = "File commits" })
 
+      -- File browser
+      vim.keymap.set("n", "-", function()
+        require("telescope").extensions.file_browser.file_browser({ path = "%:p:h", respect_gitignore = false })
+      end)
+
       require("telescope").setup({
         defaults = {
           mappings = {
-            i = { ["<C-q>"] = open_with_trouble },
-            n = { ["<C-q>"] = open_with_trouble },
+            i = { ["<C-q>"] = open_with_trouble, ["<M-q>"] = add_to_trouble },
+            n = { ["<C-q>"] = open_with_trouble, ["<M-q>"] = add_to_trouble },
           },
         },
         pickers = {
@@ -74,6 +81,7 @@ return {
         },
       })
 
+      require("telescope").load_extension("file_browser")
       require("telescope").load_extension("fzf")
       require("telescope").load_extension("dap")
       require("telescope").load_extension("ui-select")
@@ -98,5 +106,9 @@ return {
       require("telescope").load_extension("projects")
       vim.keymap.set("n", "<leader>fp", ":Telescope projects <CR>")
     end,
+  },
+  {
+    "nvim-telescope/telescope-file-browser.nvim",
+    dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },
   },
 }

@@ -45,5 +45,29 @@ return {
         }),
       },
     })
+
+    vim.keymap.set("n", "<leader>tn", function()
+      require("neotest").run.run()
+    end, { desc = "Run nearest test" })
+    vim.keymap.set("n", "<leader>tf", function()
+      require("neotest").run.run(vim.fn.expand("%"))
+    end, { desc = "Run tests in file" })
+    vim.keymap.set("n", "<leader>ts", function()
+      require("neotest").run.stop()
+    end, { desc = "Stop running tests" })
+    vim.keymap.set("n", "<leader>to", function()
+      require("neotest").output.open({ enter = true })
+    end, { desc = "Open test output" })
+    vim.keymap.set("n", "<leader>tO", function()
+      require("neotest").output_panel.toggle()
+    end, { desc = "Toggle test output panel" })
+    vim.keymap.set("n", "<leader>tS", function()
+      require("neotest").summary.toggle()
+    end, { desc = "Toggle test summary" })
+    vim.keymap.set("n", "<leader>tw", function()
+      require("neotest-jest")({
+        jestCommand = require("neotest-jest.jest-util").getJestCommand(vim.fn.expand("%:p:h")) .. " --watch",
+      })
+    end, { desc = "Run tests in watch mode" })
   end,
 }
