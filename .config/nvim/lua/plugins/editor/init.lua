@@ -8,10 +8,10 @@ return {
   -- require("plugins.editor.harpoon"),
   require("plugins.editor.nvim-dap"),
   require("plugins.editor.telescope"),
-  require("plugins.editor.lazygit"),
+  -- require("plugins.editor.lazygit"),
   -- require("plugins.editor.nvim-spectre"),
   require("plugins.editor.undotree"),
-  require("plugins.editor.diffview"),
+  -- require("plugins.editor.diffview"),
   -- require("plugins.editor.nvim-neoclip"),
   require("plugins.editor.grug-far"),
 }
