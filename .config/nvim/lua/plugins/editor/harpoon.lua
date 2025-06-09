@@ -14,7 +14,7 @@ return {
           harpoon.ui:select_menu_item({ split = true })
         end, { buffer = cx.bufnr })
 
-        -- vim.keymap.set("n", "<Leader>hs", function()
+        -- vim.keymap.set("n", "<leader>hs", function()
         --   require("harpoon"):save()
         -- end, { desc = "Save harpoon state" })
       end,
@@ -69,23 +69,23 @@ return {
     end
 
     harpoon:setup()
-    vim.keymap.set("n", "<Leader>h", function()
+    vim.keymap.set("n", "<leader>h", function()
       toggle_telescope(harpoon:list())
     end, { desc = "Open harpoon window" })
-    vim.keymap.set("n", "<Leader>a", function()
+    vim.keymap.set("n", "<leader>a", function()
       harpoon:list():add()
     end, { desc = "Add harpoon" })
 
-    vim.keymap.set("n", "<Leader>1", function()
+    vim.keymap.set("n", "<leader>1", function()
       harpoon:list():select(1)
     end, { desc = "Select harpoon 1" })
-    vim.keymap.set("n", "<Leader>2", function()
+    vim.keymap.set("n", "<leader>2", function()
       harpoon:list():select(2)
     end, { desc = "Select harpoon 2" })
-    vim.keymap.set("n", "<Leader>3", function()
+    vim.keymap.set("n", "<leader>3", function()
       harpoon:list():select(3)
     end, { desc = "Select harpoon 3" })
-    vim.keymap.set("n", "<Leader>4", function()
+    vim.keymap.set("n", "<leader>4", function()
       harpoon:list():select(4)
     end, { desc = "Select harpoon 4" })
 

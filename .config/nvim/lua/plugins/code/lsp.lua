@@ -41,6 +41,7 @@ return {
         callback = function(ev)
           -- Enable completion triggered by <c-x><c-o>
           vim.bo[ev.buf].omnifunc = "v:lua.vim.lsp.omnifunc"
+          vim.diagnostic.config({ virtual_text = false })
 
           -- Buffer local mappings.
           -- See `:help vim.lsp.*` for documentation on any of the below functions
@@ -77,7 +78,7 @@ return {
           )
           vim.keymap.set(
             "n",
-            "<leader>rn",
+            "<leader>cr",
             vim.lsp.buf.rename,
             vim.tbl_extend("force", opts, { desc = "Rename symbol" })
           )
@@ -86,12 +87,6 @@ return {
             "<leader>ca",
             vim.lsp.buf.code_action,
             vim.tbl_extend("force", opts, { desc = "Code action" })
-          )
-          vim.keymap.set(
-            { "n", "v" },
-            "gr",
-            vim.lsp.buf.references,
-            vim.tbl_extend("force", opts, { desc = "References to quickfix list" })
           )
           vim.keymap.set(
             "n",
@@ -140,7 +135,6 @@ return {
     priority = 1000,
     config = function()
       require("tiny-inline-diagnostic").setup()
-      vim.diagnostic.config({ virtual_text = false })
     end,
   },
 }

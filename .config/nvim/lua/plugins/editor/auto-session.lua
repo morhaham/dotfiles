@@ -1,8 +1,10 @@
 return {
   "rmagatti/auto-session",
-  config = function()
-    require("auto-session").setup({
-      log_level = "error",
-    })
-  end,
+  lazy = false,
+  ---enables autocomplete for opts
+  ---@module "auto-session"
+  ---@type AutoSession.Config
+  opts = {
+    allowed_dirs = { "~/projects/*", "~/dotfiles/*" },
+  },
 }

@@ -14,7 +14,7 @@ return {
     )
 
     -- Use substitute.nvim to replace word under cursor with input text
-    vim.keymap.set("v", "<leader>rr", function()
+    vim.keymap.set("v", "<leader>cr", function()
       local input = vim.fn.input("Replace with: ")
       if input == "" then
         return

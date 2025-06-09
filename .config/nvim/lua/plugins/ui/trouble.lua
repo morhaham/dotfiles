@@ -33,5 +33,10 @@ return {
       "<cmd>Trouble qflist toggle<cr>",
       desc = "Quickfix List (Trouble)",
     },
+    {
+      "gr",
+      "<cmd>Trouble lsp_references<cr>",
+      desc = "References (Trouble)",
+    },
   },
 }

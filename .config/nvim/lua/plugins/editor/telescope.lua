@@ -14,14 +14,15 @@ return {
         version = "^1.0.0",
       },
       "nvim-telescope/telescope-ui-select.nvim",
+      "nvim-telescope/telescope-file-browser.nvim",
+      "aaronhallaert/advanced-git-search.nvim",
     },
     config = function()
       local builtin = require("telescope.builtin")
       local actions = require("telescope.actions")
       local open_with_trouble = require("trouble.sources.telescope").open
-      -- Use this to add more results without clearing the trouble list
       local add_to_trouble = require("trouble.sources.telescope").add
-      -- local themes = require("telescope.themes")
+      local telescope = require("telescope")
 
       vim.keymap.set("n", "<leader>ff", function()
         builtin.find_files({ hidden = true, no_ignore = true })
@@ -30,7 +31,7 @@ return {
       vim.keymap.set("n", "<leader><leader>", builtin.git_files, { desc = "Find git files" })
 
       vim.keymap.set("n", "<leader>fg", function()
-        require("telescope").extensions.live_grep_args.live_grep_args({
+        telescope.extensions.live_grep_args.live_grep_args({
           additional_args = { "--follow", "--hidden", "--glob=!.git/" },
         })
       end, { desc = "Live grep(args)" })
@@ -48,13 +49,27 @@ return {
 
       -- Git related
       vim.keymap.set("n", "<leader>fc", builtin.git_bcommits, { desc = "File commits" })
+      vim.keymap.set("n", "<leader>ga", "<CMD>AdvancedGitSearch<CR>", { desc = "Git advanced(Telescope)" })
 
       -- File browser
       vim.keymap.set("n", "-", function()
-        require("telescope").extensions.file_browser.file_browser({ path = "%:p:h", respect_gitignore = false })
+        telescope.extensions.file_browser.file_browser({ path = "%:p:h", respect_gitignore = false })
       end)
 
-      require("telescope").setup({
+      -- Copy the current path to clipboard
+      local function copy_path()
+        local entry = require("telescope.actions.state").get_selected_entry()
+        local cb_opts = vim.opt.clipboard:get()
+        if vim.tbl_contains(cb_opts, "unnamed") then
+          vim.fn.setreg("*", entry.path)
+        end
+        if vim.tbl_contains(cb_opts, "unnamedplus") then
+          vim.fn.setreg("+", entry.path)
+        end
+        vim.fn.setreg("", entry.path)
+      end
+
+      telescope.setup({
         defaults = {
           mappings = {
             i = { ["<C-q>"] = open_with_trouble, ["<M-q>"] = add_to_trouble },
@@ -79,12 +94,27 @@ return {
             },
           },
         },
+        extensions = {
+          file_browser = {
+            hijack_netrw = true,
+            mappings = {
+              n = {
+                ["-"] = telescope.extensions.file_browser.actions.goto_parent_dir,
+                ["<C-y>"] = copy_path,
+              },
+              i = {
+                ["<C-y>"] = copy_path,
+              },
+            },
+          },
+        },
       })
 
-      require("telescope").load_extension("file_browser")
-      require("telescope").load_extension("fzf")
-      require("telescope").load_extension("dap")
-      require("telescope").load_extension("ui-select")
+      telescope.load_extension("file_browser")
+      telescope.load_extension("fzf")
+      telescope.load_extension("dap")
+      telescope.load_extension("ui-select")
+      telescope.load_extension("advanced_git_search")
     end,
   },
   {
@@ -109,6 +139,14 @@ return {
   },
   {
     "nvim-telescope/telescope-file-browser.nvim",
-    dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },
+    dependencies = { "nvim-lua/plenary.nvim" },
+  },
+  {
+    "aaronhallaert/advanced-git-search.nvim",
+    cmd = { "AdvancedGitSearch" },
+    dependencies = {
+      "tpope/vim-fugitive",
+      "tpope/vim-rhubarb",
+    },
   },
 }
