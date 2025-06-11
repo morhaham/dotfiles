@@ -1,14 +1,19 @@
--- Disable mouse in Telescope
+-- Save current mouse setting
+local mouse_backup = vim.o.mouse
+
+-- Disable mouse when Telescope starts
 vim.api.nvim_create_autocmd("User", {
-  pattern = "TelescopePreviewerLoaded",
+  pattern = "TelescopeFindPre",
   callback = function()
-    vim.opt.mouse = ""
-  end
+    mouse_backup = vim.o.mouse
+    vim.o.mouse = ""
+  end,
 })
 
--- Re-enable mouse when Telescope is closed
-vim.api.nvim_create_autocmd("WinClosed", {
+-- Re-enable mouse when Telescope closes
+vim.api.nvim_create_autocmd("User", {
+  pattern = "TelescopeFindPost",
   callback = function()
-    vim.opt.mouse = "a"  -- re-enable if you normally use mouse
-  end
+    vim.o.mouse = mouse_backup
+  end,
 })
