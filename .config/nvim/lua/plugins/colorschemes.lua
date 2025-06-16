@@ -4,6 +4,9 @@ return {
     name = "rose-pine",
     priority = 1000,
     lazy = false,
+    init = function()
+      vim.cmd.colorscheme("rose-pine")
+    end,
     config = function()
       require("rose-pine").setup({
         highlight_groups = {
@@ -16,7 +19,6 @@ return {
           bold = true,
         },
       })
-      vim.cmd.colorscheme("rose-pine")
     end,
   },
   -- {

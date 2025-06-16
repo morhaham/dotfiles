@@ -53,7 +53,7 @@ return {
 
       -- File browser
       vim.keymap.set("n", "-", function()
-        telescope.extensions.file_browser.file_browser({ path = "%:p:h", respect_gitignore = false })
+        telescope.extensions.file_browser.file_browser({ path = "%:p:h", prompt_path = true })
       end)
 
       -- Copy the current path to clipboard
@@ -71,6 +71,7 @@ return {
 
       telescope.setup({
         defaults = {
+          path_display = { "smart" },
           mappings = {
             i = { ["<C-q>"] = open_with_trouble, ["<M-q>"] = add_to_trouble },
             n = { ["<C-q>"] = open_with_trouble, ["<M-q>"] = add_to_trouble },

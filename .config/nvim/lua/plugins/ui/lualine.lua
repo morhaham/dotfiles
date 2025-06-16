@@ -9,6 +9,7 @@ return {
         -- theme = 'vscode',
         section_separators = "",
         component_separators = "",
+        disabled_filetypes = { "TelescopePrompt" },
       },
       extensions = { "oil" },
       sections = {
