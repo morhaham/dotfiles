@@ -144,6 +144,7 @@ return {
     config = function()
       require("goto-preview").setup({
         default_mappings = true,
+        border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
       })
       vim.keymap.set("n", "gp", "", { desc = "Goto preview definition" })
     end,
