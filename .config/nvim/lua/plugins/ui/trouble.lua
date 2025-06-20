@@ -2,6 +2,9 @@ return {
   "folke/trouble.nvim",
   opts = {}, -- for default options, refer to the configuration section for custom setup.
   cmd = "Trouble",
+  dependencies = {
+    "nvim-tree/nvim-web-devicons", -- optional, for file icons
+  },
   keys = {
     {
       "<leader>xx",
@@ -37,6 +40,26 @@ return {
       "gr",
       "<cmd>Trouble lsp_references<cr>",
       desc = "References (Trouble)",
+    },
+    {
+      "gD",
+      "<cmd>Trouble lsp_definitions<cr>",
+      desc = "Go to definition (Trouble)",
+    },
+    {
+      "gd",
+      "<cmd>Trouble lsp_declarations<cr>",
+      desc = "Go to declaration (Trouble)",
+    },
+    {
+      "gt",
+      "<cmd>Trouble lsp_type_definitions<cr>",
+      desc = "Go to type definition (Trouble)",
+    },
+    {
+      "gi",
+      "<cmd>Trouble lsp_implementations<cr>",
+      desc = "Go to implementation (Trouble)",
     },
   },
 }

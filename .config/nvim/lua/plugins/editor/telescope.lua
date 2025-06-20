@@ -4,7 +4,7 @@ local have_cmake = vim.fn.executable("cmake") == 1
 return {
   {
     "nvim-telescope/telescope.nvim",
-    tag = "0.1.6",
+    tag = "0.1.8",
     name = "telescope.nvim",
     dependencies = {
       "nvim-lua/plenary.nvim",
@@ -28,7 +28,9 @@ return {
         builtin.find_files({ hidden = true, no_ignore = true })
       end, { desc = "Find files" })
 
-      vim.keymap.set("n", "<leader><leader>", builtin.git_files, { desc = "Find git files" })
+      vim.keymap.set("n", "<leader><leader>", function()
+        builtin.git_files()
+      end, { desc = "Find git files" })
 
       vim.keymap.set("n", "<leader>fg", function()
         telescope.extensions.live_grep_args.live_grep_args({
@@ -114,6 +116,7 @@ return {
       telescope.load_extension("file_browser")
       telescope.load_extension("fzf")
       telescope.load_extension("dap")
+      telescope.load_extension("noice")
       telescope.load_extension("ui-select")
       telescope.load_extension("advanced_git_search")
     end,

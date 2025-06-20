@@ -41,40 +41,26 @@ return {
         callback = function(ev)
           -- Enable completion triggered by <c-x><c-o>
           vim.bo[ev.buf].omnifunc = "v:lua.vim.lsp.omnifunc"
-          vim.diagnostic.config({ virtual_text = false })
+          vim.diagnostic.config({
+            virtual_text = false,
+            float = { border = "rounded" },
+          })
+
+          -- LSP diagnostics signs
+          local signs = { Error =" ", Warn =" ", Hint ="󰌶 ", Info = " "}
+          for type, icon in pairs(signs) do
+            local hl = "DiagnosticSign" .. type
+            vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+          end
 
           -- Buffer local mappings.
           -- See `:help vim.lsp.*` for documentation on any of the below functions
           local opts = { buffer = ev.buf }
           vim.keymap.set(
             "n",
-            "gD",
-            vim.lsp.buf.declaration,
-            vim.tbl_extend("force", opts, { desc = "Go to declaration" })
-          )
-          vim.keymap.set(
-            "n",
-            "gd",
-            vim.lsp.buf.definition,
-            vim.tbl_extend("force", opts, { desc = "Go to definition" })
-          )
-          vim.keymap.set(
-            "n",
             "K",
             vim.lsp.buf.hover,
             vim.tbl_extend("force", opts, { desc = "Show symbol information" })
-          )
-          vim.keymap.set(
-            "n",
-            "gi",
-            vim.lsp.buf.implementation,
-            vim.tbl_extend("force", opts, { desc = "Go to implementation" })
-          )
-          vim.keymap.set(
-            "n",
-            "gt",
-            vim.lsp.buf.type_definition,
-            vim.tbl_extend("force", opts, { desc = "Go to type definition" })
           )
           vim.keymap.set(
             "n",
@@ -106,12 +92,6 @@ return {
             vim.diagnostic.goto_next,
             vim.tbl_extend("force", opts, { desc = "Diagnostic next" })
           )
-          vim.keymap.set(
-            "n",
-            "<M-'>",
-            vim.diagnostic.setloclist,
-            vim.tbl_extend("force", opts, { desc = "Diagnostic location list" })
-          )
         end,
       })
     end,
@@ -134,7 +114,9 @@ return {
     event = "VeryLazy",
     priority = 1000,
     config = function()
-      require("tiny-inline-diagnostic").setup()
+      require("tiny-inline-diagnostic").setup({
+        preset = "minimal",
+      })
     end,
   },
   {
@@ -144,7 +126,9 @@ return {
     config = function()
       require("goto-preview").setup({
         default_mappings = true,
-        border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
+        border = { "↖", "─", "╮", "│", "╯", "─", "╰", "│" },
+        -- border without left arrow
+        -- border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
       })
       vim.keymap.set("n", "gp", "", { desc = "Goto preview definition" })
     end,

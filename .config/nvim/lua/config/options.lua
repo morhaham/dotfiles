@@ -1,11 +1,12 @@
 vim.g.mapleader = " "
+vim.g.maplocalleader = " "
 
 local options = {
   termguicolors = true, -- Enable 24 bits color in terminal
   -- guicursor = "n-v-c-i:block", -- Set the gui cursor to nothing for each mode
   inccommand = "nosplit", -- Show effect of command incrementally while writing it (substitution)
   showmode = false, -- Don't need to show mode
-  mouse = "", -- Enable mouse in all mode
+  mouse = "", -- Disable mouse in all mode
   tabstop = 2, -- A tab is 2 spaces (display)
   shiftwidth = 2, -- Indent to 2 spaces
   softtabstop = 2, -- A tab is 2 spaces (insert mode)

@@ -19,4 +19,6 @@ return {
   require("plugins.code.neotest"),
   require("plugins.code.smartyank"),
   require("plugins.code.substitute"),
+  require("plugins.code.treesj"),
+  require("plugins.code.ufo"),
 }

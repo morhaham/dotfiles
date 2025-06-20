@@ -31,8 +31,12 @@ return {
     --   background_colour = "#000000",
     -- })
   end,
-  opts = {
-    -- add any options here
+  keys = {
+    { "<leader>m", "", desc = "Messages" },
+    { "<leader>mh", "<cmd>Noice telescope<cr>", desc = "Message History" },
+    { "<leader>mc", "<cmd>Noice command<cr>", desc = "Show Commands" },
+    { "<leader>ml", "<cmd>Noice last<cr>", desc = "Last Message" },
+    { "<leader>ma", "<cmd>Noice all<cr>", desc = "All Messages" },
   },
   dependencies = {
     -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
