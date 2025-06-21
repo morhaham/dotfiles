@@ -1,6 +1,9 @@
 # Font
 # font-family = JetBrains Mono Nerd Font
 font-family = FiraCode Nerd Font
+font-family-italic = VictorMono Nerd Font
+font-style-italic = Medium Italic
+font-style-bold-italic = Bold Italic
 # font-family = Terminess Nerd Font
 font-size = 16
 adjust-cell-height = 20%

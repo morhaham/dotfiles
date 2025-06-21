@@ -1,3 +1,4 @@
+-- Search and replace
 return {
   "MagicDuck/grug-far.nvim",
    cmd = "GrugFar",

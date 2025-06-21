@@ -18,7 +18,6 @@ local icons = {
     stopped = "",
     rejected = "",
     log = "",
-
     disconnect = "",
     pause = "",
     play = "",

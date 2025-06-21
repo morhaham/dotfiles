@@ -13,20 +13,19 @@ return {
       },
       extensions = { "oil" },
       sections = {
-        -- lualine_a = {
-        --   -- {
-        --   --   "mode",
-        --   --   fmt = function(str)
-        --   --     return "[" .. str .. "]"
-        --   --   end,
-        --   -- }
-        --   ,
-        -- },
-        lualine_a = { "filename" },
-        lualine_b = { "branch" },
-        lualine_c = { "" },
+        lualine_a = {
+          {
+            "mode",
+            fmt = function(str)
+              return "[" .. str .. "]"
+            end,
+          },
+        },
+        lualine_b = {
+          { "filename", path = 1 },
+        },
+        lualine_c = { "branch" },
         lualine_x = { "filetype", "encoding" },
-        lualine_y = { "" },
         lualine_z = { "location" },
       },
     })

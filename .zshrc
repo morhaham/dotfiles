@@ -21,7 +21,7 @@ alias k="kubectl"
 # aliases end
 
 # hombrew
-HOMEBREW_NO_AUTO_UPDATE=0
+HOMEBREW_NO_AUTO_UPDATE=1
 # hombrew end
 
 export NVM_DIR="$HOME/.nvm"
