@@ -16,6 +16,7 @@ return {
       "nvim-telescope/telescope-ui-select.nvim",
       "nvim-telescope/telescope-file-browser.nvim",
       "aaronhallaert/advanced-git-search.nvim",
+      "nvim-telescope/telescope-z.nvim",
     },
     config = function()
       local builtin = require("telescope.builtin")
@@ -119,6 +120,7 @@ return {
       telescope.load_extension("noice")
       telescope.load_extension("ui-select")
       telescope.load_extension("advanced_git_search")
+      telescope.load_extension("z")
     end,
   },
   {
