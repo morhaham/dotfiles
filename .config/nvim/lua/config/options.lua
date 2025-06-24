@@ -46,6 +46,7 @@ local options = {
   allowrevins = true, -- Allow reverse insert mode with <C-/> (for rtl text)
   showtabline = 0, -- Hide tabline
   belloff = "all",
+  timeoutlen = 300, -- Time to wait for mapped sequence to complete
 }
 
 for opt, val in pairs(options) do

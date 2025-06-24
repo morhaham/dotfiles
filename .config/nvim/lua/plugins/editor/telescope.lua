@@ -9,6 +9,7 @@ return {
     dependencies = {
       "nvim-lua/plenary.nvim",
       "nvim-telescope/telescope-dap.nvim",
+      "gbprod/yanky.nvim",
       {
         "nvim-telescope/telescope-live-grep-args.nvim",
         version = "^1.0.0",
@@ -47,6 +48,9 @@ return {
         builtin.buffers({ sort_mru = true })
       end, { desc = "Find buffers" })
 
+      -- resume the last telescope picker
+      vim.keymap.set("n", "<leader>fr", builtin.resume, { desc = "Resume last picker" })
+
       vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Find help tags" })
       vim.keymap.set("n", "<leader>wd", builtin.diagnostics, { desc = "Workspace diagnostics" })
 
@@ -57,6 +61,10 @@ return {
       -- File browser
       vim.keymap.set("n", "-", function()
         telescope.extensions.file_browser.file_browser({ path = "%:p:h", prompt_path = true })
+      end)
+
+      vim.keymap.set("n", "<leader>pp", function()
+        telescope.extensions.yank_history.yank_history()
       end)
 
       -- Copy the current path to clipboard
@@ -121,6 +129,7 @@ return {
       telescope.load_extension("ui-select")
       telescope.load_extension("advanced_git_search")
       telescope.load_extension("z")
+      telescope.load_extension("yank_history")
     end,
   },
   {

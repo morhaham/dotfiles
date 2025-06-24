@@ -5,13 +5,12 @@ return {
     require("lualine").setup({
       options = {
         -- @usage 'rose-pine' | 'rose-pine-alt'
-        theme = "rose-pine",
+        theme = "rose-pine-alt",
         -- theme = 'vscode',
         section_separators = "",
         component_separators = "",
         disabled_filetypes = { "TelescopePrompt" },
       },
-      extensions = { "oil" },
       sections = {
         lualine_a = {
           {
