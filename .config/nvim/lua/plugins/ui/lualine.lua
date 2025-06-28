@@ -18,6 +18,7 @@ return {
             fmt = function(str)
               return "[" .. str .. "]"
             end,
+            padding = { left = 0 },
           },
         },
         lualine_b = {
@@ -25,7 +26,12 @@ return {
         },
         lualine_c = { "branch" },
         lualine_x = { "filetype", "encoding" },
-        lualine_z = { "location" },
+        lualine_z = {
+          {
+            "location",
+            padding = { right = 0 },
+          },
+        },
       },
     })
   end,
