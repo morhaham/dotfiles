@@ -1,3 +1,4 @@
+local dap_icons = require("config.icons").debug
 return {
   {
     "rcarriga/nvim-dap-ui",
@@ -20,7 +21,39 @@ return {
       dap.listeners.before.event_exited.dapui_config = function()
         dapui.close()
       end
-      vim.fn.sign_define("DapBreakpoint", { text = "◉", texthl = "", linehl = "", numhl = "" })
+
+      -- Define signs for DAP
+      vim.fn.sign_define("DapBreakpoint", {
+        text = dap_icons.breakpoint,
+        texthl = "DapBreakpoint",
+        linehl = "DapBreakpointLine",
+        numhl = "DapBreakpointNum",
+      })
+      vim.fn.sign_define("DapBreakpointCondition", {
+        text = dap_icons.condition,
+        texthl = "DapBreakpointCondition",
+        linehl = "DapBreakpointConditionLine",
+        numhl = "DapBreakpointConditionNum",
+      })
+      vim.fn.sign_define("DapBreakpointRejected", {
+        text = dap_icons.rejected,
+        texthl = "DapBreakpointRejected",
+        linehl = "DapBreakpointRejectedLine",
+        numhl = "DapBreakpointRejectedNum",
+      })
+      vim.fn.sign_define("DapLogPoint", {
+        text = dap_icons.log,
+        texthl = "DapLogPoint",
+        linehl = "DapLogPointLine",
+        numhl = "DapLogPointNum",
+      })
+      vim.fn.sign_define("DapStopped", {
+        text = dap_icons.stopped,
+        texthl = "DapStopped",
+        linehl = "DapStoppedLine",
+        numhl = "DapStoppedNum",
+      })
+
       require("neodev").setup({
         library = { plugins = { "nvim-dap-ui" }, types = true },
       })
@@ -94,7 +127,7 @@ return {
         "svelte",
         "markdown",
         "json",
-        "oil"
+        "oil",
       }
       -- ╭──────────────────────────────────────────────────────────╮
       -- │ Adapters                                                 │

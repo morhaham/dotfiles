@@ -1,3 +1,4 @@
+local diagnostics_icons = require("config.icons").diagnostics
 return {
   "nvim-lualine/lualine.nvim",
   event = "ColorScheme",
@@ -26,9 +27,29 @@ return {
         },
         lualine_c = { "branch" },
         lualine_x = { "filetype", "encoding" },
+        lualine_y = {
+          {
+            "diagnostics",
+            sources = { "nvim_diagnostic" },
+            symbols = {
+              error = diagnostics_icons.error,
+              warn = diagnostics_icons.warn,
+              info = diagnostics_icons.info,
+              hint = diagnostics_icons.hint,
+            },
+          },
+          {
+            "diff",
+            colored = true,
+            symbols = { added = "+", modified = "~", removed = "-" },
+          },
+        },
         lualine_z = {
           {
             "location",
+          },
+          {
+            "progress",
             padding = { right = 0 },
           },
         },
