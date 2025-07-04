@@ -1,3 +1,4 @@
+local border_chars = require("config.icons").border
 return {
   {
     "mason-org/mason-lspconfig.nvim",
@@ -47,7 +48,7 @@ return {
           })
 
           -- LSP diagnostics signs
-          local signs = { Error =" ", Warn =" ", Hint ="󰌶 ", Info = " "}
+          local signs = { Error = " ", Warn = " ", Hint = "󰌶 ", Info = " " }
           for type, icon in pairs(signs) do
             local hl = "DiagnosticSign" .. type
             vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
@@ -126,9 +127,17 @@ return {
     config = function()
       require("goto-preview").setup({
         default_mappings = true,
-        border = { "↖", "─", "╮", "│", "╯", "─", "╰", "│" },
-        -- border without left arrow
-        -- border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
+        border = {
+          border_chars.arrow_left,
+          border_chars.horizontal,
+          border_chars.top_right,
+          border_chars.vertical,
+          border_chars.bottom_right,
+          border_chars.horizontal,
+          border_chars.bottom_left,
+          border_chars.vertical,
+        },
+        stack_floating_preview_windows = false,
       })
       vim.keymap.set("n", "gp", "", { desc = "Goto preview definition" })
     end,

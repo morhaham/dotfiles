@@ -1,22 +1,22 @@
 return {
-  -- {
-  --   "folke/tokyonight.nvim",
-  --   lazy = false,
-  --   priority = 1000,
-  --   opts = {},
-  --   init = function()
-  --     vim.cmd([[colorscheme tokyonight]])
-  --   end,
-  -- },
+  {
+    "folke/tokyonight.nvim",
+    lazy = false,
+    priority = 1000,
+    opts = {},
+    init = function()
+      vim.cmd([[colorscheme tokyonight-night]])
+    end,
+  },
   {
     "rose-pine/neovim",
     name = "rose-pine",
     priority = 1000,
     lazy = false,
     branch = "canary",
-    init = function()
-      vim.cmd.colorscheme("rose-pine")
-    end,
+    -- init = function()
+    --   vim.cmd.colorscheme("rose-pine")
+    -- end,
     config = function()
       require("rose-pine").setup({
         highlight_groups = {

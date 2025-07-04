@@ -27,6 +27,13 @@ local icons = {
     step_out = "",
     step_over = "",
     terminate = "",
+    breakpoints_tab = "",
+    scopes_tab = "",
+    exceptions_tab = "",
+    watches_tab = " ",
+    threads_tab = " ",
+    repl_tab = " ",
+    console_tab = "",
   },
   file = {
     file = "",
@@ -136,19 +143,14 @@ local icons = {
   },
   statuscol = "▏",
   indentline = "│",
-  borders = {
-    inner = {
-      all = { " ", "▁", " ", "▏", " ", "▔", " ", "▕" },
-      top_bottom = { " ", "▁", " ", " ", " ", "▔", " ", " " },
-    },
-    outer = {
-      -- all = { "🭽", "▔", "🭾", "▕", "🭿", "▁", "🭼", "▏" },
-      -- all = { "", "", "", "", "", "", "", "" },
-      all = { " ", " ", " ", " ", " ", " ", " ", " " },
-    },
-    none = { "", "", "", "", "", "", "", "" },
-    left_right = { "", "", " ", "", "", "", "", " " },
-    empty = { " ", " ", " ", " ", " ", " ", " ", " " },
+  border = {
+    top_left = "╭",
+    top_right = "╮",
+    bottom_left = "╰",
+    bottom_right = "╯",
+    horizontal = "─",
+    vertical = "│",
+    arrow_left = "↖",
   },
 }
 

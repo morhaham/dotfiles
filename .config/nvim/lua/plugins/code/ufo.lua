@@ -59,13 +59,6 @@ return {
           -- Simulate the sign column while not showing the gitsigns
           {
             sign = {
-              name = { ".*" },
-              text = { ".*" },
-            },
-            click = "v:lua.ScSa",
-          },
-          {
-            sign = {
               namespace = { "gitsigns" },
               colwidth = 1,
               wrap = true,
@@ -75,6 +68,13 @@ return {
               function(args)
                 return vim.wo[args.win].number or vim.b[args.buf].gitsigns_status
               end,
+            },
+            click = "v:lua.ScSa",
+          },
+          {
+            sign = {
+              name = { ".*" },
+              text = { ".*" },
             },
             click = "v:lua.ScSa",
           },

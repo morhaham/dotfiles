@@ -12,7 +12,8 @@ font-size = 16
 adjust-cell-height = 20%
 
 # Theme
-theme = rose-pine
+# theme = rose-pine
+theme = tokyonight_night
 
 # Window
 window-decoration = false

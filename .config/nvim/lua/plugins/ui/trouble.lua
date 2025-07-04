@@ -42,12 +42,12 @@ return {
       desc = "References (Trouble)",
     },
     {
-      "gD",
+      "gd",
       "<cmd>Trouble lsp_definitions<cr>",
       desc = "Go to definition (Trouble)",
     },
     {
-      "gd",
+      "gD",
       "<cmd>Trouble lsp_declarations<cr>",
       desc = "Go to declaration (Trouble)",
     },

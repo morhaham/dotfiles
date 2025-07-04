@@ -7,9 +7,9 @@ local options = {
   inccommand = "nosplit", -- Show effect of command incrementally while writing it (substitution)
   showmode = false, -- Don't need to show mode
   mouse = "", -- Disable mouse in all mode
-  tabstop = 2, -- A tab is 2 spaces (display)
-  shiftwidth = 2, -- Indent to 2 spaces
-  softtabstop = 2, -- A tab is 2 spaces (insert mode)
+  tabstop = 4, -- A tab is 2 spaces (display)
+  shiftwidth = 4, -- Indent to 2 spaces
+  softtabstop = 4, -- A tab is 2 spaces (insert mode)
   expandtab = true, -- Use spaces instead of tab character
   smartindent = true, -- Smart auto indent on new line
   cursorline = true, -- Highlight the current line the cursor is on
@@ -47,6 +47,7 @@ local options = {
   showtabline = 0, -- Hide tabline
   belloff = "all",
   timeoutlen = 300, -- Time to wait for mapped sequence to complete
+  -- winborder = "rounded",
 }
 
 for opt, val in pairs(options) do

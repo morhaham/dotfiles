@@ -1,4 +1,4 @@
-local dap_icons = require("config.icons").debug
+local debug_icons = require("config.icons").debug
 return {
   {
     "rcarriga/nvim-dap-ui",
@@ -9,46 +9,47 @@ return {
     },
     config = function()
       local dap, dapui = require("dap"), require("dapui")
+      local dapview = require("dap-view")
       dap.listeners.before.attach.dapui_config = function()
-        dapui.open()
+        dapview.open()
       end
       dap.listeners.before.launch.dapui_config = function()
-        dapui.open()
+        dapview.open()
       end
       dap.listeners.before.event_terminated.dapui_config = function()
-        dapui.close()
+        dapview.close()
       end
       dap.listeners.before.event_exited.dapui_config = function()
-        dapui.close()
+        dapview.close()
       end
 
       -- Define signs for DAP
       vim.fn.sign_define("DapBreakpoint", {
-        text = dap_icons.breakpoint,
+        text = debug_icons.breakpoint,
         texthl = "DapBreakpoint",
         linehl = "DapBreakpointLine",
         numhl = "DapBreakpointNum",
       })
       vim.fn.sign_define("DapBreakpointCondition", {
-        text = dap_icons.condition,
+        text = debug_icons.condition,
         texthl = "DapBreakpointCondition",
         linehl = "DapBreakpointConditionLine",
         numhl = "DapBreakpointConditionNum",
       })
       vim.fn.sign_define("DapBreakpointRejected", {
-        text = dap_icons.rejected,
+        text = debug_icons.rejected,
         texthl = "DapBreakpointRejected",
         linehl = "DapBreakpointRejectedLine",
         numhl = "DapBreakpointRejectedNum",
       })
       vim.fn.sign_define("DapLogPoint", {
-        text = dap_icons.log,
+        text = debug_icons.log,
         texthl = "DapLogPoint",
         linehl = "DapLogPointLine",
         numhl = "DapLogPointNum",
       })
       vim.fn.sign_define("DapStopped", {
-        text = dap_icons.stopped,
+        text = debug_icons.stopped,
         texthl = "DapStopped",
         linehl = "DapStoppedLine",
         numhl = "DapStoppedNum",
@@ -59,7 +60,16 @@ return {
       })
       vim.keymap.set({ "n", "v" }, "<M-;>", dapui.eval, { desc = "Evaluate expression" })
 
-      require("dapui").setup()
+      dapui.setup({
+        floating = {
+          max_height = 0.8,
+          max_width = 0.8,
+          border = "rounded",
+          mappings = {
+            close = { "q", "<Esc>" },
+          },
+        },
+      })
     end,
   },
   {
@@ -102,7 +112,7 @@ return {
         dap.run_last()
       end, { desc = "Dap run last config" })
       vim.keymap.set({ "n", "v" }, "<leader>dh", function()
-        require("dap.ui.widgets").hover()
+        require("dap.ui.widgets").hover(nil, { border = "rounded" })
       end, { desc = "Dap hover" })
       vim.keymap.set({ "n", "v" }, "<leader>dp", function()
         require("dap.ui.widgets").preview()
@@ -345,5 +355,90 @@ return {
         },
       })
     end,
+  },
+  {
+    "igorlfs/nvim-dap-view",
+    -- event -- Not needed as this plugin is a dependency
+    keys = {
+      {
+        "<leader>dv",
+        function()
+          require("dap-view").toggle()
+        end,
+        desc = "Toggle nvim-dap-view",
+      },
+      {
+        "<leader>ds",
+        function()
+          require("dap-view").jump_to_view("scopes")
+        end,
+        desc = "Toggle nvim-dap-view scopes",
+      },
+      {
+        "<leader>dw",
+        function()
+          require("dap-view").jump_to_view("watches")
+        end,
+        desc = "Toggle nvim-dap-view watches",
+      },
+      {
+        "<leader>de",
+        function()
+          require("dap-view").jump_to_view("exceptions")
+        end,
+        desc = "Toggle nvim-dap-view exceptions",
+      },
+      {
+        "<leader>db",
+        function()
+          require("dap-view").jump_to_view("breakpoints")
+        end,
+        desc = "Toggle nvim-dap-view breakpoints",
+      },
+      {
+        "<leader>dt",
+        function()
+          require("dap-view").jump_to_view("threads")
+        end,
+        desc = "Toggle nvim-dap-view threads",
+      },
+      {
+        "<leader>dr",
+        function()
+          require("dap-view").jump_to_view("repl")
+        end,
+        desc = "Toggle nvim-dap-view repl",
+      },
+      {
+        "<leader>dc",
+        function()
+          require("dap-view").jump_to_view("console")
+        end,
+        desc = "Toggle nvim-dap-view console",
+      },
+    },
+    opts = {
+      winbar = {
+        default_section = "scopes",
+        sections = { "watches", "scopes", "exceptions", "breakpoints", "threads", "repl", "console" },
+        headers = {
+          breakpoints = debug_icons.breakpoints_tab .. " Breakpoints",
+          scopes = debug_icons.scopes_tab .. " Scopes",
+          exceptions = debug_icons.exceptions_tab .. " Exceptions",
+          watches = debug_icons.watches_tab .. " Watches",
+          threads = debug_icons.threads_tab .. "Threads",
+          repl = debug_icons.repl_tab .. "REPL",
+          console = debug_icons.console_tab .. " Console",
+        },
+      },
+      windows = {
+        height = 12,
+        terminal = {
+          position = "right",
+          hide = { "delve" }, -- Hide the terminal for Delve as they don't implement it
+          start_hidden = true,
+        },
+      },
+    },
   },
 }
