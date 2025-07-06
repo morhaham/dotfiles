@@ -9,4 +9,5 @@ return {
   require("plugins.ui.neoscroll"),
   require("plugins.ui.statuscol"),
   require("plugins.ui.ufo"),
+  require("plugins.ui.arrow"),
 }
