@@ -7,4 +7,6 @@ return {
   require("plugins.ui.lualine"),
   require("plugins.ui.trouble"),
   require("plugins.ui.neoscroll"),
+  require("plugins.ui.statuscol"),
+  require("plugins.ui.ufo"),
 }

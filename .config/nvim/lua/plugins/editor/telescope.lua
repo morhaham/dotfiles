@@ -25,6 +25,8 @@ return {
       local open_with_trouble = require("trouble.sources.telescope").open
       local add_to_trouble = require("trouble.sources.telescope").add
       local telescope = require("telescope")
+      local lga_actions = require("telescope-live-grep-args.actions")
+      local lga_shortcuts = require("telescope-live-grep-args.shortcuts")
 
       vim.keymap.set("n", "<leader>ff", function()
         builtin.find_files({ hidden = true, no_ignore = true })
@@ -41,7 +43,7 @@ return {
       end, { desc = "Live grep(args)" })
 
       vim.keymap.set("n", "<C-x>", function()
-        builtin.grep_string({ additional_args = { "--follow", "--hidden", "--glob=!.git/" } })
+        lga_shortcuts.grep_word_under_cursor({ additional_args = { "--follow", "--hidden", "--glob=!.git/" } })
       end, { desc = "Grep string under cursor" })
 
       vim.keymap.set("n", "<leader>fb", function()
@@ -118,6 +120,22 @@ return {
                 ["<C-y>"] = copy_path,
               },
             },
+          },
+          live_grep_args = {
+            auto_quoting = true, -- enable/disable auto-quoting
+            -- define mappings, e.g.
+            mappings = { -- extend mappings
+              i = {
+                ["<C-k>"] = lga_actions.quote_prompt(),
+                ["<C-i>"] = lga_actions.quote_prompt({ postfix = " --iglob " }),
+                -- freeze the current list and start a fuzzy search in the frozen list
+                -- ["<C-r>"] = lga_actions.to_fuzzy_refine,
+              },
+            },
+            -- ... also accepts theme settings, for example:
+            -- theme = "dropdown", -- use dropdown theme
+            -- theme = { }, -- use own theme spec
+            -- layout_config = { mirror=true }, -- mirror preview pane
           },
         },
       })
