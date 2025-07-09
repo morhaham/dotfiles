@@ -1,3 +1,4 @@
+local diagnostics_icons = require("config.icons").diagnostics
 local border_chars = require("config.icons").border
 return {
   {
@@ -12,6 +13,8 @@ return {
     opts = function()
       local lspconfig = require("lspconfig")
       local lsp_capabilities = require("cmp_nvim_lsp").default_capabilities()
+      local util = require("lspconfig.util")
+
       local default_setup = function(server)
         lspconfig[server].setup({
           capabilities = lsp_capabilities,
@@ -26,7 +29,6 @@ return {
           "ts_ls",
           "lua_ls",
           "pylsp",
-          "ts_ls",
           "cssls",
           "html",
         },
@@ -48,7 +50,12 @@ return {
           })
 
           -- LSP diagnostics signs
-          local signs = { Error = " ", Warn = " ", Hint = "󰌶 ", Info = " " }
+          local signs = {
+            Error = diagnostics_icons.error,
+            Warn = diagnostics_icons.warn,
+            Hint = diagnostics_icons.hint,
+            Info = diagnostics_icons.info,
+          }
           for type, icon in pairs(signs) do
             local hl = "DiagnosticSign" .. type
             vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })

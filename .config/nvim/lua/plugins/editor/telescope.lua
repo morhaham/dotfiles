@@ -36,7 +36,8 @@ return {
         builtin.git_files()
       end, { desc = "Find git files" })
 
-      vim.keymap.set("n", "<leader>fg", function()
+      -- Using <C-_> since <C-/> is not supported in some terminals
+      vim.keymap.set("n", "<C-_>", function()
         telescope.extensions.live_grep_args.live_grep_args({
           additional_args = { "--follow", "--hidden", "--glob=!.git/" },
         })
@@ -62,7 +63,7 @@ return {
 
       -- File browser
       vim.keymap.set("n", "-", function()
-        telescope.extensions.file_browser.file_browser({ path = "%:p:h", prompt_path = true })
+        telescope.extensions.file_browser.file_browser()
       end)
 
       vim.keymap.set("n", "<leader>pp", function()
@@ -110,6 +111,8 @@ return {
         },
         extensions = {
           file_browser = {
+            path = "%:p:h",
+            prompt_path = true,
             hijack_netrw = true,
             mappings = {
               n = {
@@ -159,6 +162,7 @@ return {
   {
     "ahmedkhalf/project.nvim",
     opts = {
+      manual_mode = true,
       detection_methods = { "lsp", "pattern" },
       patterns = { ".git", "Cargo.toml", ".hg", ".bzr", ".svn", "Makefile" },
       show_hidden = true,

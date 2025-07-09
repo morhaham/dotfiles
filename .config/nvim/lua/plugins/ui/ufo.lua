@@ -1,3 +1,4 @@
+-- Pretty folds
 return {
   {
     "kevinhwang91/nvim-ufo",
@@ -11,9 +12,12 @@ return {
       -- provider_selector = function(bufnr, filetype, buftype)
       --   return { "treesitter", "indent" }
       -- end,
-      open_fold_hl_timeout = 400,
-      close_fold_kinds_for_ft = { default = { "imports", "comment" } },
-
+      close_fold_kinds_for_ft = {
+        default = {
+          "imports",
+          "comment",
+        },
+      },
       preview = {
         mappings = {
           scrollU = "<C-u>",
@@ -24,7 +28,7 @@ return {
       },
     },
     init = function()
-      vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
+      -- vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
       vim.o.foldcolumn = "1"
       vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
       vim.o.foldlevelstart = 99

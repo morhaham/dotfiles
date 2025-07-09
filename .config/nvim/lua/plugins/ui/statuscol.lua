@@ -1,3 +1,4 @@
+-- Control the status col
 return {
   "luukvbaal/statuscol.nvim",
   config = function()
@@ -48,18 +49,18 @@ return {
           },
           click = "v:lua.ScSa",
         },
-        -- Show the fold column with custom icons
-        {
-          text = {
-            function(args)
-              args.fold.close = ""
-              args.fold.open = ""
-              args.fold.sep = " "
-              return builtin.foldfunc(args)
-            end,
-          },
-          click = "v:lua.ScFa",
-        },
+        -- -- Show the fold column with custom icons
+        -- {
+        --   text = {
+        --     function(args)
+        --       args.fold.close = ""
+        --       args.fold.open = ""
+        --       args.fold.sep = " "
+        --       return builtin.foldfunc(args)
+        --     end,
+        --   },
+        --   click = "v:lua.ScFa",
+        -- },
         -- Simulate the line number column without the right padding
         {
           text = { builtin.lnumfunc, " " },
