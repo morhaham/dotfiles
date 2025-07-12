@@ -3,10 +3,11 @@ export ZSH="$HOME/.oh-my-zsh"
 ZSH_THEME="robbyrussell"
 
 # plugins
-source $(brew --prefix)/opt/zsh-vi-mode/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
 # plugins end
 
 # Plugins config
+# zsh-vi-mode
+source $(brew --prefix)/opt/zsh-vi-mode/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
 # plugins config end
 
 source $ZSH/oh-my-zsh.sh
@@ -30,17 +31,17 @@ HOMEBREW_NO_AUTO_UPDATE=1
 
 # NVM
 export NVM_DIR="$HOME/.nvm"
-# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-# lazy load NVM
-lazy_load_nvm() {
-  unset -f node npm npx
-  export NVM_DIR="$HOME/.nvm"
-  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-}
-node() { lazy_load_nvm; node "$@"; }
-npm() { lazy_load_nvm; npm "$@"; }
-npx() { lazy_load_nvm; npx "$@"; }
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+# # lazy load NVM
+# lazy_load_nvm() {
+#   unset -f node npm npx
+#   export NVM_DIR="$HOME/.nvm"
+#   [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+# }
+# node() { lazy_load_nvm; node "$@"; }
+# npm() { lazy_load_nvm; npm "$@"; }
+# npx() { lazy_load_nvm; npx "$@"; }
+# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 # NVM end
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
