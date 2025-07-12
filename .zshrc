@@ -3,10 +3,11 @@ export ZSH="$HOME/.oh-my-zsh"
 ZSH_THEME="robbyrussell"
 
 # plugins
+source $(brew --prefix)/opt/zsh-vi-mode/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
 # plugins end
 
 # Plugins config
-# plugins end
+# plugins config end
 
 source $ZSH/oh-my-zsh.sh
 
@@ -20,13 +21,27 @@ alias pip="pip3"
 alias k="kubectl"
 # aliases end
 
+# enable vim modal editing 
+bindkey -v
+
 # hombrew
 HOMEBREW_NO_AUTO_UPDATE=1
 # hombrew end
 
+# NVM
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+# lazy load NVM
+lazy_load_nvm() {
+  unset -f node npm npx
+  export NVM_DIR="$HOME/.nvm"
+  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+}
+node() { lazy_load_nvm; node "$@"; }
+npm() { lazy_load_nvm; npm "$@"; }
+npx() { lazy_load_nvm; npx "$@"; }
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+# NVM end
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
@@ -43,7 +58,7 @@ export PATH="$PATH:/Users/morh/.local/bin"
 # export JAVA_HOME=/Library/Java/JavaVirtualMachines/zulu-11.jdk/Contents/Home
 # jenv java env manager
 export PATH="$HOME/.jenv/bin:$PATH"
-eval "$(jenv init -)"
+# eval "$(jenv init -)"
 # jenv enable-plugin export
 # java related end
 
@@ -66,13 +81,13 @@ vterm_printf() {
 }
 # vterm end
 
-# apps config
-
+# Local apps config
 # Greenlight
 export GREENLIGHT_DB_DSN='postgres://postgres:morh123@localhost:5432/greenlight?sslmode=disable'
 export MAILTRAP_USERNAME='06fa34b5a5be95'
 export MAILTRAP_PASSWORD='e49042661e65df'
 # Greenlight end
+# Local apps config end
 
 # Conda
 export PATH=/usr/local/anaconda3/bin:$PATH
@@ -80,17 +95,17 @@ export PATH=/opt/homebrew/anaconda3/bin:$PATH
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/Users/morhaham/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/Users/morhaham/miniconda3/etc/profile.d/conda.sh" ]; then
-        . "/Users/morhaham/miniconda3/etc/profile.d/conda.sh"
-    else
-        export PATH="/Users/morhaham/miniconda3/bin:$PATH"
-    fi
-fi
-unset __conda_setup
+# __conda_setup="$('/Users/morhaham/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+# if [ $? -eq 0 ]; then
+#     eval "$__conda_setup"
+# else
+#     if [ -f "/Users/morhaham/miniconda3/etc/profile.d/conda.sh" ]; then
+#         . "/Users/morhaham/miniconda3/etc/profile.d/conda.sh"
+#     else
+#         export PATH="/Users/morhaham/miniconda3/bin:$PATH"
+#     fi
+# fi
+# unset __conda_setup
 # <<< conda initialize <<<
 # Conda end
 
@@ -102,13 +117,9 @@ export GEMINI_API_KEY=AIzaSyDxKnkJVNNBeYC1F6lTjROPpayl6Pn0vHg
 export OLLAMA_API_BASE=http://127.0.0.1:11434
 # Aider end
 
-# Added by Windsurf
-export PATH="/Users/morh/.codeium/windsurf/bin:$PATH"
-export PATH="/usr/local/opt/ruby/bin:$PATH"
-
-# cargo
+# Cargo
 export CARGO_HOME="$XDG_CONFIG_HOME/cargo"
-# cargo end
+# Cargo end
 
 # Source local config file with sensitive information
 if [ -f "$HOME/.zshrc.local" ]; then

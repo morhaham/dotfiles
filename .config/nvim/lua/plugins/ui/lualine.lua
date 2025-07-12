@@ -5,12 +5,10 @@ return {
   config = function()
     require("lualine").setup({
       options = {
-        -- @usage 'rose-pine' | 'rose-pine-alt'
-        -- theme = "rose-pine-alt",
         theme = "tokyonight",
         -- theme = 'vscode',
-        section_separators = "",
-        component_separators = "",
+        section_separators = { left = "", right = "" },
+        component_separators = { left = "", right = "" },
         disabled_filetypes = { "TelescopePrompt" },
       },
       sections = {
@@ -18,9 +16,10 @@ return {
           {
             "mode",
             fmt = function(str)
-              return "[" .. str .. "]"
+              -- return "[" .. str .. "]"
+              return str
             end,
-            padding = { left = 0 },
+            -- padding = { left = 0 },
           },
         },
         lualine_b = {
@@ -51,7 +50,7 @@ return {
           },
           {
             "progress",
-            padding = { right = 0 },
+            -- padding = { right = 0 },
           },
         },
       },

@@ -112,7 +112,9 @@ return {
         dap.run_last()
       end, { desc = "Dap run last config" })
       vim.keymap.set({ "n", "v" }, "<leader>dh", function()
-        require("dap.ui.widgets").hover(nil, { border = "rounded" })
+        require("dap.ui.widgets").hover(nil, {
+          border = "rounded",
+        })
       end, { desc = "Dap hover" })
       vim.keymap.set({ "n", "v" }, "<leader>dp", function()
         require("dap.ui.widgets").preview()

@@ -19,7 +19,7 @@ return {
           { name = "nvim_lsp_signature_help" },
           { name = "luasnip" },
           { name = "nvim_lsp" },
-          { name = "buffer" },
+          -- { name = "buffer" },
         }),
         formatting = {
           format = lspkind.cmp_format({
@@ -73,8 +73,20 @@ return {
               fallback()
             end
           end, { "i", "s" }),
+          ["<C-c>"] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+              cmp.close()
+            else
+              fallback()
+            end
+          end, { "i", "s" }),
         },
         enabled = function()
+          -- disable completion in propmts(like Telescope picker)
+          local buftype = vim.api.nvim_buf_get_option(0, "buftype")
+          if buftype == "prompt" then
+            return false
+          end
           -- disable completion in comments
           local context = require("cmp.config.context")
           -- keep command mode completion enabled when cursor is in a comment

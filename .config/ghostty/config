@@ -14,7 +14,7 @@ adjust-cell-height = 20%
 
 # Theme
 # theme = rose-pine
-theme = tokyonight_night
+theme = tokyonight_moon
 
 # Window
 window-decoration = false

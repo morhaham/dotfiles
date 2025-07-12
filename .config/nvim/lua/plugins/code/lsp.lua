@@ -135,7 +135,8 @@ return {
       require("goto-preview").setup({
         default_mappings = true,
         border = {
-          border_chars.arrow_left,
+          -- border_chars.arrow_left,
+          border_chars.top_left,
           border_chars.horizontal,
           border_chars.top_right,
           border_chars.vertical,
