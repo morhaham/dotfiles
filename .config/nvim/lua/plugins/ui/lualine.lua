@@ -1,4 +1,6 @@
 local diagnostics_icons = require("config.icons").diagnostics
+local git_icons = require("config.icons").git
+
 return {
   "nvim-lualine/lualine.nvim",
   event = "ColorScheme",
@@ -7,8 +9,9 @@ return {
       options = {
         theme = "tokyonight",
         -- theme = 'vscode',
-        section_separators = { left = "", right = "" },
-        component_separators = { left = "", right = "" },
+        -- section_separators = { left = "", right = "" },
+        -- section_separators = { left = "/", right = "/" },
+        -- component_separators = { left = "", right = "" },
         disabled_filetypes = { "TelescopePrompt" },
       },
       sections = {
@@ -23,25 +26,31 @@ return {
           },
         },
         lualine_b = {
+          { "branch" },
+        },
+        lualine_c = {
           { "filename", path = 1 },
         },
-        lualine_c = { "branch" },
         lualine_x = { "filetype", "encoding" },
         lualine_y = {
           {
             "diagnostics",
             sources = { "nvim_diagnostic" },
             symbols = {
-              error = diagnostics_icons.error,
-              warn = diagnostics_icons.warn,
-              info = diagnostics_icons.info,
-              hint = diagnostics_icons.hint,
+              error = diagnostics_icons.error..' ',
+              warn = diagnostics_icons.warn..' ',
+              info = diagnostics_icons.info..' ',
+              hint = diagnostics_icons.hint..' ',
             },
           },
           {
             "diff",
             colored = true,
-            symbols = { added = "+", modified = "~", removed = "-" },
+            symbols = {
+              added = git_icons.add .. " ",
+              modified = git_icons.change .. " ",
+              removed = git_icons.delete .. " ",
+            },
           },
         },
         lualine_z = {

@@ -12,6 +12,7 @@ return {
     save_key = "git_root",
     window = {
       border = "rounded",
+      -- border = "none",
     },
   },
 }

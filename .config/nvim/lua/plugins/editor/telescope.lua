@@ -85,6 +85,7 @@ return {
 
       telescope.setup({
         defaults = {
+          -- border = false,
           path_display = { "truncate" },
           mappings = {
             i = { ["<C-q>"] = open_with_trouble, ["<M-q>"] = add_to_trouble },

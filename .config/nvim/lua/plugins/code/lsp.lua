@@ -46,6 +46,7 @@ return {
           vim.bo[ev.buf].omnifunc = "v:lua.vim.lsp.omnifunc"
           vim.diagnostic.config({
             virtual_text = false,
+            -- float = { border = "rounded" },
             float = { border = "rounded" },
           })
 

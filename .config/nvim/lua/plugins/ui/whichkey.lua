@@ -12,6 +12,11 @@ return {
     vim.keymap.set("n", "<leader>w", "", { desc = "Workspace" })
     vim.keymap.set("n", "<leader>x", "", { desc = "Diagnostics" })
   end,
+  opts = {
+    win = {
+      border = "rounded",
+    },
+  },
   keys = {
     {
       "<leader>?",

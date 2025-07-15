@@ -79,7 +79,7 @@ local icons = {
   git = {
     signs = {
       add = "▎",
-      topdelete = " ",
+      topdelete = "‾",
       delete = "▎",
       changedelete = "▎",
       change = "▎",
@@ -98,10 +98,10 @@ local icons = {
     untracked = "*",
   },
   diagnostics = {
-    error = " ",
-    warn = " ",
-    hint = "󰌶 ",
-    info = " ",
+    error = "",
+    warn = "",
+    hint = "󰌶",
+    info = "",
   },
   kinds = {
     Copilot = "",
