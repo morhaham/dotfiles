@@ -26,7 +26,7 @@ return {
           },
         },
         lualine_b = {
-          { "branch" },
+          { "branch", icon = git_icons.branch },
         },
         lualine_c = {
           { "filename", path = 1 },
@@ -37,10 +37,10 @@ return {
             "diagnostics",
             sources = { "nvim_diagnostic" },
             symbols = {
-              error = diagnostics_icons.error..' ',
-              warn = diagnostics_icons.warn..' ',
-              info = diagnostics_icons.info..' ',
-              hint = diagnostics_icons.hint..' ',
+              error = diagnostics_icons.error .. " ",
+              warn = diagnostics_icons.warn .. " ",
+              info = diagnostics_icons.info .. " ",
+              hint = diagnostics_icons.hint .. " ",
             },
           },
           {
