@@ -16,6 +16,11 @@ return {
     win = {
       border = "rounded",
     },
+    layout = {
+      width = {
+        max = 50
+      }
+    }
   },
   keys = {
     {
