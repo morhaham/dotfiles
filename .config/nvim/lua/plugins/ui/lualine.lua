@@ -26,7 +26,7 @@ return {
           },
         },
         lualine_b = {
-          { "branch", icon = git_icons.branch },
+          { "branch", icon = git_icons.git },
         },
         lualine_c = {
           { "filename", path = 1 },

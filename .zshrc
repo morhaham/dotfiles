@@ -7,6 +7,7 @@ ZSH_THEME="robbyrussell"
 
 # Plugins config
 # zsh-vi-mode
+ZVM_VI_INSERT_ESCAPE_BINDKEY=jj
 source $(brew --prefix)/opt/zsh-vi-mode/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
 # plugins config end
 
