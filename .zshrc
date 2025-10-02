@@ -54,7 +54,7 @@ export PNPM_HOME="/Users/morh/Library/pnpm"
 export PATH="$PNPM_HOME:$PATH"
 # pnpm end
 
-export PATH="$PATH:/Users/morh/.local/bin"
+export PATH="$HOME/.local/bin:$PATH"
 
 # java related
 # export JAVA_HOME=/Library/Java/JavaVirtualMachines/zulu-11.jdk/Contents/Home

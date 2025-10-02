@@ -9,4 +9,5 @@
 .aider*
 .config/cargo/*
 !.config/cargo/config.toml
+.config/configstore/
 .zshrc.local

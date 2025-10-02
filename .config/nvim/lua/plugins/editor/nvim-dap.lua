@@ -370,49 +370,49 @@ return {
         desc = "Toggle nvim-dap-view",
       },
       {
-        "<leader>ds",
+        "S",
         function()
           require("dap-view").jump_to_view("scopes")
         end,
         desc = "Toggle nvim-dap-view scopes",
       },
       {
-        "<leader>dw",
+        "W",
         function()
           require("dap-view").jump_to_view("watches")
         end,
         desc = "Toggle nvim-dap-view watches",
       },
       {
-        "<leader>de",
+        "E",
         function()
           require("dap-view").jump_to_view("exceptions")
         end,
         desc = "Toggle nvim-dap-view exceptions",
       },
       {
-        "<leader>db",
+        "B",
         function()
           require("dap-view").jump_to_view("breakpoints")
         end,
         desc = "Toggle nvim-dap-view breakpoints",
       },
       {
-        "<leader>dt",
+        "T",
         function()
           require("dap-view").jump_to_view("threads")
         end,
         desc = "Toggle nvim-dap-view threads",
       },
       {
-        "<leader>dr",
+        "R",
         function()
           require("dap-view").jump_to_view("repl")
         end,
         desc = "Toggle nvim-dap-view repl",
       },
       {
-        "<leader>dc",
+        "C",
         function()
           require("dap-view").jump_to_view("console")
         end,

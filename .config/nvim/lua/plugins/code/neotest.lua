@@ -14,7 +14,7 @@ return {
       },
       adapters = {
         require("neotest-jest")({
-          jestCommand = "yarn test",
+          jestCommand = "node node_modules/.bin/jest",
           jestConfigFile = function(file)
             local path
             if string.find(file, "/apps/") or string.find(file, "/services/") or string.find(file, "/packages/") then
@@ -37,9 +37,9 @@ return {
           end,
           env = { CI = true },
           cwd = function(file)
-            if string.find(file, "/apps/") or string.find(file, "/services/") or string.find(file, "/packages/") then
-              return string.match(file, "(.-/[^/]+/)src")
-            end
+            -- if string.find(file, "/apps/") or string.find(file, "/services/") or string.find(file, "/packages/") then
+            --   return string.match(file, "(.-/[^/]+/)src")
+            -- end
             return vim.fn.getcwd()
           end,
         }),
