@@ -9,15 +9,15 @@ font-family-italic = VictorMono Nerd Font
 font-style-italic = Medium Italic
 font-style-bold-italic = Medium Italic
 # font-family = Terminess Nerd Font
-font-size = 16
+font-size = 14
 adjust-cell-height = 20%
 
 # Theme
 # theme = rose-pine
-theme = tokyonight_moon
+theme = TokyoNight Moon
 
 # Window
-window-decoration = false
+window-decoration = auto
 macos-titlebar-style = hidden
 maximize = true
 window-save-state = always
