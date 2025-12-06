@@ -39,17 +39,27 @@ return {
     "neovim/nvim-lspconfig",
     name = "lspconfig",
     config = function()
+      local function organize_ts_imports()
+        local tsserver_client = vim.lsp.get_active_clients({ name = "ts_ls", bufnr = 0 })[1]
+        if tsserver_client then
+          local params = {
+            command = "_typescript.organizeImports",
+            arguments = { vim.api.nvim_buf_get_name(0) },
+            title = "Organize Imports",
+          }
+          vim.lsp.buf.execute_command(params)
+        end
+      end
+
       vim.api.nvim_create_autocmd("LspAttach", {
         callback = function(ev)
           -- Enable completion triggered by <c-x><c-o>
           vim.bo[ev.buf].omnifunc = "v:lua.vim.lsp.omnifunc"
           vim.diagnostic.config({
             virtual_text = false,
-            -- float = { border = "rounded" },
             float = { border = "rounded" },
           })
 
-          -- LSP diagnostics signs
           local signs = {
             Error = diagnostics_icons.error,
             Warn = diagnostics_icons.warn,
@@ -61,9 +71,18 @@ return {
             vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
           end
 
-          -- Buffer local mappings.
-          -- See `:help vim.lsp.*` for documentation on any of the below functions
           local opts = { buffer = ev.buf }
+          local client = vim.lsp.get_client_by_id(ev.data.client_id)
+
+          if client.name == "ts_ls" then
+            vim.keymap.set(
+              "n",
+              "<leader>co",
+              organize_ts_imports,
+              vim.tbl_extend("force", opts, { desc = "Organize TS/JS Imports" })
+            )
+          end
+
           vim.keymap.set(
             "n",
             "K",
