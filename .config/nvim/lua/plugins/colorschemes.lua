@@ -1,47 +1,46 @@
 return {
-  {
-    "folke/tokyonight.nvim",
-    lazy = false,
-    priority = 1000,
-    opts = {
-      lualine_bold = true
-    },
-    init = function()
-      vim.cmd([[colorscheme tokyonight-moon]])
-    end,
+  "folke/tokyonight.nvim",
+  lazy = false,
+  priority = 1000,
+  opts = {
+    lualine_bold = true,
   },
-  {
-    "rose-pine/neovim",
-    name = "rose-pine",
-    priority = 1000,
-    lazy = false,
-    branch = "canary",
-    -- init = function()
-    --   vim.cmd.colorscheme("rose-pine")
-    -- end,
-    config = function()
-      require("rose-pine").setup({
-        highlight_groups = {
-          StatusLineTerm = { fg = "subtle", bg = "surface" },
-          StatusLineTermNC = { fg = "muted", bg = "surface", blend = 0 },
-          -- Comment = { italic = true },
-          -- ["@variable"] = { italic = true },
-          ["@keyword"] = { italic = true },
-          ["@function.call"] = { italic = true },
-          ["@function.builtin"] = { italic = true },
-          ["@function.macro"] = { italic = true },
-          ["@function.method.call"] = { italic = true },
-          -- ["@type"] = { italic = true },
-        },
-        disable_italics = true,
-        styles = {
-          transparency = true,
-          italic = false,
-          bold = true,
-        },
-      })
-    end,
-  },
+  init = function()
+    vim.cmd([[colorscheme tokyonight-moon]])
+  end,
+
+  -- {
+  --   "rose-pine/neovim",
+  --   name = "rose-pine",
+  --   priority = 1000,
+  --   lazy = false,
+  --   branch = "canary",
+  --   -- init = function()
+  --   --   vim.cmd.colorscheme("rose-pine")
+  --   -- end,
+  --   config = function()
+  --     require("rose-pine").setup({
+  --       highlight_groups = {
+  --         StatusLineTerm = { fg = "subtle", bg = "surface" },
+  --         StatusLineTermNC = { fg = "muted", bg = "surface", blend = 0 },
+  --         -- Comment = { italic = true },
+  --         -- ["@variable"] = { italic = true },
+  --         ["@keyword"] = { italic = true },
+  --         ["@function.call"] = { italic = true },
+  --         ["@function.builtin"] = { italic = true },
+  --         ["@function.macro"] = { italic = true },
+  --         ["@function.method.call"] = { italic = true },
+  --         -- ["@type"] = { italic = true },
+  --       },
+  --       disable_italics = true,
+  --       styles = {
+  --         transparency = true,
+  --         italic = false,
+  --         bold = true,
+  --       },
+  --     })
+  --   end,
+  -- },
   -- {
   --   "sainnhe/gruvbox-material",
   --   lazy = false,

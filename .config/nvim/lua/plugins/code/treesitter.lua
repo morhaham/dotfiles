@@ -7,7 +7,7 @@ return {
     build = ":TSUpdate",
     event = { "BufEnter" },
     config = function()
-      local configs = require("nvim-treesitter.configs")
+      local configs = require("nvim-treesitter.config")
       configs.setup({
         ensure_installed = {
           "go",

@@ -3,6 +3,7 @@ return {
     "L3MON4D3/LuaSnip",
     name = "luasnip",
     dependencies = { "friendly-snippets" },
+    run = "make install_jsregexp",
     config = function()
       -- HACK: Cancel the snippet session when leaving insert mode.
       local luasnip = require("luasnip")

@@ -423,23 +423,23 @@ return {
       winbar = {
         default_section = "scopes",
         sections = { "watches", "scopes", "exceptions", "breakpoints", "threads", "repl", "console" },
-        headers = {
-          breakpoints = debug_icons.breakpoints_tab .. " Breakpoints",
-          scopes = debug_icons.scopes_tab .. " Scopes",
-          exceptions = debug_icons.exceptions_tab .. " Exceptions",
-          watches = debug_icons.watches_tab .. " Watches",
-          threads = debug_icons.threads_tab .. "Threads",
-          repl = debug_icons.repl_tab .. "REPL",
-          console = debug_icons.console_tab .. " Console",
-        },
+        -- headers = {
+        --   breakpoints = debug_icons.breakpoints_tab .. " Breakpoints",
+        --   scopes = debug_icons.scopes_tab .. " Scopes",
+        --   exceptions = debug_icons.exceptions_tab .. " Exceptions",
+        --   watches = debug_icons.watches_tab .. " Watches",
+        --   threads = debug_icons.threads_tab .. "Threads",
+        --   repl = debug_icons.repl_tab .. "REPL",
+        --   console = debug_icons.console_tab .. " Console",
+        -- },
       },
       windows = {
-        height = 12,
-        terminal = {
-          position = "right",
-          hide = { "delve" }, -- Hide the terminal for Delve as they don't implement it
-          start_hidden = true,
-        },
+        -- height = 12,
+        -- terminal = {
+        --   position = "right",
+        --   hide = { "delve" }, -- Hide the terminal for Delve as they don't implement it
+        --   start_hidden = true,
+        -- },
       },
     },
   },

@@ -46,9 +46,24 @@ local options = {
   allowrevins = true, -- Allow reverse insert mode with <C-/> (for rtl text)
   showtabline = 0, -- Hide tabline
   belloff = "all",
+  -- winblend = 20,
+  -- pumblend = 20,
+  -- guifont = "FiraCode Nerd Font,VictorMono Nerd Font:h14"
   -- timeoutlen = 300, -- Time to wait for mapped sequence to complete
   -- winborder = "rounded",
+    linespace = 6
 }
+
+if vim.g.neovide then
+  vim.g.neovide_input_use_logo = false
+  vim.g.neovide_input_macos_option_key_is_meta = "only_left"
+
+  vim.g.neovide_window_blurred = false
+  vim.g.neovide_floating_blur_amount_x = 0.0
+  vim.g.neovide_floating_blur_amount_y = 0.0
+  vim.g.neovide_normal_opacity = 1.0
+  vim.g.neovide_opacity = 1.0
+end
 
 for opt, val in pairs(options) do
   vim.o[opt] = val

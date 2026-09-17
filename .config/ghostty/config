@@ -9,8 +9,9 @@ font-family-italic = VictorMono Nerd Font
 font-style-italic = Medium Italic
 font-style-bold-italic = Medium Italic
 # font-family = Terminess Nerd Font
-font-size = 14
-adjust-cell-height = 20%
+font-size = 13
+adjust-cell-height = 15%
+adjust-cell-width = -5%
 
 # Theme
 # theme = rose-pine
@@ -27,6 +28,6 @@ window-height = 9999
 # Misc
 macos-option-as-alt = true
 
-window-padding-x = 20,20
+window-padding-x = 40,40
 window-padding-y = 20,20
-# window-decoration = true
+window-padding-balance = true

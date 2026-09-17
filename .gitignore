@@ -11,3 +11,4 @@
 !.config/cargo/config.toml
 .config/configstore/
 .zshrc.local
+.DS_Store

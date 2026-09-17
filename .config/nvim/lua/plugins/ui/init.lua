@@ -10,4 +10,6 @@ return {
   require("plugins.ui.statuscol"),
   require("plugins.ui.ufo"),
   require("plugins.ui.arrow"),
+  -- require("plugins.ui.shade"),
+  require("plugins.ui.sunglasses"),
 }

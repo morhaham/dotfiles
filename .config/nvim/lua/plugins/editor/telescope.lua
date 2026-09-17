@@ -4,7 +4,6 @@ local have_cmake = vim.fn.executable("cmake") == 1
 return {
   {
     "nvim-telescope/telescope.nvim",
-    tag = "0.1.8",
     name = "telescope.nvim",
     dependencies = {
       "nvim-lua/plenary.nvim",
@@ -38,10 +37,12 @@ return {
 
       -- Using <C-_> since <C-/> is not supported in some terminals
       vim.keymap.set("n", "<C-_>", function()
-        telescope.extensions.live_grep_args.live_grep_args({
-          additional_args = { "--follow", "--hidden", "--glob=!.git/" },
+        require("telescope").extensions.live_grep_args.live_grep_args({
+          additional_args = function()
+            return { "--hidden", "--glob", "!.git/" }
+          end,
         })
-      end, { desc = "Live grep(args)" })
+      end, { desc = "Live grep (respect gitignore + show hidden)" })
 
       vim.keymap.set("n", "<C-x>", function()
         lga_shortcuts.grep_word_under_cursor({ additional_args = { "--follow", "--hidden", "--glob=!.git/" } })
@@ -163,7 +164,8 @@ return {
   {
     "ahmedkhalf/project.nvim",
     opts = {
-      manual_mode = true,
+      -- Change this to false so it automatically adds folders to your history
+      manual_mode = false,
       detection_methods = { "lsp", "pattern" },
       patterns = { ".git", "Cargo.toml", ".hg", ".bzr", ".svn", "Makefile" },
       show_hidden = true,
