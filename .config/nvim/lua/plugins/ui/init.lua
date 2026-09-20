@@ -12,4 +12,5 @@ return {
   require("plugins.ui.arrow"),
   -- require("plugins.ui.shade"),
   require("plugins.ui.sunglasses"),
+  require("plugins.ui.input"),
 }

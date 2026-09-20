@@ -4,6 +4,10 @@ return {
   priority = 1000,
   opts = {
     lualine_bold = true,
+    on_highlights = function(hl, c)
+      hl.DiagnosticUnnecessary = { fg = "NONE", bg = "NONE", undercurl = true, sp = c.warning }
+      hl["@lsp.mod.unnecessary"] = { fg = "NONE", bg = "NONE", undercurl = true, sp = c.warning }
+    end,
   },
   init = function()
     vim.cmd([[colorscheme tokyonight-moon]])

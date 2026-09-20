@@ -19,6 +19,7 @@ return {
       javascript = { "prettier" },
       typescript = { "prettier" },
       json = { "prettier" },
+      python = { "ruff_fix", "ruff_format", "ruff_organize_imports" },
     },
     -- Set up format-on-save
     -- format_on_save = { timeout_ms = 500, lsp_fallback = false },

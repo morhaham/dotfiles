@@ -8,18 +8,54 @@ return {
       "lspconfig",
     },
     config = function(_, opts)
-      require("mason-lspconfig").setup(opts)
-    end,
-    opts = function()
       local lspconfig = require("lspconfig")
       local lsp_capabilities = require("cmp_nvim_lsp").default_capabilities()
 
-      local default_setup = function(server)
+      -- 1. Setup basedpyright (replaces pylsp)
+      lspconfig.basedpyright.setup({
+        capabilities = lsp_capabilities,
+        settings = {
+          basedpyright = {
+            analysis = {
+              -- Disable pyright's built-in linting/diagnostics so they don't clash with Ruff
+              typeCheckingMode = "off", 
+              -- Explicitly ensure auto-import completions are active
+              autoImportCompletions = true, 
+            },
+          },
+        },
+      })
+
+      local servers = {
+        "tailwindcss",
+        "gopls",
+        "golangci_lint_ls",
+        "templ",
+        "ts_ls",
+        "lua_ls",
+        "cssls",
+        "html",
+      }
+
+      for _, server in ipairs(servers) do
         lspconfig[server].setup({
           capabilities = lsp_capabilities,
         })
       end
+
+      lspconfig.ruff.setup({
+        capabilities = lsp_capabilities,
+        on_attach = function(client, _)
+          client.server_capabilities.hoverProvider = false
+        end,
+      })
+
+      -- Initialize mason-lspconfig strictly for package management/installation
+      require("mason-lspconfig").setup(opts)
+    end,
+    opts = function()
       return {
+        -- Include everything here so Mason makes sure they stay installed on your system
         ensure_installed = {
           "tailwindcss",
           "gopls",
@@ -27,11 +63,11 @@ return {
           "templ",
           "ts_ls",
           "lua_ls",
-          "pylsp",
+          "basedpyright", -- Swapped pylsp out for basedpyright
+          "ruff",
           "cssls",
           "html",
         },
-        handlers = { default_setup },
       }
     end,
   },

@@ -5,6 +5,14 @@ return {
     require("noice").setup({
       routes = {
         {
+          filter = {
+            event = "lsp",
+            kind = "progress",
+            find = "basedpyright",
+          },
+          opts = { skip = true }, -- Drops the notification silently
+        },
+        {
           view = "mini",
           filter = { event = "msg_showmode" },
         },

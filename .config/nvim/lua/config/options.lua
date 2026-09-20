@@ -51,7 +51,6 @@ local options = {
   -- guifont = "FiraCode Nerd Font,VictorMono Nerd Font:h14"
   -- timeoutlen = 300, -- Time to wait for mapped sequence to complete
   -- winborder = "rounded",
-    linespace = 6
 }
 
 if vim.g.neovide then
