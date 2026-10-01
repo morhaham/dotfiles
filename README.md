@@ -1,6 +1,7 @@
 # Dotfiles
 
 ## Setup
+* install git, brew and nvim first.
 1. install stow: 
     - `brew install stow`
 2. create a `dotfiles` directory in `$HOME`
