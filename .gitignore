@@ -11,9 +11,9 @@
 .config/emacs.bak/
 .config/homebrew/
 
+.config/emacs/**
 !.config/emacs/
 !.config/emacs/elpaca/
-.config/emacs/**
 !.config/emacs/early-init.el
 !.config/emacs/init.el
 !.config/emacs/emacs-custom.el
